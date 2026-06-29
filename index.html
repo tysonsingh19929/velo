@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeloResell — Unified Instant Commerce & Merchant Platform</title>
+  <meta name="description" content="A unified instant commerce ecosystem. Providing customers with 10-minute micro-fulfillment delivery, and empowering merchants with zero-capital catalog listing and automated margin splits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background decorative elements -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="#" class="logo" id="header-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
+          <path d="M9 16L13.5 20.5L23 11" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1"/>
+              <stop offset="1" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>VeloResell</span>
+      </a>
+      <nav class="nav-links" id="main-navigation">
+        <a href="#roadmap">Platform Architecture</a>
+        <a href="#console-section">Live Console</a>
+        <a href="#features">Unified Value</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#console-section" class="btn btn-primary" id="cta-header-join">Launch Platform Console</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="badge" id="hero-badge" style="background: rgba(99, 102, 241, 0.12); color: var(--primary); border-color: rgba(99, 102, 241, 0.25);">
+            Dual-Sided Commerce Engine
+          </div>
+          <h1 id="hero-title">Instant Delivery Meets <span class="text-gradient">Merchant Scale.</span></h1>
+          <p class="hero-subtitle">
+            A unified ecosystem designed for both sides of commerce. <strong>Customers</strong> enjoy lightning-fast 10-minute grocery and essentials delivery. <strong>Merchants</strong> launch digital shops, list catalogs with zero capital, and earn automated margins on every order.
+          </p>
+          <div class="hero-buttons">
+            <a href="#console-section" class="btn btn-primary btn-lg" id="cta-hero-sandbox">Launch Live Console</a>
+            <a href="#roadmap" class="btn btn-secondary btn-lg" id="cta-hero-roadmap">Architecture Stages</a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-item">
+              <span class="trust-num">10 Min</span>
+              <span class="trust-label">Customer Delivery SLA</span>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+              <span class="trust-num">5% VAT</span>
+              <span class="trust-label">GCC Compliant display</span>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+              <span class="trust-num">3% - 5%</span>
+              <span class="trust-label">Automated Merchant Margin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Mock Cards / Interactive Visualization -->
+        <div class="hero-visual">
+          <div class="glass-card main-stats-card">
+            <div class="card-header">
+              <span class="status-indicator" style="color: var(--success);">● Active Fulfillment Node #4</span>
+              <span class="card-time">Live System Status</span>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-label">Active Customers</span>
+                <span class="stat-value text-cyan" id="hero-stat-earnings">42,910 Users</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Registered Merchants</span>
+                <span class="stat-value text-indigo" id="hero-stat-points">3,120 Sellers</span>
+              </div>
+            </div>
+            <div class="visual-progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" style="width: 95%"></div>
+              </div>
+              <div class="progress-labels">
+                <span>Micro-Warehouse Efficiency</span>
+                <span>95% Orders on Time</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Small Floating Cards -->
+          <div class="glass-card floating-card card-top-right animate-float-delayed">
+            <div class="flex-align-center">
+              <div class="icon-circle bg-green">
+                <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+              <div style="margin-left: 12px;">
+                <div class="small-title">10-Min Delivery Route</div>
+                <div class="small-desc">Fulfillment in 1.4km</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card floating-card card-bottom-left animate-float">
+            <div class="flex-align-center">
+              <div class="icon-circle" style="background-color: var(--accent-orange);">
+                <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+              </div>
+              <div style="margin-left: 12px;">
+                <div class="small-title">Merchant Settlements</div>
+                <div class="small-desc">Automated Visa Transfer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strategic Roadmap Section -->
+    <section class="roadmap-section" id="roadmap">
+      <div class="section-container">
+        <div class="section-header">
+          <h2>Platform Integration Stages</h2>
+          <p class="section-subtitle">Our structured implementation timeline ensuring customer apps, VAT calculations, and logistics align perfectly.</p>
+        </div>
+
+        <div class="roadmap-grid">
+          <!-- Stage 1 -->
+          <div class="roadmap-card" id="phase-1-card">
+            <div class="phase-num">Stage 1</div>
+            <h3>Infrastructure & Legal</h3>
+            <ul class="phase-list">
+              <li>
+                <span class="task-check done">✓</span>
+                <div>
+                  <strong>Brand Registry [1]</strong>
+                  <p>Acquisition of primary domains and namespace variants.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check done">✓</span>
+                <div>
+                  <strong>DUNS NO Verification [4]</strong>
+                  <p>Establish corporate identity for mobile application store registrations.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check done">✓</span>
+                <div>
+                  <strong>Categories & Masters [18]</strong>
+                  <p>Catalog taxonomy, relational database design, and inventory master schema.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check done">✓</span>
+                <div>
+                  <strong>Secure Namespace Handles [16]</strong>
+                  <p>Secure branding and business credentials across distribution channels.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="roadmap-card active" id="phase-2-card">
+            <div class="phase-num active-tag">Stage 2 (Active Deployment)</div>
+            <h3>Core Logic & Access Roles</h3>
+            <ul class="phase-list">
+              <li>
+                <span class="task-check current">➔</span>
+                <div>
+                  <strong>Inclusive VAT Display (5%) [5]</strong>
+                  <p>Pricing configurations dynamically showing gross sales figures.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check current">➔</span>
+                <div>
+                  <strong>Margin Splits (3%-5%) [21]</strong>
+                  <p>Automated transactional margin rules per merchant level.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check current">➔</span>
+                <div>
+                  <strong>Inventory Verification Pipeline [20]</strong>
+                  <p>Warehouse upload gate and admin inventory validation logs.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>OTP Verification & Profiles [10, 13]</strong>
+                  <p>Secure customer & merchant login verification via AWS Cognito/Twilio.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="roadmap-card" id="phase-3-card">
+            <div class="phase-num">Stage 3</div>
+            <h3>Checkout & Policy Engines</h3>
+            <ul class="phase-list">
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>Payment Gateway Integration [2, 7]</strong>
+                  <p>Stripe Connect APIs, merchant gateways, and international processors.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>COD Surcharges [6]</strong>
+                  <p>Cash on Delivery handling algorithms and automated surcharge limits.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>Direct Settlement (Visa Payout) [23]</strong>
+                  <p>Direct transfer protocol resolving reseller margins to Visa/bank accounts.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>Returns Configuration [24]</strong>
+                  <p>Active back-office return logic (restricted from public storefront exposure).</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="roadmap-card" id="phase-4-card">
+            <div class="phase-num">Stage 4</div>
+            <h3>Fulfillment & Growth</h3>
+            <ul class="phase-list">
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>Mobile Applications [3]</strong>
+                  <p>Native iOS & Android builds utilizing verified developer DUNS registry.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>Micro-Fulfillment Geotagger [11]</strong>
+                  <p>Pinpoint coordinates mapping orders to nearest micro-warehouse hubs.</p>
+                </div>
+              </li>
+              <li>
+                <span class="task-check pending">○</span>
+                <div>
+                  <strong>Referral & Wallet Ledgers [8, 9]</strong>
+                  <p>Loyalty engines, shopping points logs, and wallet credit states.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Console Section -->
+    <section class="sandbox-section" id="console-section">
+      <div class="section-container">
+        
+        <!-- Console Perspective Selector -->
+        <div class="console-selector-header">
+          <h2>Unified Console Preview</h2>
+          <p>Switch between the Customer Experience Portal and Merchant Operations Dashboard to explore both user flows.</p>
+          <div class="perspective-toggle-container">
+            <button class="btn btn-perspective active" id="btn-perspective-customer">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span>Customer Experience</span>
+            </button>
+            <button class="btn btn-perspective" id="btn-perspective-merchant">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+              <span>Merchant Operations</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sandbox-layout" id="console-layout-wrapper">
+          
+          <!-- Navigation Sidebar -->
+          <div class="sandbox-sidebar" id="console-sidebar">
+            <!-- Customer Tabs (Shown by default) -->
+            <div class="sidebar-group active" id="group-customer-tabs">
+              <button class="sandbox-nav-btn active" id="sb-nav-catalog">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                <span>1. Storefront Catalog</span>
+              </button>
+              <button class="sandbox-nav-btn" id="sb-nav-geotag">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>2. 10-Min Live Route</span>
+              </button>
+              <button class="sandbox-nav-btn" id="sb-nav-custwallet">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>3. Rewards & Points</span>
+              </button>
+              <button class="sandbox-nav-btn" id="sb-nav-custreturns">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 15v-6a4 4 0 00-4-4H3m0 0l3-3m-3 3l3 3m2 8h7a3 3 0 100-6h-4m-4 6v-6a2 2 0 114 0v6"/></svg>
+                <span>4. Storefront Returns</span>
+              </button>
+            </div>
+
+            <!-- Merchant Tabs (Hidden by default) -->
+            <div class="sidebar-group hidden" id="group-merchant-tabs">
+              <button class="sandbox-nav-btn" id="sb-nav-pricing">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>1. Pricing & Margin Calc</span>
+              </button>
+              <button class="sandbox-nav-btn" id="sb-nav-approval">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                <span>2. Inventory Intake</span>
+              </button>
+              <button class="sandbox-nav-btn" id="sb-nav-login">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span>3. Access Verification</span>
+              </button>
+              <button class="sandbox-nav-btn" id="sb-nav-settlement">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>4. Settlement Ledger</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Interactive Display -->
+          <div class="sandbox-display glass-card">
+            
+            <!-- ========================================== -->
+            <!-- CUSTOMER PANELS -->
+            <!-- ========================================== -->
+            
+            <!-- Customer Panel 1: Storefront Catalog -->
+            <div class="sandbox-panel active" id="panel-catalog">
+              <h3 class="panel-title">Customer Storefront Catalog</h3>
+              <p class="panel-desc">Select items to place in your cart. Watch the 5% VAT inclusive price sum up, mimicking direct storefront checkouts.</p>
+              
+              <div class="catalog-grid-wrapper">
+                <div class="catalog-items-grid">
+                  <div class="catalog-item-card" onclick="addToCart('Fresh Organic Avocados', 28.00)">
+                    <div class="catalog-item-icon">🥑</div>
+                    <div class="catalog-item-name">Fresh Organic Avocados (4-Pack)</div>
+                    <div class="catalog-item-price">AED 28.00 <span class="text-muted">(Incl. VAT)</span></div>
+                    <button class="btn btn-add-cart">Add to Cart</button>
+                  </div>
+                  
+                  <div class="catalog-item-card" onclick="addToCart('Wireless Bluetooth Earbuds', 105.00)">
+                    <div class="catalog-item-icon">🎧</div>
+                    <div class="catalog-item-name">Wireless Bluetooth Earbuds</div>
+                    <div class="catalog-item-price">AED 105.00 <span class="text-muted">(Incl. VAT)</span></div>
+                    <button class="btn btn-add-cart">Add to Cart</button>
+                  </div>
+
+                  <div class="catalog-item-card" onclick="addToCart('Organic Whole Milk 1L', 8.50)">
+                    <div class="catalog-item-icon">🥛</div>
+                    <div class="catalog-item-name">Organic Whole Milk 1L</div>
+                    <div class="catalog-item-price">AED 8.50 <span class="text-muted">(Incl. VAT)</span></div>
+                    <button class="btn btn-add-cart">Add to Cart</button>
+                  </div>
+                </div>
+
+                <!-- Shopping Cart Summary -->
+                <div class="shopping-cart-card glass-card">
+                  <h4>Your Cart</h4>
+                  <div class="cart-items-list" id="cart-list">
+                    <p class="text-muted text-center" style="font-size: 0.85rem; padding: 20px 0;">Cart is empty. Click items to add.</p>
+                  </div>
+                  <div class="cart-total-block">
+                    <div class="total-row">
+                      <span>Subtotal (Net)</span>
+                      <span id="cart-subtotal">AED 0.00</span>
+                    </div>
+                    <div class="total-row">
+                      <span>VAT (5%)</span>
+                      <span id="cart-vat">AED 0.00</span>
+                    </div>
+                    <div class="total-row checkout-total">
+                      <span>Total Price</span>
+                      <span id="cart-total">AED 0.00</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" id="btn-place-order" style="width: 100%; margin-top: 12px;" disabled>Submit Order</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Panel 2: Georouting & Live Delivery -->
+            <div class="sandbox-panel" id="panel-geotag">
+              <h3 class="panel-title">10-Minute Dispatch Geotagger</h3>
+              <p class="panel-desc">Click any delivery coordinate on the map grid. Our logistics system instantly maps the route to the nearest dark store hub to meet the 10-15 minute SLA.</p>
+
+              <div class="geotag-layout">
+                <div class="map-mock-container" id="map-canvas-container">
+                  <div class="map-grid-overlay"></div>
+                  <!-- Map Pins and radar -->
+                  <div class="map-pin" id="map-main-pin" style="top: 40%; left: 60%;">
+                    <div class="pin-radar"></div>
+                    <div class="pin-dot"></div>
+                  </div>
+                  <div class="map-helper-badge">Click map to coordinate instant dispatch route</div>
+                </div>
+
+                <div class="geotag-coords-panel">
+                  <h4>Fulfillment Dispatch Route</h4>
+                  <div class="coord-box">
+                    <span class="coord-label">Route Transit ETA</span>
+                    <span class="coord-val text-cyan" id="coord-eta">11 mins (Micro-Fulfillment)</span>
+                  </div>
+                  <div class="coord-box">
+                    <span class="coord-label">Warehouse Node</span>
+                    <span class="coord-val" id="coord-region">Downtown Dubai Hub #2</span>
+                  </div>
+                  <div class="coord-box">
+                    <span class="coord-label">Hub Distance</span>
+                    <span class="coord-val" id="coord-lat">1.8 km</span>
+                  </div>
+                  <div class="address-result-card" style="background: rgba(16, 185, 129, 0.04); border-color: rgba(16, 185, 129, 0.15);">
+                    <strong>Decoded Delivery Coordinate:</strong>
+                    <p id="coord-address">Downtown Dubai, Sheikh Zayed Road, Plot 12</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Panel 3: Rewards & Wallet -->
+            <div class="sandbox-panel" id="panel-custwallet">
+              <h3 class="panel-title">Customer Loyalty & Reward Ledgers</h3>
+              <p class="panel-desc">Earn points on every purchase and cash bonuses for inviting friends to the platform. Track your customer balance ledger below.</p>
+
+              <div class="loyalty-grid">
+                <div class="loyalty-wallet glass-card">
+                  <span class="wallet-badge">Active Rewards Balance</span>
+                  <div class="wallet-amount" id="cust-wallet-balance">AED 140.00</div>
+                  <div class="wallet-subtext">Active Shopping Points: <span id="cust-wallet-points" class="text-cyan">340 pts</span></div>
+                  
+                  <div class="wallet-stats">
+                    <div class="w-stat">
+                      <span class="w-label">Referrals Registered</span>
+                      <span class="w-value" id="cust-wallet-referrals">4</span>
+                    </div>
+                    <div class="w-stat">
+                      <span class="w-label">Reward Tier</span>
+                      <span class="w-value text-indigo">Gold Member</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="loyalty-actions">
+                  <h4>Customer Rewards Action Console</h4>
+                  <p class="action-helper-txt">Trigger simulated customer actions to earn reward points and cash back ledgers.</p>
+                  
+                  <div class="action-btn-group">
+                    <button class="btn btn-primary" id="btn-cust-trigger-referral">
+                      <span>Refer a Friend</span>
+                      <small class="text-muted">+AED 25.00 Payout / +50 Points</small>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-cust-trigger-purchase">
+                      <span>Simulate Order Checkout</span>
+                      <small class="text-muted">Earn points per purchase (+15 Points)</small>
+                    </button>
+                    <button class="btn btn-dark" id="btn-cust-trigger-reset">
+                      Reset Ledger Data
+                    </button>
+                  </div>
+
+                  <div class="wallet-logs" id="cust-wallet-log-list">
+                    <div class="log-entry">
+                      <span class="log-time">System</span>
+                      <span class="log-msg">Loyalty wallet initialized.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Panel 4: Storefront Returns -->
+            <div class="sandbox-panel" id="panel-custreturns">
+              <div class="panel-header-with-action">
+                <div>
+                  <h3 class="panel-title">Returns Policy & Storefront View</h3>
+                  <p class="panel-desc">Regional return policy configurations. The toggle controls public access; see what is displayed to storefront visitors.</p>
+                </div>
+                <div class="cms-toggle-block">
+                  <span class="badge bg-indigo">Access Level</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="policy-visibility-toggle">
+                    <span class="slider"></span>
+                  </label>
+                  <span class="toggle-label text-bold" id="policy-status-lbl">Admin View Only</span>
+                </div>
+              </div>
+
+              <div class="policy-layout-grid">
+                <!-- User Facing Policy View -->
+                <div class="policy-card user-view">
+                  <div class="policy-card-header">
+                    <span>CUSTOMER FRONTEND VIEW</span>
+                    <span class="badge" id="public-policy-badge">Hidden</span>
+                  </div>
+                  <div class="policy-card-body" id="public-policy-body">
+                    <div class="policy-placeholder">
+                      <div class="locked-icon">🔒</div>
+                      <p>Return policy information is currently set to hidden on customer-facing pages. Customer queries route to CS chat modules.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Admin Policy Config -->
+                <div class="policy-card admin-view">
+                  <div class="policy-card-header bg-darker">
+                    <span>DATABASE POLICY ENTRIES</span>
+                    <span class="badge bg-green">Active in System</span>
+                  </div>
+                  <div class="policy-card-body">
+                    <div class="policy-clause">
+                      <h5>1. Verification Protocol</h5>
+                      <p>Returns are processed within a 15-day window for incorrect, damaged, or verified non-conforming catalog orders.</p>
+                    </div>
+                    <div class="policy-clause">
+                      <h5>2. Settlement Recovery</h5>
+                      <p>Approved return processing automatically reverses transaction margins and updates regional tax ledgers.</p>
+                    </div>
+                    <div class="policy-clause">
+                      <h5>3. Micro-Fulfillment Cancellation</h5>
+                      <p>Immediate dispatch orders fulfilled via local micro-hubs allow cancellation solely prior to warehouse package hand-off.</p>
+                    </div>
+                    <div class="clause-note">
+                      <strong>Fulfillment rule:</strong> Visibility toggles restrict web scraping access, preserving storefront bandwidth while keeping agents informed via CRM consoles.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- MERCHANT PANELS -->
+            <!-- ========================================== -->
+
+            <!-- Merchant Panel 1: Pricing & Margin Calculator -->
+            <div class="sandbox-panel" id="panel-pricing">
+              <h3 class="panel-title">Pricing, Margin & VAT Engine</h3>
+              <p class="panel-desc">Process wholesale inventory costs into storefront prices (inclusive of 5% VAT) and calculate reseller margins dynamically.</p>
+              
+              <div class="pricing-calc-container">
+                <div class="calc-inputs">
+                  <div class="form-group">
+                    <label for="base-cost">Product Base Cost (AED)</label>
+                    <input type="number" id="base-cost" value="100.00" min="1" step="0.5">
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="label-with-value">
+                      <label for="margin-slider">Reseller Margin (3% to 5%)</label>
+                      <span id="margin-val" class="badge bg-cyan">4.0%</span>
+                    </div>
+                    <input type="range" id="margin-slider" min="3" max="5" step="0.1" value="4.0">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Accounting Configuration</label>
+                    <div class="checkbox-wrapper">
+                      <label class="toggle-switch">
+                        <input type="checkbox" id="vat-inclusive-toggle" checked disabled>
+                        <span class="slider"></span>
+                      </label>
+                      <span class="toggle-label">Calculate Inclusive VAT (5%) <small class="text-muted">(Required for GCC regulations)</small></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="calc-results">
+                  <div class="result-card">
+                    <div class="result-label">Storefront Retail Price</div>
+                    <div class="result-value text-indigo" id="res-cust-price">AED 109.20</div>
+                    <p class="result-helper">VAT inclusive retail amount displayed on customer applications.</p>
+                  </div>
+
+                  <div class="result-breakdown">
+                    <div class="breakdown-row">
+                      <span>Reseller Commission</span>
+                      <span id="res-margin-val" class="text-green">+AED 4.00</span>
+                    </div>
+                    <div class="breakdown-row">
+                      <span>Deducted VAT 5%</span>
+                      <span id="res-vat-val">AED 5.20</span>
+                    </div>
+                    <div class="breakdown-row total">
+                      <span>Net Platform Base Value</span>
+                      <span id="res-net-val">AED 104.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Merchant Panel 2: Product Upload & Approval -->
+            <div class="sandbox-panel" id="panel-approval">
+              <h3 class="panel-title">Inventory Verification Pipeline</h3>
+              <p class="panel-desc">Stock listings uploaded by merchants undergo validation prior to distribution node routing. Upload and review items below.</p>
+
+              <div class="approval-container">
+                <div class="upload-widget">
+                  <h4>Product Stock Intake</h4>
+                  <div class="form-group">
+                    <label for="prod-name">Product Title</label>
+                    <input type="text" id="prod-name-merchant" value="Fresh Organic Avocados (4-Pack)">
+                  </div>
+                  <div class="form-group">
+                    <label for="prod-category-merchant">Fulfillment Node</label>
+                    <select id="prod-category-merchant">
+                      <option value="Electronics">JLT Micro-Warehouse Hub</option>
+                      <option value="Fashion">Central Logistics Center</option>
+                      <option value="Home">Dubai South Distribution Node</option>
+                      <option value="Beauty">Marina Micro-Warehouse Hub</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="prod-price-merchant">Item Wholesale Cost (AED)</label>
+                    <input type="number" id="prod-price-merchant" value="28.00">
+                  </div>
+                  <button class="btn btn-primary" id="btn-upload-prod-merchant" style="width: 100%;">Upload Inventory</button>
+                </div>
+
+                <div class="pipeline-widget">
+                  <h4>Intake Validation Log</h4>
+                  <div id="pipeline-list-merchant" class="pipeline-list">
+                    <div class="pipeline-item pending" id="mock-prod-1">
+                      <div class="pipeline-info">
+                        <div class="pipeline-title">JLT Node: Organic Milk 1L</div>
+                        <div class="pipeline-meta">Warehouse Inventory | AED 8.50</div>
+                      </div>
+                      <div class="pipeline-badge">Verification Pending</div>
+                      <div class="pipeline-actions">
+                        <button class="btn-icon btn-approve" id="approve-mock-prod-1" title="Approve">✓</button>
+                        <button class="btn-icon btn-reject" id="reject-mock-prod-1" title="Reject">✗</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Merchant Panel 3: Access Verification -->
+            <div class="sandbox-panel" id="panel-login">
+              <h3 class="panel-title">Access Verification Gate</h3>
+              <p class="panel-desc">Demonstrates Multi-Factor OTP security verification required for active merchant profiles prior to transaction processing.</p>
+
+              <div class="otp-container">
+                <div class="otp-card" id="otp-step-1">
+                  <h4>Verify Merchant Identity</h4>
+                  <div class="form-group">
+                    <label for="otp-phone">Mobile Number</label>
+                    <div class="input-with-icon">
+                      <span class="input-prefix">+971</span>
+                      <input type="tel" id="otp-phone" placeholder="50 123 4567">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="otp-email">Corporate Email Address</label>
+                    <input type="email" id="otp-email" placeholder="merchant@veloresell.com">
+                  </div>
+                  <button class="btn btn-primary" id="btn-send-otp" style="width: 100%;">Transmit Access Code</button>
+                </div>
+
+                <div class="otp-card hidden" id="otp-step-2">
+                  <h4>Submit 6-Digit Code</h4>
+                  <p class="otp-sent-txt">Transmitted to: <strong id="otp-target-phone">+971 50 123 4567</strong></p>
+                  <div class="form-group otp-inputs-wrapper">
+                    <input type="text" maxlength="1" class="otp-box-input" autofocus>
+                    <input type="text" maxlength="1" class="otp-box-input">
+                    <input type="text" maxlength="1" class="otp-box-input">
+                    <input type="text" maxlength="1" class="otp-box-input">
+                    <input type="text" maxlength="1" class="otp-box-input">
+                    <input type="text" maxlength="1" class="otp-box-input">
+                  </div>
+                  <button class="btn btn-primary" id="btn-verify-otp" style="width: 100%;">Verify Code</button>
+                  <button class="btn btn-link" id="btn-resend-otp" style="width: 100%; margin-top: 8px;">Resend Verification Code</button>
+                </div>
+
+                <div class="otp-card hidden" id="otp-step-success">
+                  <div class="success-icon-wrapper">
+                    <svg width="48" height="48" fill="none" stroke="#22c55e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.952 11.952 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  </div>
+                  <h4>Merchant Authorized</h4>
+                  <p class="success-txt">Identity token successfully registered in access ledger. Wallet payout routing is now enabled.</p>
+                  <button class="btn btn-secondary" id="btn-reset-otp-flow" style="width: 100%;">Reset Authentication Console</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Merchant Panel 4: Settlement Ledger -->
+            <div class="sandbox-panel" id="panel-settlement">
+              <h3 class="panel-title">Merchant Settlement Wallet</h3>
+              <p class="panel-desc">Calculates payout balances, registers referral commissions, and processes automated Visa payouts for platform merchants.</p>
+
+              <div class="loyalty-grid">
+                <div class="loyalty-wallet glass-card">
+                  <span class="wallet-badge">Active Settlement Balance</span>
+                  <div class="wallet-amount" id="merchant-wallet-balance">AED 1,482.50</div>
+                  <div class="wallet-subtext">Pending Visa Payout: <span id="merchant-wallet-pending" class="text-cyan">AED 25.00</span></div>
+                  
+                  <div class="wallet-stats">
+                    <div class="w-stat">
+                      <span class="w-label">Active Referrals</span>
+                      <span class="w-value" id="merchant-wallet-referrals">12</span>
+                    </div>
+                    <div class="w-stat">
+                      <span class="w-label">Partner Level</span>
+                      <span class="w-value text-indigo">Premium Tier</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="loyalty-actions">
+                  <h4>Merchant Settlements Actions</h4>
+                  <p class="action-helper-txt">Simulate sales and registrations to see how margins accumulate and payouts transfer.</p>
+                  
+                  <div class="action-btn-group">
+                    <button class="btn btn-primary" id="btn-merchant-trigger-referral">
+                      <span>Register Partner</span>
+                      <small class="text-muted">+AED 25.00 Payout / +50 Points</small>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-merchant-trigger-sale">
+                      <span>Record Catalog Sale</span>
+                      <small class="text-muted">+3-5% Margin Split generated</small>
+                    </button>
+                    <button class="btn btn-dark" id="btn-merchant-trigger-reset">
+                      Reset Ledger Data
+                    </button>
+                  </div>
+
+                  <div class="wallet-logs" id="merchant-wallet-log-list">
+                    <div class="log-entry">
+                      <span class="log-time">System</span>
+                      <span class="log-msg">Settlement logs initialized.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Highlight -->
+    <section class="features-section" id="features">
+      <div class="section-container">
+        <div class="section-header">
+          <h2>Double-Sided Enterprise Power</h2>
+          <p class="section-subtitle">Bridging lightning-fast customer fulfillment with scale-out merchant revenue models.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-item-card">
+            <div class="feature-icon bg-cyan">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h4>For Customers: 10-Min Delivery</h4>
+            <p>Order groceries, tech gadgets, or household items and receive them at your doorstep in under 15 minutes. Integrated micro-fulfillment nodes and optimized routing ensure speed.</p>
+          </div>
+
+          <div class="feature-item-card">
+            <div class="feature-icon" style="background-color: var(--accent-orange);">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <h4>For Merchants: Instant Scale</h4>
+            <p>Launch catalog products without warehousing overheads. Earn a split margin (3%-5%) on items dispatched through our localized micro-warehouse networks.</p>
+          </div>
+
+          <div class="feature-item-card">
+            <div class="feature-icon bg-indigo">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            </div>
+            <h4>Unified GCC Compliance</h4>
+            <p>Fully pre-coded legal and financial modules. Includes 5% inclusive sales tax, automated payout schedules, and verified corporate registry numbers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="cta-container glass-card">
+        <h3>Experience Unified Commerce</h3>
+        <p>Whether you are shopping for instant essentials or building an enterprise sales channel, we've got you covered.</p>
+        <div class="cta-buttons">
+          <a href="#console-section" class="btn btn-primary btn-lg">Explore Console</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-name">VeloResell</span>
+        <p class="brand-tagline">Unified micro-fulfillment and merchant commerce platforms.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Stages</h5>
+          <a href="#roadmap">Stage 1: Infrastructure</a>
+          <a href="#roadmap">Stage 2: Core</a>
+          <a href="#roadmap">Stage 3: Integration</a>
+        </div>
+        <div class="footer-col">
+          <h5>Channels</h5>
+          <a href="#">Contact Support</a>
+          <a href="#">Developer Portal</a>
+          <a href="#">Security Access</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 VeloResell. All rights reserved. Platform architecture verified with DUNS and regional GCC tax ledgers.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
