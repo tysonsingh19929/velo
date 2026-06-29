@@ -64,6 +64,21 @@ const Seller = mongoose.model('Seller', SellerSchema);
 const Product = mongoose.model('Product', ProductSchema);
 const Order = mongoose.model('Order', OrderSchema);
 
+const UserSchema = new mongoose.Schema({
+  phone: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
+  walletBalance: { type: Number, default: 140.00 },
+  points: { type: Number, default: 340 },
+  referrals: { type: Number, default: 4 },
+  orderHistory: { type: Array, default: [] }
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Memory database storage for users in JSON file fallback
+const USERS_FILE = path.join(__dirname, 'data', 'users.json');
+
+
 if (MONGODB_URI) {
   mongoose.connect(MONGODB_URI)
     .then(async () => {
@@ -389,6 +404,13 @@ app.post('/api/orders', async (req, res) => {
           { $inc: { sales: cartItem.price * cartItem.quantity } }
         );
       }
+      // Link to user if phone is provided
+      if (order.userPhone) {
+        await User.findOneAndUpdate(
+          { phone: order.userPhone },
+          { $push: { orderHistory: order } }
+        );
+      }
       return res.status(201).json({ success: true, orderId: created.id });
     } catch (err) {
       return res.status(400).json({ error: err.message });
@@ -407,9 +429,145 @@ app.post('/api/orders', async (req, res) => {
     }
   });
   writeData(SELLERS_FILE, sellers);
+  // Link to user in local fallback
+  if (order.userPhone) {
+    const users = readData(USERS_FILE);
+    const userIdx = users.findIndex(u => u.phone === order.userPhone);
+    if (userIdx !== -1) {
+      users[userIdx].orderHistory.push(order);
+      writeData(USERS_FILE, users);
+    }
+  }
   res.status(201).json({ success: true, orderId: order.id });
 });
 
+
+
+// ==========================================
+// 4. USER AUTH & CUSTOMER ACCOUNT ROUTING
+// ==========================================
+
+// Mock OTP storage in memory
+const activeOtps = {};
+
+// POST generate and dispatch mock OTP
+app.post('/api/users/otp/send', (req, res) => {
+  const { phone } = req.body;
+  if (!phone) return res.status(400).json({ error: 'Mobile number is required.' });
+
+  const mockCode = '123456'; // standard mock verification code
+  activeOtps[phone] = mockCode;
+
+  console.log(`[AUTH SERVER] Dispatched mock code ${mockCode} to customer mobile: +971 ${phone}`);
+  res.json({ success: true, message: 'Verification code dispatched.', code: mockCode });
+});
+
+// POST verify OTP and retrieve/register user profile
+app.post('/api/users/otp/verify', async (req, res) => {
+  const { phone, email, code } = req.body;
+  if (!phone || !email || !code) {
+    return res.status(400).json({ error: 'Phone, email, and verification code are required.' });
+  }
+
+  const matchCode = activeOtps[phone];
+  if (!matchCode || matchCode !== code) {
+    return res.status(400).json({ error: 'Incorrect verification code.' });
+  }
+
+  // Clear OTP from memory cache
+  delete activeOtps[phone];
+
+  if (useMongoDB) {
+    try {
+      let customer = await User.findOne({ phone });
+      if (!customer) {
+        // Register new customer
+        customer = await User.create({ phone, email });
+        console.log(`[DB MASTER] Registered new customer node: +971 ${phone}`);
+      }
+      return res.json(customer);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  // Local JSON File Fallback
+  const users = readData(USERS_FILE);
+  let customer = users.find(u => u.phone === phone);
+  if (!customer) {
+    customer = {
+      phone,
+      email,
+      walletBalance: 140.00,
+      points: 340,
+      referrals: 4,
+      orderHistory: []
+    };
+    users.push(customer);
+    writeData(USERS_FILE, users);
+    console.log(`[FILE BACKUP] Registered new customer locally: +971 ${phone}`);
+  }
+  res.json(customer);
+});
+
+// GET Fetch user details by phone
+app.get('/api/users/:phone', async (req, res) => {
+  const { phone } = req.params;
+
+  if (useMongoDB) {
+    try {
+      const customer = await User.findOne({ phone });
+      if (!customer) return res.status(404).json({ error: 'User profile not found.' });
+      return res.json(customer);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  // Fallback
+  const users = readData(USERS_FILE);
+  const customer = users.find(u => u.phone === phone);
+  if (!customer) return res.status(404).json({ error: 'User profile not found.' });
+  res.json(customer);
+});
+
+// PUT Deduct wallet or add points
+app.put('/api/users/:phone/wallet', async (req, res) => {
+  const { phone } = req.params;
+  const { deductAmount, addPoints } = req.body;
+
+  if (useMongoDB) {
+    try {
+      const updateObj = {};
+      if (deductAmount !== undefined) updateObj.$inc = { walletBalance: -parseFloat(deductAmount) };
+      if (addPoints !== undefined) {
+        if (!updateObj.$inc) updateObj.$inc = {};
+        updateObj.$inc.points = parseInt(addPoints);
+      }
+
+      const updated = await User.findOneAndUpdate({ phone }, updateObj, { new: true });
+      if (!updated) return res.status(404).json({ error: 'User profile not found.' });
+      return res.json(updated);
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  // Fallback
+  const users = readData(USERS_FILE);
+  const idx = users.findIndex(u => u.phone === phone);
+  if (idx === -1) return res.status(404).json({ error: 'User profile not found.' });
+
+  if (deductAmount !== undefined) {
+    users[idx].walletBalance = parseFloat((users[idx].walletBalance - parseFloat(deductAmount)).toFixed(2));
+  }
+  if (addPoints !== undefined) {
+    users[idx].points += parseInt(addPoints);
+  }
+
+  writeData(USERS_FILE, users);
+  res.json(users[idx]);
+});
 
 // ==========================================
 // STATIC PORTAL ROUTING

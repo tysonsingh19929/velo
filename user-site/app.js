@@ -93,9 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // State Variables
   let cart = JSON.parse(localStorage.getItem('velo_cart')) || [];
-  let walletBalance = parseFloat(localStorage.getItem('velo_wallet_balance')) || 140.00;
-  let walletPoints = parseInt(localStorage.getItem('velo_wallet_points')) || 340;
-  let walletReferrals = parseInt(localStorage.getItem('velo_wallet_referrals')) || 4;
+  let authenticatedUser = JSON.parse(localStorage.getItem('velo_authenticated_user')) || null;
+  let walletBalance = authenticatedUser ? parseFloat(authenticatedUser.walletBalance) : 140.00;
+  let walletPoints = authenticatedUser ? parseInt(authenticatedUser.points) : 340;
+  let walletReferrals = authenticatedUser ? parseInt(authenticatedUser.referrals) : 4;
   let currentCategory = 'All';
   let activeOrder = JSON.parse(localStorage.getItem('velo_active_order')) || null;
 
@@ -603,10 +604,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Payment Options clicks
-  if (payOptCard && payOptCod) {
+  const payOptWallet = document.getElementById('pay-opt-wallet');
+
+  if (payOptCard && payOptCod && payOptWallet) {
     payOptCard.addEventListener('click', () => {
       payOptCard.classList.add('active');
       payOptCod.classList.remove('active');
+      payOptWallet.classList.remove('active');
       cardDetailsInputs.classList.remove('hidden');
       selectedPaymentMethod = 'card';
       invoiceSurchargeRow.style.display = 'none';
@@ -616,9 +620,20 @@ document.addEventListener('DOMContentLoaded', () => {
     payOptCod.addEventListener('click', () => {
       payOptCod.classList.add('active');
       payOptCard.classList.remove('active');
+      payOptWallet.classList.remove('active');
       cardDetailsInputs.classList.add('hidden');
       selectedPaymentMethod = 'cod';
       invoiceSurchargeRow.style.display = 'flex';
+      recalculateCheckoutInvoiceTotals();
+    });
+
+    payOptWallet.addEventListener('click', () => {
+      payOptWallet.classList.add('active');
+      payOptCard.classList.remove('active');
+      payOptCod.classList.remove('active');
+      cardDetailsInputs.classList.add('hidden');
+      selectedPaymentMethod = 'wallet';
+      invoiceSurchargeRow.style.display = 'none';
       recalculateCheckoutInvoiceTotals();
     });
   }
@@ -679,6 +694,14 @@ document.addEventListener('DOMContentLoaded', () => {
       let grossTotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       if (selectedPaymentMethod === 'cod') grossTotalAmount += 10.00;
 
+      // Verify Wallet Balance
+      if (selectedPaymentMethod === 'wallet') {
+        if (walletBalance < grossTotalAmount) {
+          showNotification('Insufficient wallet balance to cover checkout total.', 'error');
+          return;
+        }
+      }
+
       activeOrder = {
         id: 'VR-' + Math.floor(100000 + Math.random() * 900000),
         items: [...cart],
@@ -688,14 +711,53 @@ document.addEventListener('DOMContentLoaded', () => {
         eta: currentEstimatedEta,
         distance: currentDistance,
         status: 'Dispatched',
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleDateString(),
+        userPhone: authenticatedUser ? authenticatedUser.phone : null
       };
 
       localStorage.setItem('velo_active_order', JSON.stringify(activeOrder));
-      
+
+      // Process wallet deduction on backend or fallback locally
+      if (selectedPaymentMethod === 'wallet') {
+        walletBalance -= grossTotalAmount;
+        localStorage.setItem('velo_wallet_balance', walletBalance.toString());
+        logWalletLedgerEvent(`Catalog checkout paid via Velo Wallet: -AED ${grossTotalAmount.toFixed(2)}`);
+
+        if (authenticatedUser) {
+          authenticatedUser.walletBalance = walletBalance;
+          localStorage.setItem('velo_authenticated_user', JSON.stringify(authenticatedUser));
+          try {
+            fetch(`/api/users/${authenticatedUser.phone}/wallet`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ deductAmount: grossTotalAmount })
+            });
+          } catch (e) {
+            console.warn("Wallet sync failed. Deducted balance locally.");
+          }
+        }
+      }
+
       walletPoints += 15;
       localStorage.setItem('velo_wallet_points', walletPoints.toString());
       logWalletLedgerEvent('Catalog checkout order: +15 pts earned.');
+
+      if (authenticatedUser) {
+        authenticatedUser.points = walletPoints;
+        localStorage.setItem('velo_authenticated_user', JSON.stringify(authenticatedUser));
+        try {
+          fetch(`/api/users/${authenticatedUser.phone}/wallet`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ addPoints: 15 })
+          });
+        } catch (e) {
+          console.warn("Points sync failed. Saved locally.");
+        }
+      }
+
+      // Refresh Wallet displays
+      renderWalletData();
 
       cart = [];
       localStorage.setItem('velo_cart', JSON.stringify(cart));
@@ -958,13 +1020,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnCloseProfile) btnCloseProfile.addEventListener('click', () => toggleProfileModal(false));
 
   if (btnModalSendOtp) {
-    btnModalSendOtp.addEventListener('click', () => {
+    btnModalSendOtp.addEventListener('click', async () => {
       const phone = modalPhone.value.trim();
       const email = modalEmail.value.trim();
       
       if (!phone || !email) {
         showNotification('Please fill in both fields.');
         return;
+      }
+
+      try {
+        const res = await fetch('/api/users/otp/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone })
+        });
+        if (res.ok && res.headers.get("content-type")?.includes("application/json")) {
+          const data = await res.json();
+          showNotification(`Demo OTP sent! Check logs or enter code: ${data.code}`);
+        }
+      } catch (err) {
+        console.warn("Backend offline. Simulating code 123456.");
+        showNotification("Mock OTP sent! Enter code: 123456");
       }
 
       modalOtpTarget.textContent = `+971 ${phone}`;
@@ -993,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (btnModalVerifyOtp) {
-    btnModalVerifyOtp.addEventListener('click', () => {
+    btnModalVerifyOtp.addEventListener('click', async () => {
       let code = '';
       modalOtpBoxes.forEach(input => code += input.value);
       
@@ -1002,10 +1079,71 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      modalStep2.classList.add('hidden');
-      modalStepSuccess.classList.remove('hidden');
-      
-      logWalletLedgerEvent('MFA Security token verification successful.');
+      const phone = modalPhone.value.trim();
+      const email = modalEmail.value.trim();
+
+      try {
+        const res = await fetch('/api/users/otp/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, email, code })
+        });
+        if (res.ok && res.headers.get("content-type")?.includes("application/json")) {
+          const profile = await res.json();
+          authenticatedUser = profile;
+          localStorage.setItem('velo_authenticated_user', JSON.stringify(profile));
+          
+          // Load database fields
+          walletBalance = parseFloat(profile.walletBalance);
+          walletPoints = parseInt(profile.points);
+          walletReferrals = parseInt(profile.referrals);
+          
+          localStorage.setItem('velo_wallet_balance', walletBalance.toString());
+          localStorage.setItem('velo_wallet_points', walletPoints.toString());
+
+          // Re-render
+          renderWalletData();
+          
+          modalStep2.classList.add('hidden');
+          modalStepSuccess.classList.remove('hidden');
+          logWalletLedgerEvent(`MFA Security token verification successful. Logged in +971 ${phone}`);
+          return;
+        } else {
+          const err = await res.json();
+          showNotification(err.error || 'Verification failed.', 'error');
+          return;
+        }
+      } catch (err) {
+        console.warn("Backend offline. Running on LocalStorage fallback.");
+      }
+
+      // Offline mock verify fallback
+      if (code === '123456') {
+        const fallbackProfile = {
+          phone,
+          email,
+          walletBalance: 140.00,
+          points: 340,
+          referrals: 4,
+          orderHistory: []
+        };
+        authenticatedUser = fallbackProfile;
+        localStorage.setItem('velo_authenticated_user', JSON.stringify(fallbackProfile));
+        walletBalance = 140.00;
+        walletPoints = 340;
+        walletReferrals = 4;
+        
+        localStorage.setItem('velo_wallet_balance', '140.00');
+        localStorage.setItem('velo_wallet_points', '340');
+
+        renderWalletData();
+
+        modalStep2.classList.add('hidden');
+        modalStepSuccess.classList.remove('hidden');
+        logWalletLedgerEvent(`Mock verification successful. Authenticated locally.`);
+      } else {
+        showNotification('Invalid verification code. Use code 123456.', 'error');
+      }
     });
   }
 

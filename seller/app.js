@@ -183,6 +183,105 @@ document.addEventListener('DOMContentLoaded', () => {
     showPortal();
   });
 
+  // Toggle Login/Register Forms
+  const linkShowRegister = document.getElementById('link-show-register');
+  const linkShowLogin = document.getElementById('link-show-login');
+  const loginFormFields = document.getElementById('login-form-fields');
+  const registerFormFields = document.getElementById('register-form-fields');
+
+  if (linkShowRegister && linkShowLogin) {
+    linkShowRegister.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginFormFields.classList.add('hidden');
+      registerFormFields.classList.remove('hidden');
+    });
+
+    linkShowLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      registerFormFields.classList.add('hidden');
+      loginFormFields.classList.remove('hidden');
+    });
+  }
+
+  // Handle Merchant Registration
+  const btnRegister = document.getElementById('btn-register');
+  const regName = document.getElementById('reg-name');
+  const regEmail = document.getElementById('reg-email');
+  const regPassword = document.getElementById('reg-password');
+  const regConfirmPassword = document.getElementById('reg-confirm-password');
+
+  if (btnRegister) {
+    btnRegister.addEventListener('click', async () => {
+      const name = regName.value.trim();
+      const email = regEmail.value.trim();
+      const password = regPassword.value;
+      const confirmPassword = regConfirmPassword.value;
+
+      if (!name || !email || !password || !confirmPassword) {
+        showNotification('Please fill in all registration fields.', 'error');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showNotification('Passwords do not match.', 'error');
+        return;
+      }
+
+      const newSellerObj = {
+        name,
+        email,
+        password,
+        commissionRate: 5.0, // default rate
+        fixedRent: 100.00   // default rent
+      };
+
+      try {
+        const res = await fetch('/api/sellers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newSellerObj)
+        });
+        if (res.ok) {
+          showNotification('Registration successful! Please log in with your credentials.');
+          registerFormFields.classList.add('hidden');
+          loginFormFields.classList.remove('hidden');
+          loginEmail.value = email;
+          loginPassword.value = '';
+          return;
+        } else {
+          const err = await res.json();
+          showNotification(err.error || 'Registration failed.', 'error');
+          return;
+        }
+      } catch (err) {
+        console.warn("Backend offline. Registering locally in LocalStorage.");
+      }
+
+      // Local storage fallback registration
+      const sellers = JSON.parse(localStorage.getItem('velo_sellers')) || [];
+      const emailExist = sellers.some(s => s.email.toLowerCase() === email.toLowerCase());
+
+      if (emailExist) {
+        showNotification('Email address is already registered.', 'error');
+        return;
+      }
+
+      const nextIdNum = sellers.length > 0 ? Math.max(...sellers.map(s => parseInt(s.id.split('-')[1]))) + 1 : 101;
+      newSellerObj.id = `S-${nextIdNum}`;
+      newSellerObj.status = 'active';
+      newSellerObj.sales = 0.00;
+
+      sellers.push(newSellerObj);
+      localStorage.setItem('velo_sellers', JSON.stringify(sellers));
+
+      showNotification('Local registration successful! Please log in.');
+      registerFormFields.classList.add('hidden');
+      loginFormFields.classList.remove('hidden');
+      loginEmail.value = email;
+      loginPassword.value = '';
+    });
+  }
+
   btnLogout.addEventListener('click', () => {
     sessionStorage.removeItem('velo_active_seller_id');
     activeSeller = null;

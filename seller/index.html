@@ -23,23 +23,58 @@
         <p>Log in to update inventory nodes and review payout commissions.</p>
       </div>
       
-      <div class="form-group">
-        <label for="login-email">Merchant Email Address</label>
-        <input type="email" id="login-email" placeholder="merchant@veloresell.com">
-      </div>
-      <div class="form-group" style="margin-top: 16px;">
-        <label for="login-password">Access Password</label>
-        <input type="password" id="login-password" placeholder="••••••••">
-      </div>
-      
-      <button class="btn btn-primary" id="btn-login" style="width: 100%; margin-top: 24px;">
-        Sign In to Portal
-      </button>
+      <!-- LOGIN FORM BLOCK -->
+      <div id="login-form-fields">
+        <div class="form-group">
+          <label for="login-email">Merchant Email Address</label>
+          <input type="email" id="login-email" placeholder="merchant@veloresell.com">
+        </div>
+        <div class="form-group" style="margin-top: 16px;">
+          <label for="login-password">Access Password</label>
+          <input type="password" id="login-password" placeholder="••••••••">
+        </div>
+        
+        <button class="btn btn-primary" id="btn-login" style="width: 100%; margin-top: 24px;">
+          Sign In to Portal
+        </button>
 
-      <div class="demo-logins-hint">
-        <strong>Demo Merchant Access Accounts:</strong>
-        <p>farm@veloresell.com / password123 (Farms)</p>
-        <p>tech@veloresell.com / password123 (Electronics)</p>
+        <p style="font-size: 0.85rem; margin-top: 16px; color: var(--text-muted);">
+          Need to register? <a href="#" id="link-show-register" style="color: #ca8a04; font-weight: 700;">Create Account</a>
+        </p>
+
+        <div class="demo-logins-hint">
+          <strong>Demo Merchant Access Accounts:</strong>
+          <p>farm@veloresell.com / password123 (Farms)</p>
+          <p>tech@veloresell.com / password123 (Electronics)</p>
+        </div>
+      </div>
+
+      <!-- REGISTRATION FORM BLOCK -->
+      <div id="register-form-fields" class="hidden">
+        <div class="form-group">
+          <label for="reg-name">Merchant / Farm Name</label>
+          <input type="text" id="reg-name" placeholder="e.g., Dubai Fresh Farms">
+        </div>
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" placeholder="fresh@veloresell.com">
+        </div>
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" placeholder="••••••••">
+        </div>
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="reg-confirm-password">Confirm Password</label>
+          <input type="password" id="reg-confirm-password" placeholder="••••••••">
+        </div>
+
+        <button class="btn btn-primary" id="btn-register" style="width: 100%; margin-top: 24px;">
+          Register Partner Node
+        </button>
+
+        <p style="font-size: 0.85rem; margin-top: 16px; color: var(--text-muted);">
+          Already have an account? <a href="#" id="link-show-login" style="color: #ca8a04; font-weight: 700;">Sign In</a>
+        </p>
       </div>
     </div>
   </div>
