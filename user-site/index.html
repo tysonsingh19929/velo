@@ -542,9 +542,9 @@
         </div>
         <div class="footer-col">
           <h5>Legal & Info</h5>
-          <a href="#" onclick="alert('Standard returns processed within 15 days of warehouse dispatch. Terms apply.')">Return Policy</a>
-          <a href="#" onclick="alert('Integrated under verified corporate registry. GCC tax compliant VAT ledgers.')">GCC Tax Compliance</a>
-          <a href="#">Support Hub</a>
+          <a href="#" onclick="event.preventDefault(); showNotification('Returns processed within 15 days of warehouse dispatch.', 'info')">Return Policy</a>
+          <a href="#" onclick="event.preventDefault(); showNotification('Tax compliant: 5% sales tax recorded in secure ledger.', 'info')">GCC Tax Compliance</a>
+          <a href="#" onclick="event.preventDefault(); showNotification('Support portal active. Reach out to support@veloresell.com', 'info')">Support Hub</a>
         </div>
       </div>
     </div>
@@ -552,6 +552,9 @@
       <p>&copy; 2026 VeloResell. All rights reserved. Platform certified with DUNS registry numbers.</p>
     </div>
   </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
 
   <script src="/user-site/app.js"></script>
 </body>

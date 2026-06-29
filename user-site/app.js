@@ -1,5 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Global Toast System (prepares for native app packaging)
+  window.showNotification = function(message) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    
+    container.appendChild(toast);
+    
+    // Auto-dismiss toast
+    setTimeout(() => {
+      toast.classList.add('hide');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 3000);
+  };
+
   // ==========================================
   // 1. E-Commerce Product Database
   // ==========================================
@@ -512,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnSubmitOrder) {
     btnSubmitOrder.addEventListener('click', () => {
       if (cart.length === 0) {
-        alert('Your cart is empty.');
+        showNotification('Your cart is empty.');
         return;
       }
 
@@ -522,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cvv = document.getElementById('chk-card-cvv').value.trim();
 
         if (!cardNum || !expiry || !cvv) {
-          alert('Please enter your card payment details.');
+          showNotification('Please enter your card payment details.');
           return;
         }
       }
@@ -557,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('velo_cart', JSON.stringify(cart));
       updateCartBadge();
 
-      alert(`Order placed! Order ID: ${activeOrder.id}. Transmitting delivery routing...`);
+      showNotification(`Order placed! Order ID: ${activeOrder.id}. Transmitting delivery routing...`);
       
       switchView('tracker');
     });
@@ -768,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = modalEmail.value.trim();
       
       if (!phone || !email) {
-        alert('Please fill in both fields.');
+        showNotification('Please fill in both fields.');
         return;
       }
 
@@ -803,7 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modalOtpBoxes.forEach(input => code += input.value);
       
       if (code.length < 6) {
-        alert('Please enter a valid 6-digit verification code.');
+        showNotification('Please enter a valid 6-digit verification code.');
         return;
       }
 

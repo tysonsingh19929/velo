@@ -1929,3 +1929,64 @@ input:focus {
     padding-bottom: 24px;
   }
 }
+
+/* Toast Notifications (Capacitor/Native app feel) */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+  max-width: 320px;
+  width: calc(100% - 48px);
+}
+
+.toast {
+  background: var(--primary);
+  color: white;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: auto;
+  border-left: 4px solid var(--accent-yellow);
+}
+
+.toast.hide {
+  animation: toastFadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translateY(-16px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastFadeOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-16px) scale(0.95); }
+}
+
+/* iOS/Android Webview support (Bouncing disable / safe area headers) */
+body {
+  overscroll-behavior-y: none; /* Disables bouncing pull-to-refresh inside webviews */
+}
+
+@media (max-width: 900px) {
+  .toast-container {
+    top: auto;
+    bottom: 84px; /* Float above mobile bottom navigation bar */
+    right: 24px;
+    left: 24px;
+    max-width: none;
+    width: calc(100% - 48px);
+  }
+}
+
