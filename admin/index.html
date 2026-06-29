@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeloResell — Platform Admin Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/styles.css">
+</head>
+<body>
+
+  <!-- ADMIN LOGIN VIEW -->
+  <div class="login-view-wrapper" id="login-section">
+    <div class="login-card glass-card">
+      <div class="login-header">
+        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#ffd600" />
+          <path d="M16 8v16M8 16h16" stroke="#0f172a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2>Platform Master Dashboard</h2>
+        <p>Log in with administrator access credentials.</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="login-email">Admin Email Address</label>
+        <input type="email" id="login-email" placeholder="admin@veloresell.com">
+      </div>
+      <div class="form-group" style="margin-top: 16px;">
+        <label for="login-password">Access Password</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+      
+      <button class="btn btn-primary" id="btn-login" style="width: 100%; margin-top: 24px;">
+        Verify Credentials
+      </button>
+
+      <div class="demo-logins-hint">
+        <strong>Demo Admin Credentials:</strong>
+        <p>admin@veloresell.com / admin123</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTAL VIEWS CONTAINER -->
+  <div class="portal-layout hidden" id="portal-section">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="portal-sidebar">
+      <div class="sidebar-brand">
+        <span class="logo-circle">A</span>
+        <div>
+          <h4>System Admin</h4>
+          <span class="status-indicator online">Master Credentials</span>
+        </div>
+      </div>
+      
+      <nav class="sidebar-links">
+        <a href="#" class="sidebar-link active" id="link-dashboard">Overview Stats</a>
+        <a href="#" class="sidebar-link" id="link-sellers">Sellers Management</a>
+        <a href="#" class="sidebar-link" id="link-catalog">Master Catalog</a>
+      </nav>
+
+      <button class="btn-logout" id="btn-logout">
+        <span>Logout Session</span>
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+      </button>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="portal-workspace">
+      
+      <!-- Top Workspace Nav Bar -->
+      <header class="workspace-header">
+        <h2 id="workspace-title">Platform Dashboard</h2>
+        <span class="active-node-tag">Master Operations Panel</span>
+      </header>
+
+      <!-- VIEW 1: OVERVIEW & STATS -->
+      <div class="workspace-view" id="view-dashboard">
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+          <div class="metric-card card-yellow">
+            <span class="metric-lbl">Total Platform Turnover</span>
+            <h3 id="stat-platform-sales">AED 0.00</h3>
+            <p>Sum of all merchant checkouts combined.</p>
+          </div>
+          <div class="metric-card">
+            <span class="metric-lbl">Total Commission Accrued</span>
+            <h3 id="stat-platform-commission">AED 0.00</h3>
+            <p>Accrued margins (sum of rate cuts).</p>
+          </div>
+          <div class="metric-card">
+            <span class="metric-lbl">Active System Sellers</span>
+            <h3 id="stat-active-sellers">0</h3>
+            <p>Approved non-suspended merchant accounts.</p>
+          </div>
+          <div class="metric-card card-dark">
+            <span class="metric-lbl">Total Platform Products</span>
+            <h3 id="stat-platform-prods">0</h3>
+            <p>Total items indexed in storefront DB.</p>
+          </div>
+        </div>
+
+        <!-- Info Banner -->
+        <div class="dashboard-banner">
+          <div class="banner-body">
+            <h3>Real-Time Catalog Synchronization</h3>
+            <p>Suspending a seller immediately disables their checkout listings from the Customer Storefront. Editing a merchant's commission rate or monthly rent recalculates their ledger splits instantly.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: SELLERS MANAGEMENT -->
+      <div class="workspace-view hidden" id="view-sellers">
+        <div class="inventory-split-layout">
+          
+          <!-- Seller Management Form -->
+          <div class="form-block glass-card">
+            <h3 id="seller-form-action-title">Configure Merchant Partner</h3>
+            
+            <div class="form-group">
+              <label for="seller-name">Seller/Farm Name</label>
+              <input type="text" id="seller-name" placeholder="e.g., Jumeirah Farms UAE">
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="seller-email">Login Email Address</label>
+              <input type="email" id="seller-email" placeholder="jumeirah@veloresell.com">
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="seller-password">Access Password</label>
+              <input type="text" id="seller-password" placeholder="password123">
+            </div>
+
+            <div class="form-row" style="margin-top: 12px;">
+              <div class="form-group">
+                <label for="seller-commission">Commission Rate (%)</label>
+                <input type="number" id="seller-commission" min="0" max="30" step="0.5" placeholder="5.0">
+              </div>
+              <div class="form-group">
+                <label for="seller-rent">Monthly Rent (AED)</label>
+                <input type="number" id="seller-rent" min="0" step="10" placeholder="100.00">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" id="btn-save-seller" style="width: 100%; margin-top: 24px;">
+              Save Merchant Settings
+            </button>
+            <button class="btn btn-secondary hidden" id="btn-cancel-seller-edit" style="width: 100%; margin-top: 8px;">
+              Cancel Edit
+            </button>
+          </div>
+
+          <!-- Sellers List Table -->
+          <div class="inventory-table-block glass-card">
+            <h3>Registered Sellers List</h3>
+            
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Seller Name & email</th>
+                    <th>Node ID</th>
+                    <th>Rate %</th>
+                    <th>Monthly Rent</th>
+                    <th>Status</th>
+                    <th>Gross Sales</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="sellers-list-rows">
+                  <!-- Dynamic seller nodes list -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- VIEW 3: MASTER CATALOG MANAGER -->
+      <div class="workspace-view hidden" id="view-catalog">
+        <div class="catalog-filters-bar glass-card" style="margin-bottom: 20px; display: flex; gap: 16px; padding: 16px;">
+          <div class="form-group" style="flex: 1;">
+            <label>Filter by category</label>
+            <div class="custom-form-dropdown" id="dropdown-filter-cat">
+              <button class="form-dropdown-trigger" id="btn-filter-cat-trigger">
+                <span id="selected-filter-cat-val">All Categories</span>
+                <span>▼</span>
+              </button>
+              <div class="form-dropdown-options hidden" id="options-filter-cat">
+                <div class="f-opt active" data-value="All">All Categories</div>
+                <div class="f-opt" data-value="Fresh">Fresh food</div>
+                <div class="f-opt" data-value="Electronics">Electronics</div>
+                <div class="f-opt" data-value="Essentials">Home Essentials</div>
+                <div class="f-opt" data-value="Beauty">Beauty & Care</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label>Filter by merchant seller</label>
+            <div class="custom-form-dropdown" id="dropdown-filter-seller">
+              <button class="form-dropdown-trigger" id="btn-filter-seller-trigger">
+                <span id="selected-filter-seller-val">All Merchants</span>
+                <span>▼</span>
+              </button>
+              <div class="form-dropdown-options hidden" id="options-filter-seller" style="max-height: 150px; overflow-y: auto;">
+                <div class="f-opt active" data-value="All">All Merchants</div>
+                <!-- Dynamic merchant filter options injected here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="inventory-table-block glass-card">
+          <h3>Master Product Catalog</h3>
+          
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product details</th>
+                  <th>Category</th>
+                  <th>Wholesale Merchant</th>
+                  <th>Retail Price</th>
+                  <th>Original Price</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="master-catalog-rows">
+                <!-- Dynamic catalog list -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Master Product Edit Modal -->
+  <div class="modal-overlay hidden" id="edit-prod-modal">
+    <div class="modal-card glass-card">
+      <div class="modal-card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px;">
+        <h3>Override Listing Details</h3>
+        <button class="close-modal-btn" id="btn-close-modal" style="background:none; border:none; font-size: 1.5rem; cursor:pointer;">×</button>
+      </div>
+      <div class="modal-card-body">
+        <div class="form-group">
+          <label for="override-name">Product Name</label>
+          <input type="text" id="override-name">
+        </div>
+        <div class="form-row" style="margin-top: 12px;">
+          <div class="form-group">
+            <label for="override-price">Price (AED)</label>
+            <input type="number" id="override-price" step="0.5">
+          </div>
+          <div class="form-group">
+            <label for="override-orig-price">Original Price (AED)</label>
+            <input type="number" id="override-orig-price" step="0.5">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-submit-override" style="width: 100%; margin-top: 20px;">Save Overrides</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="/admin/app.js"></script>
+</body>
+</html>

@@ -21,130 +21,44 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================
-  // 1. E-Commerce Product Database (UAE themed with online image assets)
+  // 1. Shared Database Setup & LocalStorage Hook
   // ==========================================
-  const catalogData = [
-    { 
-      id: 1, 
-      name: "Fresh Organic Khalas Dates", 
-      category: "Fresh", 
-      price: 18.00, 
-      originalPrice: 28.00, 
-      weight: "400 g", 
-      rating: 4.9, 
-      bestseller: true, 
-      tagLabel: "Direct Sourced",
-      image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 2, 
-      name: "Al Ain Fresh Whole Milk", 
-      category: "Fresh", 
-      price: 7.00, 
-      originalPrice: 10.00, 
-      weight: "1 pack (1L)", 
-      rating: 4.8, 
-      bestseller: false, 
-      tagLabel: "Fresh Dairy",
-      image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 3, 
-      name: "Premium Turkish Labneh Pouch", 
-      category: "Fresh", 
-      price: 12.00, 
-      originalPrice: 18.00, 
-      weight: "1 pack (500 g)", 
-      rating: 4.7, 
-      bestseller: true, 
-      tagLabel: "Creamy",
-      image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 4, 
-      name: "Local Coriander Leaves Bunch", 
-      category: "Fresh", 
-      price: 2.00, 
-      originalPrice: 4.50, 
-      weight: "100 g", 
-      rating: 4.9, 
-      bestseller: false, 
-      tagLabel: "Hydroponic",
-      image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 5, 
-      name: "Wireless Bluetooth Earbuds", 
-      category: "Electronics", 
-      price: 95.00, 
-      originalPrice: 150.00, 
-      weight: "1 unit", 
-      rating: 4.7, 
-      bestseller: true, 
-      tagLabel: "Bass Boost",
-      image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 6, 
-      name: "Smart Fit Tracker Watch", 
-      category: "Electronics", 
-      price: 190.00, 
-      originalPrice: 275.00, 
-      weight: "1 unit", 
-      rating: 4.6, 
-      bestseller: false, 
-      tagLabel: "Active Tracker",
-      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 7, 
-      name: "Eco Cotton Bath Towels", 
-      category: "Essentials", 
-      price: 45.00, 
-      originalPrice: 65.00, 
-      weight: "2 pcs", 
-      rating: 4.5, 
-      bestseller: false, 
-      tagLabel: "Soft Cotton",
-      image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 8, 
-      name: "Stainless Thermal Water Bottle", 
-      category: "Essentials", 
-      price: 28.00, 
-      originalPrice: 42.00, 
-      weight: "1 pc (750 ml)", 
-      rating: 4.7, 
-      bestseller: true, 
-      tagLabel: "Keep Cold",
-      image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 9, 
-      name: "Hydrating Aloe Vera Serum", 
-      category: "Beauty", 
-      price: 78.00, 
-      originalPrice: 110.00, 
-      weight: "1 pack (50 ml)", 
-      rating: 4.8, 
-      bestseller: true, 
-      tagLabel: "Moisturizing",
-      image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&auto=format&fit=crop&q=60"
-    },
-    { 
-      id: 10, 
-      name: "Rosewater Refreshing Face Mist", 
-      category: "Beauty", 
-      price: 42.00, 
-      originalPrice: 60.00, 
-      weight: "1 bottle (100 ml)", 
-      rating: 4.6, 
-      bestseller: false, 
-      tagLabel: "Mixed Floral",
-      image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&auto=format&fit=crop&q=60"
-    }
+  const seedProducts = [
+    { id: 1, name: "Fresh Organic Khalas Dates", category: "Fresh", price: 18.00, originalPrice: 28.00, weight: "400 g", rating: 4.9, bestseller: true, tagLabel: "Direct Sourced", image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400", sellerId: "S-101" },
+    { id: 2, name: "Al Ain Fresh Whole Milk", category: "Fresh", price: 7.00, originalPrice: 10.00, weight: "1 pack (1L)", rating: 4.8, bestseller: false, tagLabel: "Fresh Dairy", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400", sellerId: "S-101" },
+    { id: 3, name: "Premium Turkish Labneh Pouch", category: "Fresh", price: 12.00, originalPrice: 18.00, weight: "1 pack (500 g)", rating: 4.7, bestseller: true, tagLabel: "Creamy", image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=400", sellerId: "S-101" },
+    { id: 4, name: "Local Coriander Leaves Bunch", category: "Fresh", price: 2.00, originalPrice: 4.50, weight: "100 g", rating: 4.9, bestseller: false, tagLabel: "Hydroponic", image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400", sellerId: "S-101" },
+    { id: 5, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 95.00, originalPrice: 150.00, weight: "1 unit", rating: 4.7, bestseller: true, tagLabel: "Bass Boost", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400", sellerId: "S-102" },
+    { id: 6, name: "Smart Fit Tracker Watch", category: "Electronics", price: 190.00, originalPrice: 275.00, weight: "1 unit", rating: 4.6, bestseller: false, tagLabel: "Active Tracker", image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400", sellerId: "S-102" },
+    { id: 7, name: "Eco Cotton Bath Towels", category: "Essentials", price: 45.00, originalPrice: 65.00, weight: "2 pcs", rating: 4.5, bestseller: false, tagLabel: "Soft Cotton", image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400", sellerId: "S-103" },
+    { id: 8, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 28.00, originalPrice: 42.00, weight: "1 pc (750 ml)", rating: 4.7, bestseller: true, tagLabel: "Keep Cold", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400", sellerId: "S-103" },
+    { id: 9, name: "Hydrating Aloe Vera Serum", category: "Beauty", price: 78.00, originalPrice: 110.00, weight: "1 pack (50 ml)", rating: 4.8, bestseller: true, tagLabel: "Moisturizing", image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400", sellerId: "S-104" },
+    { id: 10, name: "Rosewater Refreshing Face Mist", category: "Beauty", price: 42.00, originalPrice: 60.00, weight: "1 bottle (100 ml)", rating: 4.6, bestseller: false, tagLabel: "Mixed Floral", image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400", sellerId: "S-104" }
   ];
+
+  const seedSellers = [
+    { id: "S-101", name: "Dubai Organic Farms", email: "farm@veloresell.com", password: "password123", commissionRate: 5.0, fixedRent: 100.00, status: "active", sales: 840.00 },
+    { id: "S-102", name: "E-Hub Tech UAE", email: "tech@veloresell.com", password: "password123", commissionRate: 3.5, fixedRent: 150.00, status: "active", sales: 1150.00 },
+    { id: "S-103", name: "Modern Home Essentials", email: "home@veloresell.com", password: "password123", commissionRate: 4.0, fixedRent: 120.00, status: "active", sales: 540.00 },
+    { id: "S-104", name: "CosmoCare Gulf", email: "care@veloresell.com", password: "password123", commissionRate: 4.5, fixedRent: 110.00, status: "active", sales: 980.00 }
+  ];
+
+  if (!localStorage.getItem('velo_products')) {
+    localStorage.setItem('velo_products', JSON.stringify(seedProducts));
+  }
+  if (!localStorage.getItem('velo_sellers')) {
+    localStorage.setItem('velo_sellers', JSON.stringify(seedSellers));
+  }
+
+  // Hook catalog data extraction dynamically from LocalStorage (filtering suspended accounts)
+  const getCatalogFromDB = () => {
+    const rawProds = JSON.parse(localStorage.getItem('velo_products')) || [];
+    const rawSellers = JSON.parse(localStorage.getItem('velo_sellers')) || [];
+    const suspendedIds = rawSellers.filter(s => s.status === 'suspended').map(s => s.id);
+    return rawProds.filter(p => !suspendedIds.includes(p.sellerId));
+  };
+
+  const catalogData = getCatalogFromDB();
 
   // State Variables
   let cart = JSON.parse(localStorage.getItem('velo_cart')) || [];
@@ -451,7 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cartDrawerBg) cartDrawerBg.addEventListener('click', () => toggleCartDrawer(false));
 
   window.triggerAddToCart = function(productId) {
-    const product = catalogData.find(item => item.id === productId);
+    // Pull product dynamically from database
+    const freshCatalog = getCatalogFromDB();
+    const product = freshCatalog.find(item => item.id === productId);
     if (!product) return;
     
     const existing = cart.find(item => item.id === productId);
@@ -732,6 +648,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let grossTotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       if (selectedPaymentMethod === 'cod') grossTotalAmount += 10.00;
+
+      // Update active merchant statistics dynamically
+      const dbSellers = JSON.parse(localStorage.getItem('velo_sellers')) || [];
+      cart.forEach(cartItem => {
+        const matchingSeller = dbSellers.find(s => s.id === cartItem.sellerId);
+        if (matchingSeller) {
+          matchingSeller.sales = parseFloat((matchingSeller.sales + (cartItem.price * cartItem.quantity)).toFixed(2));
+        }
+      });
+      localStorage.setItem('velo_sellers', JSON.stringify(dbSellers));
 
       activeOrder = {
         id: 'VR-' + Math.floor(100000 + Math.random() * 900000),
