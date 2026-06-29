@@ -489,7 +489,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateCartBadge() {
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartBadgeCount.textContent = totalCount;
+    if (cartBadgeCount) {
+      cartBadgeCount.textContent = totalCount;
+    }
+    
+    // Toggle Zepto style Floating Bottom Cart Bar dynamically
+    const floatingCartBar = document.getElementById('zepto-floating-cart-bar');
+    const floatingCartCount = document.getElementById('floating-cart-count-val');
+    const floatingCartTotal = document.getElementById('floating-cart-total-val');
+    
+    if (floatingCartBar) {
+      if (totalCount > 0) {
+        floatingCartBar.classList.remove('hidden');
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        if (floatingCartCount) {
+          floatingCartCount.textContent = `${totalCount} ${totalCount === 1 ? 'item' : 'items'}`;
+        }
+        if (floatingCartTotal) {
+          floatingCartTotal.textContent = `AED ${totalPrice.toFixed(0)}`;
+        }
+      } else {
+        floatingCartBar.classList.add('hidden');
+      }
+    }
   }
 
   function renderCartDrawer() {
@@ -1065,6 +1087,14 @@ document.addEventListener('DOMContentLoaded', () => {
         '"': '&quot;'
       }[tag] || tag)
     );
+  }
+
+  // Wire up Zepto Floating bottom cart bar click trigger to toggle cart drawer
+  const floatingCartBar = document.getElementById('zepto-floating-cart-bar');
+  if (floatingCartBar) {
+    floatingCartBar.addEventListener('click', () => {
+      toggleCartDrawer(true);
+    });
   }
 
   // Initialize

@@ -1795,13 +1795,32 @@ body {
   
   .header-container {
     padding: 10px 16px;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+      "left actions"
+      "search search";
     gap: 8px;
   }
 
   .header-left-group {
+    grid-area: left;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-actions-group {
+    grid-area: actions;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .header-search-box {
+    grid-area: search;
     width: 100%;
-    justify-content: space-between;
+    max-width: 100%;
+    margin-top: 4px;
   }
 
   .logo-text {
@@ -2133,4 +2152,86 @@ body {
 .dropdown-opt.active {
   background: #fef08a; /* Accent yellow active state */
   color: #854d0e;
+}
+
+
+/* Zepto Style Floating Bottom Cart Bar */
+.zepto-floating-cart-bar {
+  position: fixed;
+  bottom: 76px; /* Floating above mobile bottom tab bar */
+  left: 16px;
+  right: 16px;
+  background: #facc15; /* Brightest brand yellow */
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  z-index: 80;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
+  color: #0f172a; /* Charcoal black text */
+  animation: slideUpFloatingCart 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpFloatingCart {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.zepto-floating-cart-bar:hover {
+  transform: scale(1.02);
+  background: #eab308;
+}
+
+.zepto-floating-cart-bar.hidden {
+  display: none !important;
+}
+
+.floating-cart-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.floating-cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-cart-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.lbl-cart-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.lbl-cart-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.floating-cart-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.floating-cart-total {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.floating-cart-arrow {
+  font-size: 1.1rem;
+  font-weight: bold;
 }
