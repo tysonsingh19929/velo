@@ -2400,7 +2400,7 @@ body {
 
 /* Zepto-Style Profile Modal Card Styling */
 .zepto-profile-card {
-  background: linear-gradient(135deg, var(--accent-yellow) 0%, #fef3c7 100%);
+  background: #5c0067;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
