@@ -580,8 +580,8 @@ p {
 
 .product-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
 }
 
 /* Product Card Design (90% Zepto Aligned, Emoji-free) */
@@ -589,15 +589,15 @@ p {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 16px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 360px;
+  min-height: 260px;
   position: relative;
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
-  flex: 0 0 220px; /* Force size in horizontal scrolling lists */
+  flex: 0 0 135px; /* Shorter and narrower cards on desktop */
 }
 
 .product-card:hover {
@@ -621,10 +621,10 @@ p {
 }
 
 .prod-img-box {
-  height: 140px;
+  height: 105px;
   background: #f8fafc;
   border-radius: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -635,15 +635,15 @@ p {
 /* Zepto Style Floating ADD button overlapping bottom-right of image container */
 .btn-add-floating {
   position: absolute;
-  bottom: -8px;
-  right: 12px;
+  bottom: -6px;
+  right: 8px;
   background: #ffffff;
-  border: 1.5px solid #eab308; /* Rose/Pink border */
+  border: 1.5px solid #eab308; 
   color: #eab308;
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.8rem;
-  padding: 6px 20px;
+  font-size: 0.72rem;
+  padding: 3px 14px;
   border-radius: 6px;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -667,20 +667,20 @@ p {
   align-self: flex-start;
   background: #f1f5f9;
   color: var(--text-main);
-  padding: 2px 6px;
+  padding: 1px 4px;
   border-radius: 4px;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .prod-title {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.25;
   margin-bottom: 4px;
   color: var(--text-main);
-  height: 44px;
+  height: 32px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -688,10 +688,10 @@ p {
 }
 
 .prod-weight-lbl {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* Zepto Style Green Price Box */
@@ -717,21 +717,21 @@ p {
 .price-badge-green {
   background: #16a34a;
   color: white;
-  padding: 2px 8px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
 }
 
 .prod-original-price {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   text-decoration: line-through;
   color: var(--text-muted);
 }
 
 .discount-badge-text {
   color: #16a34a;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
 }
 
@@ -742,10 +742,10 @@ p {
   color: #0369a1;
   padding: 2px 8px;
   border-radius: 20px;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
   align-self: flex-start;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 /* See All shelf pink block card */
@@ -758,8 +758,8 @@ p {
   justify-content: center;
   border-radius: 12px;
   cursor: pointer;
-  flex: 0 0 160px;
-  min-height: 340px;
+  flex: 0 0 110px;
+  min-height: 260px;
   border: none;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
@@ -1903,14 +1903,14 @@ body {
   }
 
   .product-card {
-    padding: 12px;
-    min-height: 330px;
-    flex: 0 0 170px; /* 170px cards on mobile screens for easy swipes */
+    padding: 8px;
+    min-height: 250px;
+    flex: 0 0 120px; /* 120px cards on mobile screens for easy swipes */
   }
 
   .see-all-card {
-    flex: 0 0 130px;
-    min-height: 330px;
+    flex: 0 0 95px;
+    min-height: 250px;
   }
 
   .see-all-card-content {
@@ -1931,38 +1931,39 @@ body {
   }
 
   .prod-img-box {
-    height: 100px;
+    height: 80px;
   }
   
   .btn-add-floating {
-    padding: 4px 14px;
-    font-size: 0.7rem;
-    bottom: -6px;
-    right: 8px;
+    padding: 3px 12px;
+    font-size: 0.65rem;
+    bottom: -4px;
+    right: 4px;
   }
 
   .prod-title {
-    font-size: 0.8rem;
-    height: 36px;
-    margin-bottom: 4px;
+    font-size: 0.72rem;
+    height: 26px;
+    margin-bottom: 2px;
+    line-height: 1.2;
   }
 
   .prod-weight-lbl {
-    font-size: 0.7rem;
-    margin-bottom: 6px;
+    font-size: 0.65rem;
+    margin-bottom: 2px;
   }
 
   .price-badge-green {
-    font-size: 0.85rem;
-    padding: 2px 6px;
+    font-size: 0.75rem;
+    padding: 1px 4px;
   }
 
   .prod-original-price {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 
   .discount-badge-text {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 
   /* Catalog Layout Filters */
@@ -1972,12 +1973,12 @@ body {
 
   .product-cards-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 8px;
   }
   
   .product-cards-grid .product-card {
     flex: none;
-    min-height: 330px;
+    min-height: 250px;
   }
 
   /* Checkout layouts */
