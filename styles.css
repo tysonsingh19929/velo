@@ -1,32 +1,37 @@
 /* Reset and Variables */
 :root {
-  --bg-dark: #07080d;
-  --bg-card: rgba(18, 20, 32, 0.6);
-  --bg-card-hover: rgba(28, 30, 48, 0.85);
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(99, 102, 241, 0.5);
+  --bg-dark: #f8fafc; /* Soft Slate White */
+  --bg-card: #ffffff; /* Pure White */
+  --bg-card-hover: #ffffff;
+  --border-color: #e2e8f0; /* Slate Border */
+  --border-focus: #e2e8f0;
   
-  --primary: #6366f1; /* Neon Indigo */
-  --primary-hover: #4f46e5;
-  --secondary: #a855f7; /* Violet */
-  --accent-cyan: #06b6d4; /* Accent Neon Cyan */
-  --accent-orange: #ff7a00; /* Brand Orange */
+  --primary: #0f172a; /* Slate Charcoal (Primary Text / CTA) */
+  --primary-hover: #1e293b;
+  --secondary: #f1f5f9; /* Light Slate Gray for borders/buttons */
   
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --text-dark: #1f2937;
+  --accent-yellow: #facc15; /* Vibrant Brand Yellow */
+  --accent-yellow-hover: #eab308;
+  --accent-cyan: #0ea5e9; /* Transit Blue/Cyan */
+  --accent-orange: #f97316; /* Surcharge warning */
   
-  --success: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
+  --text-main: #0f172a; /* Charcoal text */
+  --text-muted: #64748b; /* Cool Slate gray */
+  --text-dark: #1e293b;
+  
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #ca8a04;
   
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
-  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.2);
-  --shadow-cyan: 0 0 30px rgba(6, 182, 212, 0.2);
-  --shadow-orange: 0 0 30px rgba(255, 122, 0, 0.25);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-yellow: 0 10px 25px -5px rgba(250, 204, 21, 0.25);
+  
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -107,7 +112,7 @@ p {
 .bg-cyan { background-color: var(--accent-cyan) !important; }
 .bg-indigo { background-color: var(--primary) !important; }
 .bg-green { background-color: var(--success) !important; }
-.bg-darker { background-color: rgba(7, 8, 13, 0.8) !important; }
+.bg-darker { background-color: #f1f5f9 !important; }
 .hidden { display: none !important; }
 .flex-align-center {
   display: flex;
@@ -222,7 +227,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(7, 8, 13, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-color);
@@ -690,7 +695,7 @@ p {
 }
 
 input[type="number"], select, input[type="text"], input[type="tel"] {
-  background: rgba(7, 8, 13, 0.5);
+  background: #f8fafc;
   border: 1px solid var(--border-color);
   padding: 12px 16px;
   border-radius: 8px;
@@ -878,7 +883,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
   align-items: center;
   padding: 12px;
   border-radius: 8px;
-  background: rgba(7, 8, 13, 0.4);
+  background: #f1f5f9;
   border-left: 3px solid transparent;
   transition: var(--transition);
 }
@@ -1065,7 +1070,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .policy-card-body {
   padding: 16px;
   flex: 1;
-  background: rgba(7, 8, 13, 0.2);
+  background: #f8fafc;
   min-height: 250px;
   display: flex;
   flex-direction: column;
@@ -1206,7 +1211,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .wallet-logs {
-  background: rgba(7, 8, 13, 0.4);
+  background: #f1f5f9;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 12px;
@@ -1245,7 +1250,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .map-mock-container {
   height: 280px;
-  background-color: #121422;
+  background-color: #f1f5f9;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   position: relative;

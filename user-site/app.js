@@ -21,17 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================
-  // 1. E-Commerce Product Database
+  // 1. E-Commerce Product Database (Zepto pricing aligned)
   // ==========================================
   const catalogData = [
-    { id: 1, name: "Fresh Organic Avocados (4-Pack)", category: "Fresh", price: 28.00, rating: 4.8, featured: true },
-    { id: 2, name: "Organic Whole Milk 1L", category: "Fresh", price: 8.50, rating: 4.9, featured: true },
-    { id: 3, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 105.00, rating: 4.7, featured: true },
-    { id: 4, name: "Smart Fit Tracker Watch", category: "Electronics", price: 195.00, rating: 4.6, featured: false },
-    { id: 5, name: "Eco Cotton Bath Towels", category: "Essentials", price: 48.00, rating: 4.5, featured: false },
-    { id: 6, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 32.00, rating: 4.7, featured: true },
-    { id: 7, name: "Matte Liquid Lipstick", category: "Beauty", price: 62.00, rating: 4.4, featured: false },
-    { id: 8, name: "Hydrating Aloe Face Serum", category: "Beauty", price: 88.00, rating: 4.8, featured: true }
+    { id: 1, name: "Fresh Organic Avocados", category: "Fresh", price: 28.00, originalPrice: 38.00, weight: "4 pcs", rating: 4.8, featured: true },
+    { id: 2, name: "Organic Whole Milk", category: "Fresh", price: 8.50, originalPrice: 12.00, weight: "1L", rating: 4.9, featured: true },
+    { id: 3, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 105.00, originalPrice: 155.00, weight: "1 unit", rating: 4.7, featured: true },
+    { id: 4, name: "Smart Fit Tracker Watch", category: "Electronics", price: 195.00, originalPrice: 280.00, weight: "1 unit", rating: 4.6, featured: false },
+    { id: 5, name: "Eco Cotton Bath Towels", category: "Essentials", price: 48.00, originalPrice: 65.00, weight: "2 pcs", rating: 4.5, featured: false },
+    { id: 6, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 32.00, originalPrice: 45.00, weight: "750ml", rating: 4.7, featured: true },
+    { id: 7, name: "Matte Liquid Lipstick", category: "Beauty", price: 62.00, originalPrice: 90.00, weight: "5ml", rating: 4.4, featured: false },
+    { id: 8, name: "Hydrating Aloe Face Serum", category: "Beauty", price: 88.00, originalPrice: 120.00, weight: "50ml", rating: 4.8, featured: true }
   ];
 
   // State Variables
@@ -77,20 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  // Professional SVG outline icons matching category selections (emoji replacements)
+  // Professional SVG outline icons matching category selections
   function getProductSVG(category) {
     if (category === "Fresh") {
-      // Shopping Cart/Basket outline
-      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`;
+      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`;
     } else if (category === "Electronics") {
-      // Tech/Headphone outline
-      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>`;
+      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>`;
     } else if (category === "Essentials") {
-      // Home outline
-      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`;
+      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`;
     } else {
-      // Beauty/Cosmetic Sparkle or Star outline
-      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>`;
+      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>`;
     }
   }
 
@@ -144,18 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
   window.switchView = function(viewName) {
     views.forEach(view => view.classList.remove('active'));
     
-    // Clear active classes from desktop and mobile menus
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     document.querySelectorAll('.m-nav-btn').forEach(btn => btn.classList.remove('active'));
 
     const targetView = document.getElementById(`view-${viewName}`);
     if (targetView) targetView.classList.add('active');
 
-    // Desktop Nav Sync
     const activeNav = document.getElementById(`nav-${viewName === 'homepage' ? 'home' : viewName}`);
     if (activeNav) activeNav.classList.add('active');
 
-    // Mobile Nav Sync
     const activeMNav = document.getElementById(`m-nav-${viewName === 'homepage' ? 'home' : viewName}`);
     if (activeMNav) activeMNav.classList.add('active');
 
@@ -173,25 +166,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (homeLogoBtn) homeLogoBtn.addEventListener('click', (e) => { e.preventDefault(); switchView('homepage'); });
 
   // ==========================================
-  // 4. Catalog Rendering, Category Filtering & Sort
+  // 4. Catalog & Shelf Rendering (Zepto Card Style)
   // ==========================================
   const catalogGrid = document.getElementById('catalog-grid');
-  const homepageFeaturedGrid = document.getElementById('homepage-featured-grid');
   const activeCategoryBadge = document.getElementById('active-category-badge');
   const resultsCountLabel = document.getElementById('results-count-label');
   const sortSelect = document.getElementById('sort-select');
+
+  // Shelves grids
+  const shelfFreshGrid = document.getElementById('shelf-fresh-grid');
+  const shelfTechGrid = document.getElementById('shelf-tech-grid');
+  const shelfEssentialsGrid = document.getElementById('shelf-essentials-grid');
 
   function renderCatalog() {
     if (!catalogGrid) return;
     
     let items = [...catalogData];
     
-    // Category filter
     if (currentCategory !== 'All') {
       items = items.filter(item => item.category === currentCategory);
     }
     
-    // Sort
     const sortVal = sortSelect.value;
     if (sortVal === 'price-low') {
       items.sort((a, b) => a.price - b.price);
@@ -210,34 +205,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function renderHomepageFeatured() {
-    if (!homepageFeaturedGrid) return;
-    homepageFeaturedGrid.innerHTML = '';
-    const featuredItems = catalogData.filter(item => item.featured);
-    featuredItems.forEach(item => {
-      homepageFeaturedGrid.appendChild(createProductCard(item));
-    });
+  function renderHomepageShelves() {
+    if (shelfFreshGrid) {
+      shelfFreshGrid.innerHTML = '';
+      const items = catalogData.filter(item => item.category === 'Fresh').slice(0, 4);
+      items.forEach(item => shelfFreshGrid.appendChild(createProductCard(item)));
+    }
+    if (shelfTechGrid) {
+      shelfTechGrid.innerHTML = '';
+      const items = catalogData.filter(item => item.category === 'Electronics').slice(0, 4);
+      items.forEach(item => shelfTechGrid.appendChild(createProductCard(item)));
+    }
+    if (shelfEssentialsGrid) {
+      shelfEssentialsGrid.innerHTML = '';
+      const items = catalogData.filter(item => item.category === 'Essentials').slice(0, 4);
+      items.forEach(item => shelfEssentialsGrid.appendChild(createProductCard(item)));
+    }
   }
 
   function createProductCard(item) {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    let stars = '★'.repeat(Math.round(item.rating)) + '☆'.repeat(5 - Math.round(item.rating));
     const svgIcon = getProductSVG(item.category);
+    const discountAmt = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
     
+    // Star rating
+    let starsStr = '★ ' + item.rating;
+
+    // Zepto layout card structure:
+    // Floating ADD button, weight, price, strike-through, green off label. NO VAT text.
     card.innerHTML = `
-      <span class="prod-badge">⚡ 10-Min Delivery</span>
-      <div class="prod-img-box">${svgIcon}</div>
+      <div class="prod-img-box">
+        ${svgIcon}
+        <button class="btn-add-floating" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">ADD</button>
+      </div>
       <div class="prod-info">
-        <div class="prod-rating">${stars} (${item.rating})</div>
-        <h4 class="prod-title">${item.name}</h4>
-        <div class="prod-price-block">
-          <span class="prod-retail-price">AED ${item.price.toFixed(2)}</span>
-          <span class="prod-vat-tag">VAT 5% inclusive (AED ${(item.price - (item.price/1.05)).toFixed(2)} tax)</span>
+        <span class="prod-rating-badge">${starsStr}</span>
+        <h4 class="prod-title">${escapeHTML(item.name)}</h4>
+        <div class="prod-weight-lbl">${item.weight}</div>
+        
+        <div class="prod-price-row">
+          <div class="price-figures">
+            <span class="prod-retail-price">AED ${item.price.toFixed(2)}</span>
+            <span class="prod-original-price">AED ${item.originalPrice.toFixed(2)}</span>
+          </div>
+          <span class="discount-badge">${discountAmt}% OFF</span>
         </div>
       </div>
-      <button class="btn btn-add-cart" onclick="triggerAddToCart(${item.id})">Add to Cart</button>
     `;
     return card;
   }
@@ -245,14 +260,12 @@ document.addEventListener('DOMContentLoaded', () => {
   window.filterByCategory = function(category) {
     currentCategory = category;
     
-    const filterLinks = document.querySelectorAll('.filter-link');
-    filterLinks.forEach(link => {
-      if (link.textContent.includes(category) || (category === 'All' && link.textContent === 'All Items')) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.classList.remove('active');
     });
+    
+    const activePill = document.getElementById(`pill-${category}`);
+    if (activePill) activePill.classList.add('active');
 
     switchView('shop');
     renderCatalog();
@@ -339,7 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btnOpenCart.style.transform = 'none';
     }, 200);
 
-    toggleCartDrawer(true);
+    showNotification(`${product.name} added to cart.`);
+    renderCartDrawer();
   };
 
   window.updateCartQuantity = function(id, delta) {
@@ -439,17 +453,35 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentEstimatedEta = 11;
   let currentDistance = 1.8;
 
-  if (chkMapContainer) {
-    chkMapContainer.addEventListener('click', (e) => {
-      const rect = chkMapContainer.getBoundingClientRect();
+  function updateAddressState(hub, distance, eta, addressStr) {
+    activeHubNode = hub;
+    currentDistance = distance;
+    currentEstimatedEta = eta;
+
+    // Update checkout fields
+    if (chkDestNode) chkDestNode.value = hub.region;
+    if (chkDestEta) chkDestEta.value = `${eta} mins (Micro-Fulfillment)`;
+    if (chkAddress) chkAddress.value = addressStr;
+
+    // Update header display text
+    const headerDisplay = document.getElementById('header-location-display');
+    if (headerDisplay) {
+      headerDisplay.textContent = hub.region;
+      headerDisplay.style.fontWeight = '700';
+    }
+  }
+
+  function handleMapClick(mapContainer, mapPin, destNodeInput, destEtaInput, addressInput, callback) {
+    mapContainer.addEventListener('click', (e) => {
+      const rect = mapContainer.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
       
       const percentX = (clickX / rect.width) * 100;
       const percentY = (clickY / rect.height) * 100;
       
-      chkMapPin.style.left = `${percentX}%`;
-      chkMapPin.style.top = `${percentY}%`;
+      mapPin.style.left = `${percentX}%`;
+      mapPin.style.top = `${percentY}%`;
       
       let selectedHub;
       if (percentX < 50 && percentY < 50) {
@@ -462,14 +494,27 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedHub = fulfillmentHubs[3];
       }
       
-      activeHubNode = selectedHub;
+      const dist = parseFloat((Math.random() * (selectedHub.distanceRange[1] - selectedHub.distanceRange[0]) + selectedHub.distanceRange[0]).toFixed(1));
+      const eta = Math.floor(Math.random() * (selectedHub.etaRange[1] - selectedHub.etaRange[0] + 1)) + selectedHub.etaRange[0];
       
-      currentDistance = parseFloat((Math.random() * (selectedHub.distanceRange[1] - selectedHub.distanceRange[0]) + selectedHub.distanceRange[0]).toFixed(1));
-      currentEstimatedEta = Math.floor(Math.random() * (selectedHub.etaRange[1] - selectedHub.etaRange[0] + 1)) + selectedHub.etaRange[0];
-      
-      chkDestNode.value = selectedHub.region;
-      chkDestEta.value = `${currentEstimatedEta} mins (Micro-Fulfillment)`;
-      chkAddress.value = selectedHub.address;
+      destNodeInput.value = selectedHub.region;
+      destEtaInput.value = `${eta} mins (Micro-Fulfillment)`;
+      addressInput.value = selectedHub.address;
+
+      if (callback) callback(selectedHub, dist, eta, selectedHub.address);
+    });
+  }
+
+  // Register checkout map click
+  if (chkMapContainer) {
+    handleMapClick(chkMapContainer, chkMapPin, chkDestNode, chkDestEta, chkAddress, (hub, dist, eta, addr) => {
+      updateAddressState(hub, dist, eta, addr);
+      // Align header pin
+      const hdrMapPin = document.getElementById('header-map-pin');
+      if (hdrMapPin) {
+        hdrMapPin.style.left = chkMapPin.style.left;
+        hdrMapPin.style.top = chkMapPin.style.top;
+      }
     });
   }
 
@@ -547,7 +592,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Register order state
       let grossTotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       if (selectedPaymentMethod === 'cod') grossTotalAmount += 10.00;
 
@@ -565,21 +609,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
       localStorage.setItem('velo_active_order', JSON.stringify(activeOrder));
       
-      // Update customer points
       walletPoints += 15;
       localStorage.setItem('velo_wallet_points', walletPoints.toString());
-      
-      // Add ledger history
       logWalletLedgerEvent('Catalog checkout order: +15 pts earned.');
 
-      // Clear cart
       cart = [];
       localStorage.setItem('velo_cart', JSON.stringify(cart));
       updateCartBadge();
 
       showNotification(`Order placed! Order ID: ${activeOrder.id}. Transmitting delivery routing...`);
-      
       switchView('tracker');
+    });
+  }
+
+  // ==========================================
+  // 6b. Header "Select Location" Modal Map Handler
+  // ==========================================
+  const btnSelectLocationHeader = document.getElementById('btn-select-location-header');
+  const btnCloseLocationModal = document.getElementById('btn-close-location-modal');
+  const locationMapModalContainer = document.getElementById('location-map-modal-container');
+  const btnConfirmLocation = document.getElementById('btn-confirm-location');
+  
+  const headerMapContainer = document.getElementById('header-map-container');
+  const headerMapPin = document.getElementById('header-map-pin');
+  const hdrDestNode = document.getElementById('hdr-dest-node');
+  const hdrDestEta = document.getElementById('hdr-dest-eta');
+  const hdrAddressInput = document.getElementById('hdr-address-input');
+
+  let tempSelectedHub = fulfillmentHubs[1];
+  let tempDistance = 1.8;
+  let tempEta = 11;
+
+  if (btnSelectLocationHeader) {
+    btnSelectLocationHeader.addEventListener('click', () => {
+      locationMapModalContainer.classList.remove('hidden');
+    });
+  }
+
+  if (btnCloseLocationModal) {
+    btnCloseLocationModal.addEventListener('click', () => {
+      locationMapModalContainer.classList.add('hidden');
+    });
+  }
+
+  if (headerMapContainer) {
+    handleMapClick(headerMapContainer, headerMapPin, hdrDestNode, hdrDestEta, hdrAddressInput, (hub, dist, eta, addr) => {
+      tempSelectedHub = hub;
+      tempDistance = dist;
+      tempEta = eta;
+
+      // Align checkout pin coordinate marker dynamically
+      const chkMapPin = document.getElementById('checkout-map-pin');
+      if (chkMapPin) {
+        chkMapPin.style.left = headerMapPin.style.left;
+        chkMapPin.style.top = headerMapPin.style.top;
+      }
+    });
+  }
+
+  if (btnConfirmLocation) {
+    btnConfirmLocation.addEventListener('click', () => {
+      updateAddressState(tempSelectedHub, tempDistance, tempEta, hdrAddressInput.value);
+      locationMapModalContainer.classList.add('hidden');
+      showNotification(`Location set to ${tempSelectedHub.region}.`);
     });
   }
 
@@ -862,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize
   renderCatalog();
-  renderHomepageFeatured();
+  renderHomepageShelves();
   updateCartBadge();
   renderWalletData();
   renderWalletLedgerLogs();
