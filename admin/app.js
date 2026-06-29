@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Create or Update Seller Settings
-  btnSaveSeller.addEventListener('click', () => {
+  btnSaveSeller.addEventListener('click', async () => {
     const name = sellerNameInput.value.trim();
     const email = sellerEmailInput.value.trim();
     const password = sellerPasswordInput.value;

@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Trigger Add or Update Product
-  btnSaveProd.addEventListener('click', () => {
+  btnSaveProd.addEventListener('click', async () => {
     const name = prodNameInput.value.trim();
     const category = document.getElementById('selected-category-val').textContent;
     const weight = document.getElementById('selected-weight-val').textContent;
