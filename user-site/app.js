@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. E-Commerce Product Database
   // ==========================================
   const catalogData = [
-    { id: 1, name: "Fresh Organic Avocados (4-Pack)", category: "Fresh", price: 28.00, icon: "🥑", rating: 4.8, featured: true },
-    { id: 2, name: "Organic Whole Milk 1L", category: "Fresh", price: 8.50, icon: "🥛", rating: 4.9, featured: true },
-    { id: 3, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 105.00, icon: "🎧", rating: 4.7, featured: true },
-    { id: 4, name: "Smart Fit Tracker Watch", category: "Electronics", price: 195.00, icon: "⌚", rating: 4.6, featured: false },
-    { id: 5, name: "Eco Cotton Bath Towels", category: "Essentials", price: 48.00, icon: "🧼", rating: 4.5, featured: false },
-    { id: 6, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 32.00, icon: "🥤", rating: 4.7, featured: true },
-    { id: 7, name: "Matte Liquid Lipstick", category: "Beauty", price: 62.00, icon: "💄", rating: 4.4, featured: false },
-    { id: 8, name: "Hydrating Aloe Face Serum", category: "Beauty", price: 88.00, icon: "🧴", rating: 4.8, featured: true }
+    { id: 1, name: "Fresh Organic Avocados (4-Pack)", category: "Fresh", price: 28.00, rating: 4.8, featured: true },
+    { id: 2, name: "Organic Whole Milk 1L", category: "Fresh", price: 8.50, rating: 4.9, featured: true },
+    { id: 3, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 105.00, rating: 4.7, featured: true },
+    { id: 4, name: "Smart Fit Tracker Watch", category: "Electronics", price: 195.00, rating: 4.6, featured: false },
+    { id: 5, name: "Eco Cotton Bath Towels", category: "Essentials", price: 48.00, rating: 4.5, featured: false },
+    { id: 6, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 32.00, rating: 4.7, featured: true },
+    { id: 7, name: "Matte Liquid Lipstick", category: "Beauty", price: 62.00, rating: 4.4, featured: false },
+    { id: 8, name: "Hydrating Aloe Face Serum", category: "Beauty", price: 88.00, rating: 4.8, featured: true }
   ];
 
   // State Variables
@@ -57,6 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
+  // Professional SVG outline icons matching category selections (emoji replacements)
+  function getProductSVG(category) {
+    if (category === "Fresh") {
+      // Shopping Cart/Basket outline
+      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`;
+    } else if (category === "Electronics") {
+      // Tech/Headphone outline
+      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>`;
+    } else if (category === "Essentials") {
+      // Home outline
+      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`;
+    } else {
+      // Beauty/Cosmetic Sparkle or Star outline
+      return `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>`;
+    }
+  }
+
   // ==========================================
   // 2. Carousel Banner Slider Logic
   // ==========================================
@@ -67,12 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let carouselInterval;
 
   function showSlide(index) {
+    if (carouselSlides.length === 0) return;
     carouselSlides.forEach(slide => slide.classList.remove('active'));
     currentSlideIndex = (index + carouselSlides.length) % carouselSlides.length;
     carouselSlides[currentSlideIndex].classList.add('active');
   }
 
   function startCarouselTimer() {
+    if (carouselSlides.length === 0) return;
     clearInterval(carouselInterval);
     carouselInterval = setInterval(() => {
       showSlide(currentSlideIndex + 1);
@@ -104,23 +123,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.switchView = function(viewName) {
     views.forEach(view => view.classList.remove('active'));
+    
+    // Clear active classes from desktop and mobile menus
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+    document.querySelectorAll('.m-nav-btn').forEach(btn => btn.classList.remove('active'));
 
     const targetView = document.getElementById(`view-${viewName}`);
     if (targetView) targetView.classList.add('active');
 
-    // Update active nav links
-    if (viewName === 'homepage') {
-      if (navHome) navHome.classList.add('active');
-    } else {
-      const activeNav = document.getElementById(`nav-${viewName}`);
-      if (activeNav) activeNav.classList.add('active');
-    }
+    // Desktop Nav Sync
+    const activeNav = document.getElementById(`nav-${viewName === 'homepage' ? 'home' : viewName}`);
+    if (activeNav) activeNav.classList.add('active');
 
-    // Scroll to top
+    // Mobile Nav Sync
+    const activeMNav = document.getElementById(`m-nav-${viewName === 'homepage' ? 'home' : viewName}`);
+    if (activeMNav) activeMNav.classList.add('active');
+
     window.scrollTo(0, 0);
 
-    // Context triggers
     if (viewName === 'tracker') {
       initializeLiveTracker();
     }
@@ -161,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
       items.sort((a, b) => b.rating - a.rating);
     }
 
-    // Set count labels
     resultsCountLabel.textContent = `Showing ${items.length} products`;
     activeCategoryBadge.textContent = currentCategory === 'All' ? 'All Categories' : `${currentCategory} Category`;
 
@@ -184,12 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    // Stars
     let stars = '★'.repeat(Math.round(item.rating)) + '☆'.repeat(5 - Math.round(item.rating));
+    const svgIcon = getProductSVG(item.category);
     
     card.innerHTML = `
       <span class="prod-badge">⚡ 10-Min Delivery</span>
-      <div class="prod-img-box">${item.icon}</div>
+      <div class="prod-img-box">${svgIcon}</div>
       <div class="prod-info">
         <div class="prod-rating">${stars} (${item.rating})</div>
         <h4 class="prod-title">${item.name}</h4>
@@ -206,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.filterByCategory = function(category) {
     currentCategory = category;
     
-    // Update navigation styles inside catalog links
     const filterLinks = document.querySelectorAll('.filter-link');
     filterLinks.forEach(link => {
       if (link.textContent.includes(category) || (category === 'All' && link.textContent === 'All Items')) {
@@ -286,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const product = catalogData.find(item => item.id === productId);
     if (!product) return;
     
-    // Check if product already exists
     const existing = cart.find(item => item.id === productId);
     if (existing) {
       existing.quantity += 1;
@@ -297,13 +314,11 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('velo_cart', JSON.stringify(cart));
     updateCartBadge();
     
-    // Small micro-animation feedback
     btnOpenCart.style.transform = 'scale(1.2)';
     setTimeout(() => {
       btnOpenCart.style.transform = 'none';
     }, 200);
 
-    // Auto open drawer
     toggleCartDrawer(true);
   };
 
@@ -395,13 +410,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const invoiceNet = document.getElementById('invoice-net');
   const invoiceVat = document.getElementById('invoice-vat');
   const invoiceSurchargeRow = document.getElementById('invoice-surcharge-row');
-  const invoiceSurchargeVal = document.getElementById('invoice-surcharge');
   const invoiceTotal = document.getElementById('invoice-total');
   
   const btnSubmitOrder = document.getElementById('btn-submit-order');
 
   let selectedPaymentMethod = 'card';
-  let activeHubNode = fulfillmentHubs[1]; // Downtown Dubai Hub #2
+  let activeHubNode = fulfillmentHubs[1]; // Default: Downtown Dubai Hub #2
   let currentEstimatedEta = 11;
   let currentDistance = 1.8;
 
@@ -543,9 +557,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('velo_cart', JSON.stringify(cart));
       updateCartBadge();
 
-      alert(`Thank you! Order ${activeOrder.id} has been received. Redirecting to live tracking map...`);
+      alert(`Order placed! Order ID: ${activeOrder.id}. Transmitting delivery routing...`);
       
-      // Redirect to tracker
       switchView('tracker');
     });
   }
@@ -578,11 +591,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Set static displays
     nodeLbl.textContent = activeOrder.hubNode;
     distanceLbl.textContent = `${activeOrder.distance} km`;
 
-    // Map Hub vs customer position offsets
     let hubTop = 35;
     let hubLeft = 35;
     let custTop = 65;
@@ -594,21 +605,18 @@ document.addEventListener('DOMContentLoaded', () => {
     mapCustNode.style.top = `${custTop}%`;
     mapCustNode.style.left = `${custLeft}%`;
 
-    // Reset courier starting position (at the hub)
     courierPin.style.top = `${hubTop}%`;
     courierPin.style.left = `${hubLeft}%`;
 
-    // Set countdown minutes
     let secondsRemaining = activeOrder.eta * 60;
     
-    // Visual steps
     stepLine.style.height = '33%';
     stageSteps[0].className = 'stage-step done';
     stageSteps[1].className = 'stage-step active';
     stageSteps[2].className = 'stage-step';
 
     trackingInterval = setInterval(() => {
-      secondsRemaining -= 15; // Speed up timeline slightly (e.g. 15s per tick)
+      secondsRemaining -= 15; 
       if (secondsRemaining <= 0) {
         clearInterval(trackingInterval);
         timerLbl.textContent = "Arrived!";
@@ -625,12 +633,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Calculate formatting
       let min = Math.floor(secondsRemaining / 60);
       let sec = Math.floor(secondsRemaining % 60);
       timerLbl.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
 
-      // Calculate path ratio
       const totalSeconds = activeOrder.eta * 60;
       const ratio = 1 - (secondsRemaining / totalSeconds);
       
@@ -640,11 +646,9 @@ document.addEventListener('DOMContentLoaded', () => {
       courierPin.style.top = `${currentTop}%`;
       courierPin.style.left = `${currentLeft}%`;
       
-      // Update intermediate distance
       const remainingDist = (activeOrder.distance * (1 - ratio)).toFixed(1);
       distanceLbl.textContent = `${remainingDist} km`;
 
-      // Update stepper stages
       if (ratio > 0.5 && ratio < 0.9) {
         stepLine.style.height = '66%';
       }
@@ -672,11 +676,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function logWalletLedgerEvent(msg) {
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     
-    // Save to localStorage list
     let logs = JSON.parse(localStorage.getItem('velo_wallet_logs')) || [];
     logs.unshift({ time, msg });
     
-    // Cap logs count
     while (logs.length > 5) logs.pop();
     
     localStorage.setItem('velo_wallet_logs', JSON.stringify(logs));
@@ -716,7 +718,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnCopyRef.textContent = 'Copy Link';
       }, 2000);
       
-      // Proactive points incentive
       walletBalance += 25.00;
       walletPoints += 50;
       walletReferrals += 1;
@@ -726,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('velo_wallet_referrals', walletReferrals.toString());
       
       renderWalletData();
-      logWalletLedgerEvent('Referral link copy confirmed: +AED 25.00 sign-on credited.');
+      logWalletLedgerEvent('Referral confirmed. Account credited: +AED 25.00 / +50 pts.');
     });
   }
 
@@ -781,7 +782,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Auto-advance inputs
   modalOtpBoxes.forEach((input, index) => {
     input.addEventListener('input', (e) => {
       const val = e.target.value;
