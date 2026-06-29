@@ -21,19 +21,129 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================
-  // 1. E-Commerce Product Database (UAE mixed religion items, Zepto pricing)
+  // 1. E-Commerce Product Database (UAE themed with online image assets)
   // ==========================================
   const catalogData = [
-    { id: 1, name: "Fresh Organic Khalas Dates", category: "Fresh", price: 18.00, originalPrice: 28.00, weight: "400 g", rating: 4.9, bestseller: true, tagLabel: "Direct Sourced" },
-    { id: 2, name: "Al Ain Fresh Whole Cow Milk", category: "Fresh", price: 7.00, originalPrice: 10.00, weight: "1 pack (1L)", rating: 4.8, bestseller: false, tagLabel: "Fresh Dairy" },
-    { id: 3, name: "Premium Turkish Labneh Pouch", category: "Fresh", price: 12.00, originalPrice: 18.00, weight: "1 pack (500 g)", rating: 4.7, bestseller: true, tagLabel: "Creamy" },
-    { id: 4, name: "Local Coriander Leaves Bunch", category: "Fresh", price: 2.00, originalPrice: 4.50, weight: "100 g", rating: 4.9, bestseller: false, tagLabel: "Hydroponic" },
-    { id: 5, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 95.00, originalPrice: 150.00, weight: "1 unit", rating: 4.7, bestseller: true, tagLabel: "Bass Boost" },
-    { id: 6, name: "Smart Fit Tracker Watch", category: "Electronics", price: 190.00, originalPrice: 275.00, weight: "1 unit", rating: 4.6, bestseller: false, tagLabel: "Active Tracker" },
-    { id: 7, name: "Eco Cotton Bath Towels", category: "Essentials", price: 45.00, originalPrice: 65.00, weight: "2 pcs", rating: 4.5, bestseller: false, tagLabel: "Soft Cotton" },
-    { id: 8, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 28.00, originalPrice: 42.00, weight: "1 pc (750 ml)", rating: 4.7, bestseller: true, tagLabel: "Keep Cold" },
-    { id: 9, name: "Hydrating Aloe Vera Serum", category: "Beauty", price: 78.00, originalPrice: 110.00, weight: "1 pack (50 ml)", rating: 4.8, bestseller: true, tagLabel: "Moisturizing" },
-    { id: 10, name: "Rosewater Refreshing Face Mist", category: "Beauty", price: 42.00, originalPrice: 60.00, weight: "1 bottle (100 ml)", rating: 4.6, bestseller: false, tagLabel: "Mixed Floral" }
+    { 
+      id: 1, 
+      name: "Fresh Organic Khalas Dates", 
+      category: "Fresh", 
+      price: 18.00, 
+      originalPrice: 28.00, 
+      weight: "400 g", 
+      rating: 4.9, 
+      bestseller: true, 
+      tagLabel: "Direct Sourced",
+      image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 2, 
+      name: "Al Ain Fresh Whole Milk", 
+      category: "Fresh", 
+      price: 7.00, 
+      originalPrice: 10.00, 
+      weight: "1 pack (1L)", 
+      rating: 4.8, 
+      bestseller: false, 
+      tagLabel: "Fresh Dairy",
+      image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 3, 
+      name: "Premium Turkish Labneh Pouch", 
+      category: "Fresh", 
+      price: 12.00, 
+      originalPrice: 18.00, 
+      weight: "1 pack (500 g)", 
+      rating: 4.7, 
+      bestseller: true, 
+      tagLabel: "Creamy",
+      image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 4, 
+      name: "Local Coriander Leaves Bunch", 
+      category: "Fresh", 
+      price: 2.00, 
+      originalPrice: 4.50, 
+      weight: "100 g", 
+      rating: 4.9, 
+      bestseller: false, 
+      tagLabel: "Hydroponic",
+      image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 5, 
+      name: "Wireless Bluetooth Earbuds", 
+      category: "Electronics", 
+      price: 95.00, 
+      originalPrice: 150.00, 
+      weight: "1 unit", 
+      rating: 4.7, 
+      bestseller: true, 
+      tagLabel: "Bass Boost",
+      image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 6, 
+      name: "Smart Fit Tracker Watch", 
+      category: "Electronics", 
+      price: 190.00, 
+      originalPrice: 275.00, 
+      weight: "1 unit", 
+      rating: 4.6, 
+      bestseller: false, 
+      tagLabel: "Active Tracker",
+      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 7, 
+      name: "Eco Cotton Bath Towels", 
+      category: "Essentials", 
+      price: 45.00, 
+      originalPrice: 65.00, 
+      weight: "2 pcs", 
+      rating: 4.5, 
+      bestseller: false, 
+      tagLabel: "Soft Cotton",
+      image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 8, 
+      name: "Stainless Thermal Water Bottle", 
+      category: "Essentials", 
+      price: 28.00, 
+      originalPrice: 42.00, 
+      weight: "1 pc (750 ml)", 
+      rating: 4.7, 
+      bestseller: true, 
+      tagLabel: "Keep Cold",
+      image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 9, 
+      name: "Hydrating Aloe Vera Serum", 
+      category: "Beauty", 
+      price: 78.00, 
+      originalPrice: 110.00, 
+      weight: "1 pack (50 ml)", 
+      rating: 4.8, 
+      bestseller: true, 
+      tagLabel: "Moisturizing",
+      image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&auto=format&fit=crop&q=60"
+    },
+    { 
+      id: 10, 
+      name: "Rosewater Refreshing Face Mist", 
+      category: "Beauty", 
+      price: 42.00, 
+      originalPrice: 60.00, 
+      weight: "1 bottle (100 ml)", 
+      rating: 4.6, 
+      bestseller: false, 
+      tagLabel: "Mixed Floral",
+      image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&auto=format&fit=crop&q=60"
+    }
   ];
 
   // State Variables
@@ -79,19 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  // Professional SVG outline icons matching category selections
-  function getProductSVG(category) {
-    if (category === "Fresh") {
-      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>`;
-    } else if (category === "Electronics") {
-      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>`;
-    } else if (category === "Essentials") {
-      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`;
-    } else {
-      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>`;
-    }
-  }
-
   // ==========================================
   // 3. Navigation View Switcher (Tab routing)
   // ==========================================
@@ -132,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (homeLogoBtn) homeLogoBtn.addEventListener('click', (e) => { e.preventDefault(); switchView('homepage'); });
 
   // ==========================================
-  // 4. Catalog & Shelf Rendering (Zepto Card Style)
+  // 4. Catalog & Shelf Rendering (Zepto Card Style with Image Elements)
   // ==========================================
   const catalogGrid = document.getElementById('catalog-grid');
   const activeCategoryBadge = document.getElementById('active-category-badge');
@@ -211,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    const svgIcon = getProductSVG(item.category);
     const savings = Math.round(item.originalPrice - item.price);
     
     // Star rating
@@ -220,12 +316,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bestseller tag
     const bestsellerTag = item.bestseller ? `<div class="prod-bestseller-badge">Bestseller</div>` : '';
 
-    // Zepto layout card structure:
-    // Solid green price tag (badge), strike-through, green off label, bottom outline pill.
+    // Render with <img> instead of SVG placeholder
     card.innerHTML = `
       ${bestsellerTag}
       <div class="prod-img-box">
-        ${svgIcon}
+        <img src="${item.image}" alt="${escapeHTML(item.name)}" class="prod-img">
         <button class="btn-add-floating" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">ADD</button>
       </div>
       <div class="prod-info">

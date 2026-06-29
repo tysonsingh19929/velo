@@ -129,14 +129,14 @@ p {
 .btn-link {
   background: none;
   border: none;
-  color: #db2777; /* Premium Pink see-all link */
+  color: #eab308; /* Premium Pink see-all link */
   text-decoration: none;
   font-weight: 700;
   cursor: pointer;
   font-size: 0.9rem;
 }
 .btn-link:hover {
-  color: #be185d;
+  color: #ca8a04;
 }
 
 .btn-icon {
@@ -224,7 +224,7 @@ p {
 }
 
 .loc-icon-wrapper {
-  color: #db2777; /* Accent Pink location pin matching Zepto */
+  color: #eab308; /* Accent Pink location pin matching Zepto */
   display: flex;
   align-items: center;
 }
@@ -263,7 +263,7 @@ p {
 }
 
 .header-search-box input:focus {
-  border-color: #db2777;
+  border-color: #eab308;
   outline: none;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
@@ -311,7 +311,7 @@ p {
   left: 0;
   width: 100%;
   height: 2.5px;
-  background: #db2777;
+  background: #eab308;
   border-radius: 2px;
 }
 
@@ -344,7 +344,7 @@ p {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #db2777;
+  background: #eab308;
   color: white;
   font-size: 0.7rem;
   font-weight: 700;
@@ -411,8 +411,8 @@ p {
 }
 
 .cat-pill:hover .cat-pill-icon-box, .cat-pill.active .cat-pill-icon-box {
-  background: #fce7f3; /* Light Pink hover/active */
-  color: #db2777;
+  background: #fef9c3; /* Light Pink hover/active */
+  color: #eab308;
   transform: scale(1.05);
 }
 
@@ -452,7 +452,7 @@ p {
 }
 
 .m-nav-btn.active {
-  color: #db2777;
+  color: #eab308;
 }
 
 .m-nav-lbl {
@@ -489,7 +489,7 @@ p {
 .promo-banner-card {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  background: linear-gradient(135deg, #fbcfe8, #fce7f3); /* Soft pink colors */
+  background: linear-gradient(135deg, #fef08a, #fef9c3); /* Soft pink colors */
   border-radius: 16px;
   border: 1px solid rgba(219, 39, 119, 0.15);
   margin-bottom: 40px;
@@ -511,7 +511,7 @@ p {
 .promo-content h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #be185d;
+  color: #ca8a04;
 }
 
 .promo-content h2 {
@@ -522,18 +522,18 @@ p {
 
 .promo-content p {
   font-size: 0.95rem;
-  color: #be185d;
+  color: #ca8a04;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
 .promo-content .btn-primary {
-  background: #db2777;
-  border-color: #db2777;
-  color: white;
+  background: #facc15;
+  border-color: #eab308;
+  color: #0f172a;
 }
 .promo-content .btn-primary:hover {
-  background: #be185d;
+  background: #ca8a04;
 }
 
 .promo-visual-graphic {
@@ -637,8 +637,8 @@ p {
   bottom: -8px;
   right: 12px;
   background: #ffffff;
-  border: 1.5px solid #f43f5e; /* Rose/Pink border */
-  color: #f43f5e;
+  border: 1.5px solid #eab308; /* Rose/Pink border */
+  color: #eab308;
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.8rem;
@@ -651,7 +651,7 @@ p {
 }
 
 .btn-add-floating:hover {
-  background: #f43f5e;
+  background: #eab308;
   color: white;
   transform: scale(1.05);
 }
@@ -749,8 +749,8 @@ p {
 
 /* See All shelf pink block card */
 .see-all-card {
-  background: #db2777; /* Hot Pink */
-  color: white;
+  background: #facc15;
+  color: #0f172a;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -765,7 +765,7 @@ p {
 }
 
 .see-all-card:hover {
-  background: #be185d;
+  background: #ca8a04;
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
@@ -785,7 +785,7 @@ p {
   height: 40px;
   border-radius: 50%;
   background: white;
-  color: #db2777;
+  color: #eab308;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -823,8 +823,8 @@ p {
 .active-filter-badge {
   font-size: 0.75rem;
   font-weight: 700;
-  background: #fce7f3;
-  color: #db2777;
+  background: #fef9c3;
+  color: #eab308;
   padding: 4px 12px;
   border-radius: 6px;
 }
@@ -980,7 +980,7 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="password
 }
 
 input:focus {
-  border-color: #db2777;
+  border-color: #eab308;
   outline: none;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
@@ -1011,9 +1011,9 @@ input:focus {
 }
 
 .payment-card-option.active {
-  border-color: #db2777;
+  border-color: #eab308;
   background: rgba(219, 39, 119, 0.03);
-  box-shadow: 0 0 0 1px #db2777;
+  box-shadow: 0 0 0 1px #eab308;
 }
 
 .pay-icon-wrapper {
@@ -2034,4 +2034,18 @@ body {
     max-width: none;
     width: calc(100% - 48px);
   }
+}
+
+
+/* Product Image Scaling and Fitting */
+.prod-img-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .prod-img-box img {
+  transform: scale(1.05);
 }
