@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VeloResell — Instant Grocery & Daily Essentials Storefront</title>
-  <meta name="description" content="Shop fresh groceries, electronics, and home essentials. Instant 10-15 minute delivery, transparent VAT billing, and secure local checkout.">
+  <title>VeloResell — Instant Grocery & Daily Essentials</title>
+  <meta name="description" content="Shop fresh groceries, local dairy, tech accessories, and home essentials. 10-minute delivery to JLT, Marina, and Downtown Dubai.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
             <path d="M9 16L13.5 20.5L23 11" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             <defs>
               <linearGradient id="header-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#111111"/>
+                <stop stop-color="#db2777"/>
                 <stop offset="1" stop-color="#facc15"/>
               </linearGradient>
             </defs>
@@ -30,7 +30,7 @@
           <span class="logo-text">VeloResell</span>
         </a>
         
-        <!-- Select Location Dropdown (Zepto Style) -->
+        <!-- Select Location Dropdown -->
         <button class="header-location-btn" id="btn-select-location-header">
           <div class="loc-icon-wrapper">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -42,7 +42,7 @@
 
       <!-- Search Bar -->
       <div class="header-search-box">
-        <input type="text" id="search-input" placeholder="Search for groceries, tech, essentials...">
+        <input type="text" id="search-input" placeholder="Search for fresh food, daily essentials...">
         <button id="search-btn">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </button>
@@ -69,45 +69,65 @@
     </div>
   </header>
 
-  <!-- Horizontal Scrolling Category Row (Directly below Header - Zepto Style) -->
+  <!-- Horizontal Category Navigation Bar (Zepto aligned, Cafe removed) -->
   <div class="sub-header-category-bar">
     <div class="category-scroll-container" id="horizontal-category-scroll">
+      
       <button class="cat-pill active" id="pill-all" onclick="filterByCategory('All')">
-        <svg class="cat-svg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <span>All Items</span>
+        <div class="cat-pill-icon-box">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </div>
+        <span>All</span>
       </button>
+
       <button class="cat-pill" id="pill-Fresh" onclick="filterByCategory('Fresh')">
-        <svg class="cat-svg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
-        <span>Fresh Groceries</span>
+        <div class="cat-pill-icon-box">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>
+        </div>
+        <span>Fresh food</span>
       </button>
+
       <button class="cat-pill" id="pill-Electronics" onclick="filterByCategory('Electronics')">
-        <svg class="cat-svg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>
-        <span>Tech Accessories</span>
+        <div class="cat-pill-icon-box">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>
+        </div>
+        <span>Electronics</span>
       </button>
+
       <button class="cat-pill" id="pill-Essentials" onclick="filterByCategory('Essentials')">
-        <svg class="cat-svg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+        <div class="cat-pill-icon-box">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+        </div>
         <span>Home Essentials</span>
       </button>
+
       <button class="cat-pill" id="pill-Beauty" onclick="filterByCategory('Beauty')">
-        <svg class="cat-svg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>
-        <span>Cosmetics & Care</span>
+        <div class="cat-pill-icon-box">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>
+        </div>
+        <span>Beauty & Care</span>
       </button>
+
     </div>
   </div>
 
-  <!-- Mobile Bottom Navigation Bar (Visible only on Mobile) -->
+  <!-- Mobile Bottom Tab Bar -->
   <nav class="mobile-bottom-nav">
     <button class="m-nav-btn active" id="m-nav-home" onclick="switchView('homepage')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span class="m-nav-lbl">Home</span>
     </button>
     <button class="m-nav-btn" id="m-nav-shop" onclick="switchView('shop')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+      <span class="m-nav-lbl">Shop</span>
     </button>
     <button class="m-nav-btn" id="m-nav-tracker" onclick="switchView('tracker')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      <span class="m-nav-lbl">Track</span>
     </button>
     <button class="m-nav-btn" id="m-nav-wallet" onclick="switchView('wallet')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+      <span class="m-nav-lbl">Wallet</span>
     </button>
   </nav>
 
@@ -117,38 +137,26 @@
     <!-- VIEW 1: HOME PAGE VIEW -->
     <section class="storefront-view active" id="view-homepage">
       
-      <!-- Banner Slider -->
-      <div class="banner-carousel">
-        <div class="carousel-track" id="carousel-track-el">
-          <div class="carousel-slide slide-1 active">
-            <div class="slide-content">
-              <span class="slide-badge">10-Minute Micro-Fulfillment</span>
-              <h2>Instant Delivery. Zero Waiting.</h2>
-              <p>Fresh groceries, kitchen essentials, and daily tech accessories dispatched from local neighborhood nodes to your door.</p>
-              <button class="btn btn-primary btn-lg" onclick="switchView('shop')">Shop Storefront</button>
-            </div>
-          </div>
-          <div class="carousel-slide slide-2">
-            <div class="slide-content">
-              <span class="slide-badge">Wholesale Margins</span>
-              <h2>Transparent Pricing Standards</h2>
-              <p>Direct platform connections. No middleman markups. Transparent VAT invoice logging on every checkout.</p>
-              <button class="btn btn-primary btn-lg" onclick="switchView('shop')">Explore Catalog</button>
-            </div>
-          </div>
+      <!-- Zepto Aligned Promo Banner Card -->
+      <div class="promo-banner-card">
+        <div class="promo-content">
+          <h3>Get local dates, labneh & fresh dairy at</h3>
+          <h2>AED 0 Delivery Fee</h2>
+          <p>Delivered in 10 minutes from JLT, Downtown & Marina stores.</p>
+          <button class="btn btn-primary" onclick="switchView('shop')">Order now</button>
         </div>
-        <!-- Slides Navigation -->
-        <button class="carousel-arrow prev" id="carousel-prev-btn">‹</button>
-        <button class="carousel-arrow next" id="carousel-next-btn">›</button>
+        <div class="promo-visual-graphic">
+          <div class="visual-bike-box">🚴</div>
+        </div>
       </div>
 
-      <!-- Shelves Layout (Zepto Style) -->
+      <!-- Shelves Layout (Zepto Style Horizontal Scrolls) -->
       <div class="shelf-section">
         <div class="section-title-row">
-          <h3>Fresh Groceries</h3>
-          <button class="btn btn-link" onclick="filterByCategory('Fresh')">See All</button>
+          <h3>Fresh Food & local items</h3>
+          <button class="btn btn-link" onclick="filterByCategory('Fresh')">See All ➔</button>
         </div>
-        <div class="product-cards-grid" id="shelf-fresh-grid">
+        <div class="product-cards-shelf" id="shelf-fresh-grid">
           <!-- Dynamic Fresh items -->
         </div>
       </div>
@@ -156,9 +164,9 @@
       <div class="shelf-section">
         <div class="section-title-row">
           <h3>Tech Accessories</h3>
-          <button class="btn btn-link" onclick="filterByCategory('Electronics')">See All</button>
+          <button class="btn btn-link" onclick="filterByCategory('Electronics')">See All ➔</button>
         </div>
-        <div class="product-cards-grid" id="shelf-tech-grid">
+        <div class="product-cards-shelf" id="shelf-tech-grid">
           <!-- Dynamic Tech items -->
         </div>
       </div>
@@ -166,9 +174,9 @@
       <div class="shelf-section">
         <div class="section-title-row">
           <h3>Home Essentials</h3>
-          <button class="btn btn-link" onclick="filterByCategory('Essentials')">See All</button>
+          <button class="btn btn-link" onclick="filterByCategory('Essentials')">See All ➔</button>
         </div>
-        <div class="product-cards-grid" id="shelf-essentials-grid">
+        <div class="product-cards-shelf" id="shelf-essentials-grid">
           <!-- Dynamic Home items -->
         </div>
       </div>
@@ -179,13 +187,11 @@
     <section class="storefront-view" id="view-shop">
       <div class="catalog-layout-container">
         
-        <!-- Full-Width Catalog Content Area (Sidebar filters removed for clean look) -->
         <div class="catalog-main-content full-width">
           <div class="catalog-header-results">
             <span class="results-txt" id="results-count-label">Showing 8 products</span>
             <span class="active-filter-badge" id="active-category-badge">All Categories</span>
             
-            <!-- Sorting dropdown moved inside catalog header -->
             <div class="header-sort-group">
               <label for="sort-select" style="font-size: 0.8rem; font-weight:600; color:var(--text-muted); margin-right: 8px;">Sort by:</label>
               <select id="sort-select" class="filter-select compact">
@@ -213,7 +219,6 @@
         <div class="checkout-form-block glass-card">
           <h3>Complete Purchase</h3>
           
-          <!-- Shipping Coordinates Selection -->
           <div class="checkout-section">
             <h4 class="sec-title">1. Geolocation Delivery Destination</h4>
             <p class="sec-subtitle">Pinpoint your coordinates on the map grid. This maps your order to the nearest micro-warehouse node to execute instant dispatch.</p>
@@ -479,7 +484,7 @@
     </div>
   </aside>
 
-  <!-- Profile Modal (Access Gate) -->
+  <!-- Profile Modal -->
   <div class="modal-overlay hidden" id="profile-modal-container">
     <div class="modal-card glass-card">
       <div class="modal-card-header">
@@ -534,7 +539,7 @@
     </div>
   </div>
 
-  <!-- Location Picker Map Modal (Zepto Style Location Selector) -->
+  <!-- Location Picker Map Modal -->
   <div class="modal-overlay hidden" id="location-map-modal-container">
     <div class="modal-card glass-card" style="max-width: 500px;">
       <div class="modal-card-header">
@@ -585,7 +590,7 @@
       <div class="footer-links">
         <div class="footer-col">
           <h5>Categories</h5>
-          <a href="#" onclick="filterByCategory('Fresh')">Fresh Groceries</a>
+          <a href="#" onclick="filterByCategory('Fresh')">Fresh food</a>
           <a href="#" onclick="filterByCategory('Electronics')">Tech & Accessories</a>
           <a href="#" onclick="filterByCategory('Essentials')">Home Essentials</a>
         </div>

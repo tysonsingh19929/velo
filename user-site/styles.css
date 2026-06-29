@@ -129,14 +129,14 @@ p {
 .btn-link {
   background: none;
   border: none;
-  color: var(--primary);
+  color: #db2777; /* Premium Pink see-all link */
   text-decoration: none;
-  border-bottom: 2px solid var(--accent-yellow);
+  font-weight: 700;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 .btn-link:hover {
-  color: var(--accent-yellow-hover);
-  border-color: var(--accent-yellow-hover);
+  color: #be185d;
 }
 
 .btn-icon {
@@ -200,7 +200,7 @@ p {
   flex-shrink: 0;
 }
 
-/* Zepto Style Select Location Dropdown button */
+/* Select Location Dropdown button */
 .header-location-btn {
   background: transparent;
   border: none;
@@ -224,7 +224,7 @@ p {
 }
 
 .loc-icon-wrapper {
-  color: var(--accent-yellow-hover);
+  color: #db2777; /* Accent Pink location pin matching Zepto */
   display: flex;
   align-items: center;
 }
@@ -263,10 +263,10 @@ p {
 }
 
 .header-search-box input:focus {
-  border-color: var(--accent-yellow);
+  border-color: #db2777;
   outline: none;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.15);
+  box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
 }
 
 .header-search-box button {
@@ -311,7 +311,7 @@ p {
   left: 0;
   width: 100%;
   height: 2.5px;
-  background: var(--accent-yellow);
+  background: #db2777;
   border-radius: 2px;
 }
 
@@ -344,7 +344,7 @@ p {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: var(--primary);
+  background: #db2777;
   color: white;
   font-size: 0.7rem;
   font-weight: 700;
@@ -357,7 +357,7 @@ p {
   border: 1.5px solid #ffffff;
 }
 
-/* Zepto Style Horizontal Scrolling Category Bar */
+/* Zepto Style Vertical Stacking Category Bar */
 .sub-header-category-bar {
   background: #ffffff;
   border-bottom: 1px solid var(--border-color);
@@ -370,9 +370,9 @@ p {
 .category-scroll-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8px 24px;
+  padding: 10px 24px;
   display: flex;
-  gap: 12px;
+  gap: 20px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -382,44 +382,42 @@ p {
 }
 
 .cat-pill {
-  background: #f1f5f9;
-  border: 1.5px solid transparent;
-  padding: 8px 18px;
-  border-radius: 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   color: var(--text-muted);
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   transition: var(--transition);
   white-space: nowrap;
+  min-width: 72px;
 }
 
-.cat-pill:hover {
-  background: #e2e8f0;
+.cat-pill-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
   color: var(--text-main);
+}
+
+.cat-pill:hover .cat-pill-icon-box, .cat-pill.active .cat-pill-icon-box {
+  background: #fce7f3; /* Light Pink hover/active */
+  color: #db2777;
+  transform: scale(1.05);
 }
 
 .cat-pill.active {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-.cat-svg-icon {
-  color: var(--text-muted);
-  transition: var(--transition);
-}
-
-.cat-pill:hover .cat-svg-icon {
   color: var(--text-main);
-}
-
-.cat-pill.active .cat-svg-icon {
-  color: white;
 }
 
 /* Mobile Bottom Navigation (Hidden on Desktop) */
@@ -454,7 +452,13 @@ p {
 }
 
 .m-nav-btn.active {
-  color: var(--accent-yellow-hover);
+  color: #db2777;
+}
+
+.m-nav-lbl {
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-top: 2px;
 }
 
 /* Main Layout Views */
@@ -481,113 +485,66 @@ p {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* HOME VIEW: Carousel Banner */
-.banner-carousel {
-  position: relative;
-  height: 340px;
+/* Zepto Style Promo Banner Card */
+.promo-banner-card {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  background: linear-gradient(135deg, #fbcfe8, #fce7f3); /* Soft pink colors */
   border-radius: 16px;
-  overflow: hidden;
-  background-color: #f1f5f9;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(219, 39, 119, 0.15);
   margin-bottom: 40px;
   box-shadow: var(--shadow-sm);
-}
-
-.carousel-track {
-  height: 100%;
+  padding: 30px;
+  overflow: hidden;
+  align-items: center;
   position: relative;
 }
 
-.carousel-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
-  display: flex;
-  align-items: center;
-  padding: 60px;
-  z-index: 1;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 2;
-}
-
-.carousel-slide.slide-1 {
-  background: linear-gradient(135deg, rgba(250, 204, 21, 0.08), rgba(255, 255, 255, 0.95)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8fafc"/></svg>');
-  background-size: cover;
-  background-position: center;
-}
-
-.carousel-slide.slide-2 {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(255, 255, 255, 0.95)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8fafc"/></svg>');
-  background-size: cover;
-  background-position: center;
-}
-
-.slide-content {
-  max-width: 540px;
+.promo-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 10px;
+  z-index: 2;
 }
 
-.slide-badge {
-  background: #ffffff;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-}
-
-.slide-content h2 {
-  font-size: 2.8rem;
-  line-height: 1.15;
-  color: var(--primary);
-}
-
-.slide-content p {
+.promo-content h3 {
   font-size: 1.1rem;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: #be185d;
 }
 
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5rem;
+.promo-content h2 {
+  font-size: 2.2rem;
+  line-height: 1.15;
+  color: #9d174d;
+}
+
+.promo-content p {
+  font-size: 0.95rem;
+  color: #be185d;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.promo-content .btn-primary {
+  background: #db2777;
+  border-color: #db2777;
+  color: white;
+}
+.promo-content .btn-primary:hover {
+  background: #be185d;
+}
+
+.promo-visual-graphic {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  justify-content: flex-end;
+  font-size: 6rem;
+  user-select: none;
+  z-index: 1;
 }
 
-.carousel-arrow:hover {
-  background: var(--accent-yellow);
-  border-color: var(--accent-yellow);
-  color: var(--primary);
-}
-
-.carousel-arrow.prev { left: 20px; }
-.carousel-arrow.next { right: 20px; }
-
-/* Shelves Section UI (Zepto Aligned) */
+/* Shelves Section UI (Zepto Aligned Horizontal Scrolls) */
 .shelf-section {
   margin-bottom: 40px;
 }
@@ -607,9 +564,22 @@ p {
   font-weight: 800;
 }
 
+.product-cards-shelf {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-wrap: nowrap;
+  padding-bottom: 12px;
+}
+
+.product-cards-shelf::-webkit-scrollbar {
+  display: none;
+}
+
 .product-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 24px;
 }
 
@@ -626,6 +596,7 @@ p {
   position: relative;
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
+  flex: 0 0 220px; /* Force size in horizontal scrolling lists */
 }
 
 .product-card:hover {
@@ -634,17 +605,17 @@ p {
   box-shadow: var(--shadow-md);
 }
 
-.prod-badge {
+/* Bestseller orange tag top left */
+.prod-bestseller-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(250, 204, 21, 0.15);
-  color: #854d0e;
-  border: 1px solid rgba(250, 204, 21, 0.3);
-  padding: 2px 8px;
-  border-radius: 6px;
+  background: #ffedd5;
+  color: #c2410c;
+  padding: 3px 8px;
+  border-radius: 4px;
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 700;
   z-index: 5;
 }
 
@@ -657,7 +628,6 @@ p {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: visible;
   color: var(--text-muted);
 }
 
@@ -720,10 +690,10 @@ p {
   font-size: 0.75rem;
   color: var(--text-muted);
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
-/* Zepto Style Price Row (Price, original price, green discount label) */
+/* Zepto Style Green Price Box */
 .prod-price-row {
   display: flex;
   justify-content: space-between;
@@ -734,12 +704,22 @@ p {
 .price-figures {
   display: flex;
   flex-direction: column;
+  gap: 3px;
 }
 
-.prod-retail-price {
-  font-size: 1.1rem;
+.price-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-badge-green {
+  background: #16a34a;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
   font-weight: 800;
-  color: var(--text-main);
+  font-size: 0.95rem;
 }
 
 .prod-original-price {
@@ -748,13 +728,68 @@ p {
   color: var(--text-muted);
 }
 
-.discount-badge {
-  background: #dcfce7;
-  color: var(--success);
-  font-size: 0.7rem;
+.discount-badge-text {
+  color: #16a34a;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
+}
+
+/* Blue outline tag at bottom of card */
+.prod-tag-pill {
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  color: #0369a1;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+/* See All shelf pink block card */
+.see-all-card {
+  background: #db2777; /* Hot Pink */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  flex: 0 0 160px;
+  min-height: 340px;
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.see-all-card:hover {
+  background: #be185d;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.see-all-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+}
+
+.see-all-circle-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  color: #db2777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
 }
 
 /* VIEW 2: PRODUCT CATALOG PAGE VIEW */
@@ -788,8 +823,8 @@ p {
 .active-filter-badge {
   font-size: 0.75rem;
   font-weight: 700;
-  background: #fef08a;
-  color: #854d0e;
+  background: #fce7f3;
+  color: #db2777;
   padding: 4px 12px;
   border-radius: 6px;
 }
@@ -945,10 +980,10 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="password
 }
 
 input:focus {
-  border-color: var(--accent-yellow-hover);
+  border-color: #db2777;
   outline: none;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.15);
+  box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
 }
 
 .payment-options-grid {
@@ -976,9 +1011,9 @@ input:focus {
 }
 
 .payment-card-option.active {
-  border-color: var(--accent-yellow);
-  background: rgba(250, 204, 21, 0.05);
-  box-shadow: 0 0 0 1px var(--accent-yellow);
+  border-color: #db2777;
+  background: rgba(219, 39, 119, 0.03);
+  box-shadow: 0 0 0 1px #db2777;
 }
 
 .pay-icon-wrapper {
@@ -1699,7 +1734,7 @@ input:focus {
 /* Toast Notifications (Capacitor/Native app feel) */
 .toast-container {
   position: fixed;
-  top: 24px;
+  bottom: 24px;
   right: 24px;
   z-index: 1000;
   display: flex;
@@ -1731,7 +1766,7 @@ input:focus {
 }
 
 @keyframes toastFadeIn {
-  from { opacity: 0; transform: translateY(-16px) scale(0.95); }
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -1806,60 +1841,73 @@ body {
   }
 
   .cat-pill {
-    padding: 6px 12px;
-    font-size: 0.75rem;
+    padding: 6px 8px;
+    min-width: 60px;
+  }
+  
+  .cat-pill-icon-box {
+    width: 38px;
+    height: 38px;
   }
 
   .storefront-main {
     padding: 20px 16px 40px;
   }
 
-  .banner-carousel {
-    height: 240px;
+  /* Promo banner mobile */
+  .promo-banner-card {
+    grid-template-columns: 1fr;
+    padding: 20px;
     margin-bottom: 30px;
   }
 
-  .carousel-slide {
-    padding: 24px;
+  .promo-visual-graphic {
+    display: none;
   }
 
-  .carousel-slide h2 {
+  .promo-content h2 {
     font-size: 1.8rem;
   }
 
-  .carousel-slide p {
-    font-size: 0.9rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .carousel-arrow {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+  .promo-content p {
+    font-size: 0.85rem;
   }
 
   .shelf-section {
     margin-bottom: 30px;
   }
 
-  .product-cards-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns grid on mobile */
+  /* Keep shelves horizontally scrollable on mobile too, matching fixed width */
+  .product-cards-shelf {
     gap: 12px;
   }
 
   .product-card {
     padding: 12px;
-    min-height: 290px;
+    min-height: 330px;
+    flex: 0 0 170px; /* 170px cards on mobile screens for easy swipes */
   }
 
-  .prod-badge {
+  .see-all-card {
+    flex: 0 0 130px;
+    min-height: 330px;
+  }
+
+  .see-all-card-content {
+    font-size: 1rem;
+    gap: 8px;
+  }
+
+  .see-all-circle-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .prod-bestseller-badge {
     top: 10px;
     left: 10px;
     font-size: 0.6rem;
-    padding: 1px 6px;
+    padding: 2px 6px;
   }
 
   .prod-img-box {
@@ -1884,22 +1932,32 @@ body {
     margin-bottom: 6px;
   }
 
-  .prod-retail-price {
-    font-size: 0.95rem;
+  .price-badge-green {
+    font-size: 0.85rem;
+    padding: 2px 6px;
   }
 
   .prod-original-price {
     font-size: 0.65rem;
   }
 
-  .discount-badge {
-    font-size: 0.6rem;
-    padding: 2px 4px;
+  .discount-badge-text {
+    font-size: 0.65rem;
   }
 
   /* Catalog Layout Filters */
   .catalog-layout-container {
     flex-direction: column;
+  }
+
+  .product-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .product-cards-grid .product-card {
+    flex: none;
+    min-height: 330px;
   }
 
   /* Checkout layouts */

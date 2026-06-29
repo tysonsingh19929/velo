@@ -21,17 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================
-  // 1. E-Commerce Product Database (Zepto pricing aligned)
+  // 1. E-Commerce Product Database (UAE mixed religion items, Zepto pricing)
   // ==========================================
   const catalogData = [
-    { id: 1, name: "Fresh Organic Avocados", category: "Fresh", price: 28.00, originalPrice: 38.00, weight: "4 pcs", rating: 4.8, featured: true },
-    { id: 2, name: "Organic Whole Milk", category: "Fresh", price: 8.50, originalPrice: 12.00, weight: "1L", rating: 4.9, featured: true },
-    { id: 3, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 105.00, originalPrice: 155.00, weight: "1 unit", rating: 4.7, featured: true },
-    { id: 4, name: "Smart Fit Tracker Watch", category: "Electronics", price: 195.00, originalPrice: 280.00, weight: "1 unit", rating: 4.6, featured: false },
-    { id: 5, name: "Eco Cotton Bath Towels", category: "Essentials", price: 48.00, originalPrice: 65.00, weight: "2 pcs", rating: 4.5, featured: false },
-    { id: 6, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 32.00, originalPrice: 45.00, weight: "750ml", rating: 4.7, featured: true },
-    { id: 7, name: "Matte Liquid Lipstick", category: "Beauty", price: 62.00, originalPrice: 90.00, weight: "5ml", rating: 4.4, featured: false },
-    { id: 8, name: "Hydrating Aloe Face Serum", category: "Beauty", price: 88.00, originalPrice: 120.00, weight: "50ml", rating: 4.8, featured: true }
+    { id: 1, name: "Fresh Organic Khalas Dates", category: "Fresh", price: 18.00, originalPrice: 28.00, weight: "400 g", rating: 4.9, bestseller: true, tagLabel: "Direct Sourced" },
+    { id: 2, name: "Al Ain Fresh Whole Cow Milk", category: "Fresh", price: 7.00, originalPrice: 10.00, weight: "1 pack (1L)", rating: 4.8, bestseller: false, tagLabel: "Fresh Dairy" },
+    { id: 3, name: "Premium Turkish Labneh Pouch", category: "Fresh", price: 12.00, originalPrice: 18.00, weight: "1 pack (500 g)", rating: 4.7, bestseller: true, tagLabel: "Creamy" },
+    { id: 4, name: "Local Coriander Leaves Bunch", category: "Fresh", price: 2.00, originalPrice: 4.50, weight: "100 g", rating: 4.9, bestseller: false, tagLabel: "Hydroponic" },
+    { id: 5, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 95.00, originalPrice: 150.00, weight: "1 unit", rating: 4.7, bestseller: true, tagLabel: "Bass Boost" },
+    { id: 6, name: "Smart Fit Tracker Watch", category: "Electronics", price: 190.00, originalPrice: 275.00, weight: "1 unit", rating: 4.6, bestseller: false, tagLabel: "Active Tracker" },
+    { id: 7, name: "Eco Cotton Bath Towels", category: "Essentials", price: 45.00, originalPrice: 65.00, weight: "2 pcs", rating: 4.5, bestseller: false, tagLabel: "Soft Cotton" },
+    { id: 8, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 28.00, originalPrice: 42.00, weight: "1 pc (750 ml)", rating: 4.7, bestseller: true, tagLabel: "Keep Cold" },
+    { id: 9, name: "Hydrating Aloe Vera Serum", category: "Beauty", price: 78.00, originalPrice: 110.00, weight: "1 pack (50 ml)", rating: 4.8, bestseller: true, tagLabel: "Moisturizing" },
+    { id: 10, name: "Rosewater Refreshing Face Mist", category: "Beauty", price: 42.00, originalPrice: 60.00, weight: "1 bottle (100 ml)", rating: 4.6, bestseller: false, tagLabel: "Mixed Floral" }
   ];
 
   // State Variables
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Professional SVG outline icons matching category selections
   function getProductSVG(category) {
     if (category === "Fresh") {
-      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`;
+      return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>`;
     } else if (category === "Electronics") {
       return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H13.25M3 5.25V15A2.25 2.25 0 005.25 17.25h3.5M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25M16.5 7.5h.008v.008h-.008V7.5zm-9 0h.008v.008h-.008V7.5z"/></svg>`;
     } else if (category === "Essentials") {
@@ -88,42 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       return `<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l4.813-2.904L18.625 21l-.813-5.096L22 12.234l-5.125-.436L15 7l-1.875 4.798-5.125.436z"/></svg>`;
     }
-  }
-
-  // ==========================================
-  // 2. Carousel Banner Slider Logic
-  // ==========================================
-  const carouselSlides = document.querySelectorAll('.carousel-slide');
-  const carouselPrev = document.getElementById('carousel-prev-btn');
-  const carouselNext = document.getElementById('carousel-next-btn');
-  let currentSlideIndex = 0;
-  let carouselInterval;
-
-  function showSlide(index) {
-    if (carouselSlides.length === 0) return;
-    carouselSlides.forEach(slide => slide.classList.remove('active'));
-    currentSlideIndex = (index + carouselSlides.length) % carouselSlides.length;
-    carouselSlides[currentSlideIndex].classList.add('active');
-  }
-
-  function startCarouselTimer() {
-    if (carouselSlides.length === 0) return;
-    clearInterval(carouselInterval);
-    carouselInterval = setInterval(() => {
-      showSlide(currentSlideIndex + 1);
-    }, 5000);
-  }
-
-  if (carouselPrev && carouselNext) {
-    carouselPrev.addEventListener('click', () => {
-      showSlide(currentSlideIndex - 1);
-      startCarouselTimer();
-    });
-    carouselNext.addEventListener('click', () => {
-      showSlide(currentSlideIndex + 1);
-      startCarouselTimer();
-    });
-    startCarouselTimer();
   }
 
   // ==========================================
@@ -205,21 +171,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function appendSeeAllCard(container, category) {
+    const card = document.createElement('div');
+    card.className = 'product-card see-all-card';
+    card.onclick = () => filterByCategory(category);
+    card.innerHTML = `
+      <div class="see-all-card-content">
+        <span>See All</span>
+        <div class="see-all-circle-arrow">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  }
+
   function renderHomepageShelves() {
     if (shelfFreshGrid) {
       shelfFreshGrid.innerHTML = '';
       const items = catalogData.filter(item => item.category === 'Fresh').slice(0, 4);
       items.forEach(item => shelfFreshGrid.appendChild(createProductCard(item)));
+      appendSeeAllCard(shelfFreshGrid, 'Fresh');
     }
     if (shelfTechGrid) {
       shelfTechGrid.innerHTML = '';
       const items = catalogData.filter(item => item.category === 'Electronics').slice(0, 4);
       items.forEach(item => shelfTechGrid.appendChild(createProductCard(item)));
+      appendSeeAllCard(shelfTechGrid, 'Electronics');
     }
     if (shelfEssentialsGrid) {
       shelfEssentialsGrid.innerHTML = '';
       const items = catalogData.filter(item => item.category === 'Essentials').slice(0, 4);
       items.forEach(item => shelfEssentialsGrid.appendChild(createProductCard(item)));
+      appendSeeAllCard(shelfEssentialsGrid, 'Essentials');
     }
   }
 
@@ -228,14 +212,18 @@ document.addEventListener('DOMContentLoaded', () => {
     card.className = 'product-card';
     
     const svgIcon = getProductSVG(item.category);
-    const discountAmt = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
+    const savings = Math.round(item.originalPrice - item.price);
     
     // Star rating
     let starsStr = '★ ' + item.rating;
 
+    // Bestseller tag
+    const bestsellerTag = item.bestseller ? `<div class="prod-bestseller-badge">Bestseller</div>` : '';
+
     // Zepto layout card structure:
-    // Floating ADD button, weight, price, strike-through, green off label. NO VAT text.
+    // Solid green price tag (badge), strike-through, green off label, bottom outline pill.
     card.innerHTML = `
+      ${bestsellerTag}
       <div class="prod-img-box">
         ${svgIcon}
         <button class="btn-add-floating" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">ADD</button>
@@ -247,11 +235,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         <div class="prod-price-row">
           <div class="price-figures">
-            <span class="prod-retail-price">AED ${item.price.toFixed(2)}</span>
-            <span class="prod-original-price">AED ${item.originalPrice.toFixed(2)}</span>
+            <div class="price-badge-row">
+              <span class="price-badge-green">AED ${item.price.toFixed(0)}</span>
+              <span class="prod-original-price">AED ${item.originalPrice.toFixed(0)}</span>
+            </div>
+            <span class="discount-badge-text">AED ${savings} OFF</span>
           </div>
-          <span class="discount-badge">${discountAmt}% OFF</span>
         </div>
+
+        <div class="prod-tag-pill">${item.tagLabel}</div>
       </div>
     `;
     return card;
@@ -509,7 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (chkMapContainer) {
     handleMapClick(chkMapContainer, chkMapPin, chkDestNode, chkDestEta, chkAddress, (hub, dist, eta, addr) => {
       updateAddressState(hub, dist, eta, addr);
-      // Align header pin
       const hdrMapPin = document.getElementById('header-map-pin');
       if (hdrMapPin) {
         hdrMapPin.style.left = chkMapPin.style.left;
@@ -658,7 +649,6 @@ document.addEventListener('DOMContentLoaded', () => {
       tempDistance = dist;
       tempEta = eta;
 
-      // Align checkout pin coordinate marker dynamically
       const chkMapPin = document.getElementById('checkout-map-pin');
       if (chkMapPin) {
         chkMapPin.style.left = headerMapPin.style.left;
