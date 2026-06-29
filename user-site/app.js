@@ -1145,6 +1145,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Toggle Zepto Referral Display
+  const btnShowRefPanel = document.getElementById('btn-show-ref-panel');
+  const zeptoRefCodePanel = document.getElementById('zepto-ref-code-panel');
+  const zeptoUserRefCode = document.getElementById('zepto-user-ref-code');
+
+  if (btnShowRefPanel && zeptoRefCodePanel) {
+    btnShowRefPanel.addEventListener('click', () => {
+      zeptoRefCodePanel.classList.toggle('hidden');
+      if (authenticatedUser) {
+        zeptoUserRefCode.textContent = authenticatedUser.phone;
+      } else {
+        const phone = modalPhone.value.trim() || "501234567";
+        zeptoUserRefCode.textContent = phone;
+      }
+    });
+  }
+
   // ==========================================
   // Helper Utilities
   // ==========================================

@@ -216,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = regEmail.value.trim();
       const password = regPassword.value;
       const confirmPassword = regConfirmPassword.value;
+      const referral = document.getElementById('reg-referral') ? document.getElementById('reg-referral').value.trim() : '';
 
       if (!name || !email || !password || !confirmPassword) {
         showNotification('Please fill in all registration fields.', 'error');
@@ -232,7 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
         email,
         password,
         commissionRate: 5.0, // default rate
-        fixedRent: 100.00   // default rent
+        fixedRent: 100.00,  // default rent
+        referralCode: referral
       };
 
       try {
@@ -242,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(newSellerObj)
         });
         if (res.ok) {
-          showNotification('Registration successful! Please log in with your credentials.');
+          showNotification('Registration submitted successfully! Pending administrator approval.');
           registerFormFields.classList.add('hidden');
           loginFormFields.classList.remove('hidden');
           loginEmail.value = email;
@@ -268,13 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const nextIdNum = sellers.length > 0 ? Math.max(...sellers.map(s => parseInt(s.id.split('-')[1]))) + 1 : 101;
       newSellerObj.id = `S-${nextIdNum}`;
-      newSellerObj.status = 'active';
+      newSellerObj.status = 'pending';
       newSellerObj.sales = 0.00;
 
       sellers.push(newSellerObj);
       localStorage.setItem('velo_sellers', JSON.stringify(sellers));
 
-      showNotification('Local registration successful! Please log in.');
+      showNotification('Registration pending administrator approval. Please ask admin to approve S-' + newSellerObj.id);
       registerFormFields.classList.add('hidden');
       loginFormFields.classList.remove('hidden');
       loginEmail.value = email;

@@ -149,6 +149,63 @@
         </div>
       </div>
 
+      <!-- Catchy Offers & Deals Zone Section -->
+      <div class="deals-zone-section">
+        <div class="deals-hero-banner">
+          <div class="deals-hero-text">
+            <h4>YOU ONLY LIVE ONCE</h4>
+            <h2>Live. Sip. Snack.</h2>
+            <p>Powered by local Dubai merchant nodes</p>
+          </div>
+          <div class="deals-hero-gfx">🍿🥤🍦</div>
+        </div>
+        
+        <div class="deals-grid">
+          <div class="deals-main-card">
+            <h3>Deals<br>Zone</h3>
+            <span class="deals-discount-badge">Up to 50% OFF</span>
+          </div>
+          
+          <div class="deals-sub-grid">
+            <div class="deal-item-card" onclick="filterByCategory('Fresh')">
+              <span class="deal-item-title">Crunch & Munch</span>
+              <div class="deal-item-img">🍿</div>
+              <span class="deal-item-price">Starts at AED 16</span>
+            </div>
+            
+            <div class="deal-item-card" onclick="filterByCategory('Fresh')">
+              <span class="deal-item-title">Sip & Chill</span>
+              <div class="deal-item-img">🥤</div>
+              <span class="deal-item-price">Starts at AED 10</span>
+            </div>
+            
+            <div class="deal-item-card" onclick="filterByCategory('Fresh')">
+              <span class="deal-item-title">Ice Cream Paradise</span>
+              <div class="deal-item-img">🍦</div>
+              <span class="deal-item-price">Starts at AED 19</span>
+            </div>
+            
+            <div class="deal-item-card" onclick="filterByCategory('Essentials')">
+              <span class="deal-item-title">Sweet Tooth</span>
+              <div class="deal-item-img">🍫</div>
+              <span class="deal-item-price">Starts at AED 18</span>
+            </div>
+            
+            <div class="deal-item-card" onclick="filterByCategory('Fresh')">
+              <span class="deal-item-title">Frozen Treats</span>
+              <div class="deal-item-img">🍕</div>
+              <span class="deal-item-price">Starts at AED 82</span>
+            </div>
+            
+            <div class="deal-item-card" onclick="filterByCategory('Essentials')">
+              <span class="deal-item-title">Everyday Eats</span>
+              <div class="deal-item-img">🍜</div>
+              <span class="deal-item-price">Starts at AED 15</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Shelves Layout (Zepto Style Horizontal Scrolls) -->
       <div class="shelf-section">
         <div class="section-title-row">
@@ -498,36 +555,61 @@
     </div>
   </aside>
 
-  <!-- Profile Modal -->
+  <!-- Profile Modal (Zepto Redesign) -->
   <div class="modal-overlay hidden" id="profile-modal-container">
-    <div class="modal-card glass-card">
-      <div class="modal-card-header">
-        <h3>User Security Account</h3>
-        <button class="close-modal-btn" id="btn-close-profile">×</button>
-      </div>
-      <div class="modal-card-body">
+    <div class="modal-card zepto-profile-card">
+      <button class="close-modal-btn" id="btn-close-profile" style="color: white; font-size: 1.8rem; border: none; background: transparent; position: absolute; top: 12px; right: 16px;">×</button>
+      
+      <div class="modal-card-body text-center" style="padding-top: 24px;">
         
         <!-- Modal Step 1: Login Phone/Email -->
         <div id="modal-step-1">
-          <p class="modal-body-desc">Verify your profile with a Multi-Factor OTP security code to unlock cash rewards and track active delivery dispatch hubs.</p>
-          <div class="form-group">
-            <label for="modal-phone">Mobile Number</label>
-            <div class="input-with-icon">
-              <span class="input-prefix">+971</span>
-              <input type="tel" id="modal-phone" placeholder="50 123 4567">
+          <div class="zepto-logo-title">velo</div>
+          <p class="zepto-subtitle">Everyday Low Prices in minutes</p>
+          
+          <div class="form-group" style="margin-top: 36px; text-align: left;">
+            <div class="zepto-phone-input-wrapper">
+              <div class="zepto-flag-dropdown">
+                <span class="flag-emoji">🇦🇪</span>
+                <span class="prefix-code">+971</span>
+              </div>
+              <input type="tel" id="modal-phone" placeholder="Enter Phone Number" maxlength="9">
             </div>
           </div>
-          <div class="form-group" style="margin-top: 16px;">
-            <label for="modal-email">Email Address</label>
-            <input type="email" id="modal-email" placeholder="customer@veloresell.com">
+
+          <div class="form-group" style="margin-top: 16px; text-align: left;">
+            <label for="modal-email" style="color: rgba(255,255,255,0.7); font-size: 0.75rem; font-weight: 600; margin-bottom: 4px; display: block;">Email Address</label>
+            <input type="email" id="modal-email" placeholder="customer@veloresell.com" class="zepto-email-input" style="width: 100%;">
           </div>
-          <button class="btn btn-primary" id="btn-modal-send-otp" style="width: 100%; margin-top: 20px;">Send Verification Code</button>
+          
+          <button class="btn-zepto-continue" id="btn-modal-send-otp">
+            Continue
+          </button>
+
+          <!-- Bottom Zepto Actions -->
+          <div class="zepto-bottom-links">
+            <a href="/seller/index.html" class="zepto-action-btn btn-partner">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              Become a Partner
+            </a>
+            
+            <button class="zepto-action-btn" id="btn-show-ref-panel">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              Refer a Friend
+            </button>
+
+            <!-- Referral code panel hidden by default -->
+            <div id="zepto-ref-code-panel" class="hidden">
+              <p style="margin: 0; color: rgba(255,255,255,0.7); font-size: 0.75rem; text-align: center;">Your Referral Code (Share with registering sellers):</p>
+              <div class="zepto-ref-display" id="zepto-user-ref-code">501234567</div>
+            </div>
+          </div>
         </div>
 
         <!-- Modal Step 2: OTP Input -->
-        <div id="modal-step-2" class="hidden text-center">
-          <p class="modal-body-desc">Access code transmitted to: <strong id="modal-otp-target-phone">+971 50 123 4567</strong></p>
-          <div class="form-group otp-inputs-wrapper" style="margin: 20px 0;">
+        <div id="modal-step-2" class="hidden">
+          <p class="modal-body-desc" style="color: white; margin-bottom: 8px;">Access code transmitted to: <strong id="modal-otp-target-phone" style="color: #fde047;">+971 50 123 4567</strong></p>
+          <div class="form-group otp-inputs-wrapper" style="margin: 24px 0;">
             <input type="text" maxlength="1" class="otp-box-input" autofocus>
             <input type="text" maxlength="1" class="otp-box-input">
             <input type="text" maxlength="1" class="otp-box-input">
@@ -535,17 +617,17 @@
             <input type="text" maxlength="1" class="otp-box-input">
             <input type="text" maxlength="1" class="otp-box-input">
           </div>
-          <button class="btn btn-primary" id="btn-modal-verify-otp" style="width: 100%;">Verify Access Code</button>
-          <button class="btn btn-link" id="btn-modal-resend-otp" style="width: 100%; margin-top: 12px;">Resend Verification Code</button>
+          <button class="btn-zepto-continue" id="btn-modal-verify-otp">Verify Access Code</button>
+          <button class="btn btn-link" id="btn-modal-resend-otp" style="color: rgba(255,255,255,0.7); margin-top: 16px;">Resend Verification Code</button>
         </div>
 
         <!-- Modal Step 3: Success -->
-        <div id="modal-step-success" class="hidden text-center">
+        <div id="modal-step-success" class="hidden">
           <div class="success-icon-wrapper" style="margin-bottom: 20px;">
-            <svg width="48" height="48" fill="none" stroke="#16a34a" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.952 11.952 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <svg width="64" height="64" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.952 11.952 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
-          <h4>Authentication Verified</h4>
-          <p class="modal-body-desc">Profile authenticated successfully. Security token registered in active access ledger.</p>
+          <h4 style="color: white; font-size: 1.4rem; font-weight: 800; margin: 0 0 8px;">Authentication Verified</h4>
+          <p class="modal-body-desc" style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">Profile authenticated successfully. AED 140.00 welcome credit has been loaded.</p>
           <button class="btn btn-secondary" id="btn-modal-reset" style="width: 100%; margin-top: 20px;">Reset Verification Session</button>
         </div>
 
