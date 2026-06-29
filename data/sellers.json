@@ -1,0 +1,6 @@
+[
+  { "id": "S-101", "name": "Dubai Organic Farms", "email": "farm@veloresell.com", "password": "password123", "commissionRate": 5.0, "fixedRent": 100.00, "status": "active", "sales": 840.00 },
+  { "id": "S-102", "name": "E-Hub Tech UAE", "email": "tech@veloresell.com", "password": "password123", "commissionRate": 3.5, "fixedRent": 150.00, "status": "active", "sales": 1150.00 },
+  { "id": "S-103", "name": "Modern Home Essentials", "email": "home@veloresell.com", "password": "password123", "commissionRate": 4.0, "fixedRent": 120.00, "status": "active", "sales": 540.00 },
+  { "id": "S-104", "name": "CosmoCare Gulf", "email": "care@veloresell.com", "password": "password123", "commissionRate": 4.5, "fixedRent": 110.00, "status": "active", "sales": 980.00 }
+]

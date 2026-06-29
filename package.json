@@ -1,0 +1,16 @@
+{
+  "name": "veloresell-platform",
+  "version": "1.0.0",
+  "description": "Unified VeloResell E-Commerce Platform with real Express Node.js backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

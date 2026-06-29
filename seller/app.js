@@ -15,18 +15,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  // Database Load Helpers
+  // Database Load Helpers with API integrations
+  let productsCache = [];
+  let sellersCache = [];
+
+  async function fetchBackendData() {
+    try {
+      const resProds = await fetch('/api/products/master');
+      if (resProds.ok) productsCache = await resProds.json();
+      
+      const resSellers = await fetch('/api/sellers');
+      if (resSellers.ok) sellersCache = await resSellers.json();
+    } catch (e) {
+      console.warn("Backend offline. Loading mock databases from LocalStorage.", e);
+      productsCache = JSON.parse(localStorage.getItem('velo_products')) || [];
+      sellersCache = JSON.parse(localStorage.getItem('velo_sellers')) || [];
+    }
+  }
+
   function getSellers() {
-    return JSON.parse(localStorage.getItem('velo_sellers')) || [];
+    return sellersCache;
   }
   function getProducts() {
-    return JSON.parse(localStorage.getItem('velo_products')) || [];
-  }
-  function saveSellers(sellers) {
-    localStorage.setItem('velo_sellers', JSON.stringify(sellers));
-  }
-  function saveProducts(products) {
-    localStorage.setItem('velo_products', JSON.stringify(products));
+    return productsCache;
   }
 
   // State
@@ -71,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
   linkFinances.addEventListener('click', (e) => { e.preventDefault(); switchPortalView('finances', linkFinances); loadFinances(); });
 
   // 1. Session Login Handler
-  function checkSession() {
+  async function checkSession() {
+    await fetchBackendData();
     const cachedSellerId = sessionStorage.getItem('velo_active_seller_id');
     if (cachedSellerId) {
       const sellers = getSellers();
@@ -105,13 +117,35 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDashboardMetrics();
   }
 
-  btnLogin.addEventListener('click', () => {
+  btnLogin.addEventListener('click', async () => {
     const email = loginEmail.value.trim();
     const password = loginPassword.value;
 
     if (!email || !password) {
       showNotification('Please fill in email and password fields.', 'error');
       return;
+    }
+
+    try {
+      const res = await fetch('/api/sellers/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (res.ok) {
+        const match = await res.json();
+        activeSeller = match;
+        sessionStorage.setItem('velo_active_seller_id', match.id);
+        showNotification(`Welcome back, ${match.name}!`);
+        showPortal();
+        return;
+      } else {
+        const err = await res.json();
+        showNotification(err.error || 'Login failed.', 'error');
+        return;
+      }
+    } catch (e) {
+      console.warn("Backend offline. Trying local login.");
     }
 
     const sellers = getSellers();
@@ -147,10 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // 2. Overview Metrics Page Load
-  function loadDashboardMetrics() {
+  async function loadDashboardMetrics() {
     if (!activeSeller) return;
     
-    // Fetch fresh seller records from db
+    await fetchBackendData();
     const sellers = getSellers();
     const fresh = sellers.find(s => s.id === activeSeller.id);
     if (fresh) activeSeller = fresh;
@@ -168,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('stat-net-payout').textContent = `AED ${netPayout.toFixed(2)}`;
   }
 
-  function loadFinances() {
-    loadDashboardMetrics();
+  async function loadFinances() {
+    await loadDashboardMetrics();
     const sales = activeSeller.sales || 0.00;
     const rate = activeSeller.commissionRate || 0.0;
     const rent = activeSeller.fixedRent || 0.00;
@@ -239,8 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSaveProd = document.getElementById('btn-save-prod');
   const btnCancelEdit = document.getElementById('btn-cancel-edit');
 
-  function loadInventory() {
+  async function loadInventory() {
     if (!activeSeller) return;
+    await fetchBackendData();
     const products = getProducts();
     const sellerProducts = products.filter(p => p.sellerId === activeSeller.id);
 
@@ -307,42 +342,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const products = getProducts();
 
     if (editingProductId !== null) {
-      // Update
+      // Update via REST API
+      const updatedItem = { name, category, price, originalPrice, weight, tagLabel: tag, image };
+      try {
+        const res = await fetch(`/api/products/${editingProductId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedItem)
+        });
+        if (res.ok) {
+          showNotification('Listing updated successfully!');
+          resetForm();
+          await fetchBackendData();
+          loadInventory();
+          return;
+        }
+      } catch (err) {
+        console.warn("Backend offline. Saving to LocalStorage fallback.");
+      }
+
       const matchIndex = products.findIndex(p => p.id === editingProductId);
       if (matchIndex !== -1) {
-        products[matchIndex].name = name;
-        products[matchIndex].category = category;
-        products[matchIndex].price = price;
-        products[matchIndex].originalPrice = originalPrice;
-        products[matchIndex].weight = weight;
-        products[matchIndex].tagLabel = tag;
-        products[matchIndex].image = image;
-
-        saveProducts(products);
-        showNotification('Listing updated successfully!');
+        products[matchIndex] = { ...products[matchIndex], ...updatedItem };
+        localStorage.setItem('velo_products', JSON.stringify(products));
+        showNotification('Listing updated locally!');
         resetForm();
         loadInventory();
       }
     } else {
-      // Add
-      const nextId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-      const newProd = {
-        id: nextId,
-        name: name,
-        category: category,
-        price: price,
-        originalPrice: originalPrice,
-        weight: weight,
-        rating: parseFloat((4.5 + Math.random() * 0.5).toFixed(1)),
-        bestseller: false,
-        tagLabel: tag,
-        image: image,
-        sellerId: activeSeller.id
-      };
+      // Add via REST API
+      const newItem = { name, category, price, originalPrice, weight, tagLabel: tag, image, sellerId: activeSeller.id };
+      try {
+        const res = await fetch('/api/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newItem)
+        });
+        if (res.ok) {
+          showNotification('Product published to storefront!');
+          resetForm();
+          await fetchBackendData();
+          loadInventory();
+          return;
+        }
+      } catch (err) {
+        console.warn("Backend offline. Saving to LocalStorage fallback.");
+      }
 
-      products.push(newProd);
-      saveProducts(products);
-      showNotification('Product published to customer storefront!');
+      const nextId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+      newItem.id = nextId;
+      newItem.rating = 4.8;
+      newItem.bestseller = false;
+      products.push(newItem);
+      localStorage.setItem('velo_products', JSON.stringify(products));
+      showNotification('Product published locally!');
       resetForm();
       loadInventory();
     }
@@ -373,12 +426,24 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
   };
 
-  window.triggerDeleteProduct = function(productId) {
+  window.triggerDeleteProduct = async function(productId) {
     if (confirm('Are you sure you want to remove this product listing?')) {
+      try {
+        const res = await fetch(`/api/products/${productId}`, { method: 'DELETE' });
+        if (res.ok) {
+          showNotification('Listing deleted successfully.');
+          await fetchBackendData();
+          loadInventory();
+          return;
+        }
+      } catch (e) {
+        console.warn("Backend offline. Deleting from LocalStorage fallback.");
+      }
+
       let products = getProducts();
       products = products.filter(p => p.id !== productId);
-      saveProducts(products);
-      showNotification('Listing deleted successfully.');
+      localStorage.setItem('velo_products', JSON.stringify(products));
+      showNotification('Listing deleted locally.');
       loadInventory();
     }
   };

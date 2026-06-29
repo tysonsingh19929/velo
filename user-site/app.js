@@ -50,15 +50,46 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('velo_sellers', JSON.stringify(seedSellers));
   }
 
-  // Hook catalog data extraction dynamically from LocalStorage (filtering suspended accounts)
+  // Hook catalog data extraction dynamically from Express Server or fallback to LocalStorage
+  let catalogData = [];
+
+  const seedProducts = [
+    { id: 1, name: "Fresh Organic Khalas Dates", category: "Fresh", price: 18.00, originalPrice: 28.00, weight: "400 g", rating: 4.9, bestseller: true, tagLabel: "Direct Sourced", image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400", sellerId: "S-101" },
+    { id: 2, name: "Al Ain Fresh Whole Milk", category: "Fresh", price: 7.00, originalPrice: 10.00, weight: "1 pack (1L)", rating: 4.8, bestseller: false, tagLabel: "Fresh Dairy", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400", sellerId: "S-101" },
+    { id: 3, name: "Premium Turkish Labneh Pouch", category: "Fresh", price: 12.00, originalPrice: 18.00, weight: "1 pack (500 g)", rating: 4.7, bestseller: true, tagLabel: "Creamy", image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=400", sellerId: "S-101" },
+    { id: 4, name: "Local Coriander Leaves Bunch", category: "Fresh", price: 2.00, originalPrice: 4.50, weight: "100 g", rating: 4.9, bestseller: false, tagLabel: "Hydroponic", image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400", sellerId: "S-101" },
+    { id: 5, name: "Wireless Bluetooth Earbuds", category: "Electronics", price: 95.00, originalPrice: 150.00, weight: "1 unit", rating: 4.7, bestseller: true, tagLabel: "Bass Boost", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400", sellerId: "S-102" },
+    { id: 6, name: "Smart Fit Tracker Watch", category: "Electronics", price: 190.00, originalPrice: 275.00, weight: "1 unit", rating: 4.6, bestseller: false, tagLabel: "Active Tracker", image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400", sellerId: "S-102" },
+    { id: 7, name: "Eco Cotton Bath Towels", category: "Essentials", price: 45.00, originalPrice: 65.00, weight: "2 pcs", rating: 4.5, bestseller: false, tagLabel: "Soft Cotton", image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400", sellerId: "S-103" },
+    { id: 8, name: "Stainless Thermal Water Bottle", category: "Essentials", price: 28.00, originalPrice: 42.00, weight: "1 pc (750 ml)", rating: 4.7, bestseller: true, tagLabel: "Keep Cold", image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400", sellerId: "S-103" },
+    { id: 9, name: "Hydrating Aloe Vera Serum", category: "Beauty", price: 78.00, originalPrice: 110.00, weight: "1 pack (50 ml)", rating: 4.8, bestseller: true, tagLabel: "Moisturizing", image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400", sellerId: "S-104" },
+    { id: 10, name: "Rosewater Refreshing Face Mist", category: "Beauty", price: 42.00, originalPrice: 60.00, weight: "1 bottle (100 ml)", rating: 4.6, bestseller: false, tagLabel: "Mixed Floral", image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400", sellerId: "S-104" }
+  ];
+
   const getCatalogFromDB = () => {
-    const rawProds = JSON.parse(localStorage.getItem('velo_products')) || [];
-    const rawSellers = JSON.parse(localStorage.getItem('velo_sellers')) || [];
+    const rawProds = JSON.parse(localStorage.getItem('velo_products')) || seedProducts;
+    const rawSellers = JSON.parse(localStorage.getItem('velo_sellers')) || seedSellers;
     const suspendedIds = rawSellers.filter(s => s.status === 'suspended').map(s => s.id);
     return rawProds.filter(p => !suspendedIds.includes(p.sellerId));
   };
 
-  const catalogData = getCatalogFromDB();
+  async function loadProductsData() {
+    try {
+      const res = await fetch('/api/products');
+      if (res.ok) {
+        catalogData = await res.json();
+        console.log("Loaded dynamic products from backend API server.");
+        loadProductsData();
+        renderHomepageShelves();
+        return;
+      }
+    } catch (err) {
+      console.warn("Express API backend offline. Running on LocalStorage fallback.", err);
+    }
+    catalogData = getCatalogFromDB();
+    loadProductsData();
+    renderHomepageShelves();
+  }
 
   // State Variables
   let cart = JSON.parse(localStorage.getItem('velo_cart')) || [];
@@ -269,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activePill) activePill.classList.add('active');
 
     switchView('shop');
-    renderCatalog();
+    loadProductsData();
   };
 
   // Custom Styled Sort Dropdown interactions
@@ -297,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         opt.classList.add('active');
         
         sortDropdownOptions.classList.add('hidden');
-        renderCatalog();
+        loadProductsData();
       });
     });
 
@@ -365,9 +396,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cartDrawerBg) cartDrawerBg.addEventListener('click', () => toggleCartDrawer(false));
 
   window.triggerAddToCart = function(productId) {
-    // Pull product dynamically from database
-    const freshCatalog = getCatalogFromDB();
-    const product = freshCatalog.find(item => item.id === productId);
+    // Pull product dynamically from current loaded catalogData
+    const product = catalogData.find(item => item.id === productId);
     if (!product) return;
     
     const existing = cart.find(item => item.id === productId);
@@ -648,16 +678,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let grossTotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       if (selectedPaymentMethod === 'cod') grossTotalAmount += 10.00;
-
-      // Update active merchant statistics dynamically
-      const dbSellers = JSON.parse(localStorage.getItem('velo_sellers')) || [];
-      cart.forEach(cartItem => {
-        const matchingSeller = dbSellers.find(s => s.id === cartItem.sellerId);
-        if (matchingSeller) {
-          matchingSeller.sales = parseFloat((matchingSeller.sales + (cartItem.price * cartItem.quantity)).toFixed(2));
-        }
-      });
-      localStorage.setItem('velo_sellers', JSON.stringify(dbSellers));
 
       activeOrder = {
         id: 'VR-' + Math.floor(100000 + Math.random() * 900000),
@@ -1024,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize
-  renderCatalog();
+  loadProductsData();
   renderHomepageShelves();
   updateCartBadge();
   renderWalletData();
