@@ -396,6 +396,7 @@ p {
   transition: var(--transition);
   white-space: nowrap;
   min-width: 72px;
+  flex-shrink: 0; /* Prevents squeezing on mobile screens */
 }
 
 .cat-pill-icon-box {
@@ -452,7 +453,7 @@ p {
 }
 
 .m-nav-btn.active {
-  color: #eab308;
+  color: #ca8a04;
 }
 
 .m-nav-lbl {
@@ -2048,4 +2049,88 @@ body {
 
 .product-card:hover .prod-img-box img {
   transform: scale(1.05);
+}
+
+
+/* Category Circle Images */
+.cat-img-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Custom Styled Select Dropdown (advanced overlay) */
+.custom-sort-dropdown {
+  position: relative;
+  min-width: 180px;
+  font-family: var(--font-body);
+  z-index: 95;
+}
+
+.custom-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.custom-dropdown-trigger:hover {
+  border-color: #ca8a04;
+  background: #f8fafc;
+}
+
+.dropdown-chevron {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.custom-dropdown-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.custom-dropdown-options.hidden {
+  display: none !important;
+}
+
+.dropdown-opt {
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+
+.dropdown-opt:hover {
+  background: #fef9c3; /* Soft yellow hover */
+  color: #ca8a04;
+}
+
+.dropdown-opt.active {
+  background: #fef08a; /* Accent yellow active state */
+  color: #854d0e;
 }

@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const catalogGrid = document.getElementById('catalog-grid');
   const activeCategoryBadge = document.getElementById('active-category-badge');
   const resultsCountLabel = document.getElementById('results-count-label');
-  const sortSelect = document.getElementById('sort-select');
+  let currentSort = 'default';
 
   // Shelves grids
   const shelfFreshGrid = document.getElementById('shelf-fresh-grid');
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
       items = items.filter(item => item.category === currentCategory);
     }
     
-    const sortVal = sortSelect.value;
+    const sortVal = currentSort;
     if (sortVal === 'price-low') {
       items.sort((a, b) => a.price - b.price);
     } else if (sortVal === 'price-high') {
@@ -358,8 +358,38 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCatalog();
   };
 
-  if (sortSelect) {
-    sortSelect.addEventListener('change', renderCatalog);
+  // Custom Styled Sort Dropdown interactions
+  const sortDropdownTrigger = document.getElementById('sort-dropdown-trigger');
+  const sortDropdownOptions = document.getElementById('sort-dropdown-options');
+  const currentSortLabel = document.getElementById('current-sort-label');
+  const dropdownOpts = document.querySelectorAll('.dropdown-opt');
+
+  if (sortDropdownTrigger && sortDropdownOptions) {
+    sortDropdownTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sortDropdownOptions.classList.toggle('hidden');
+    });
+
+    dropdownOpts.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = opt.getAttribute('data-value');
+        const label = opt.textContent;
+        
+        currentSort = val;
+        currentSortLabel.textContent = label;
+        
+        dropdownOpts.forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        
+        sortDropdownOptions.classList.add('hidden');
+        renderCatalog();
+      });
+    });
+
+    document.addEventListener('click', () => {
+      sortDropdownOptions.classList.add('hidden');
+    });
   }
 
   // Search input triggers
