@@ -22,10 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fetchBackendData() {
     try {
       const resProds = await fetch('/api/products/master');
-      if (resProds.ok) productsCache = await resProds.json();
-      
       const resSellers = await fetch('/api/sellers');
-      if (resSellers.ok) sellersCache = await resSellers.json();
+      if (resProds.ok && resProds.headers.get("content-type")?.includes("application/json")) {
+        productsCache = await resProds.json();
+      } else {
+        throw new Error("Invalid response type");
+      }
+      if (resSellers.ok && resSellers.headers.get("content-type")?.includes("application/json")) {
+        sellersCache = await resSellers.json();
+      } else {
+        throw new Error("Invalid response type");
+      }
     } catch (e) {
       console.warn("Backend offline. Loading mock databases from LocalStorage.", e);
       productsCache = JSON.parse(localStorage.getItem('velo_products')) || [];

@@ -22,10 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fetchBackendData() {
     try {
       const resProds = await fetch('/api/products/master');
-      if (resProds.ok) productsCache = await resProds.json();
-      
       const resSellers = await fetch('/api/sellers');
-      if (resSellers.ok) sellersCache = await resSellers.json();
+      if (resProds.ok && resProds.headers.get("content-type")?.includes("application/json")) {
+        productsCache = await resProds.json();
+      } else {
+        throw new Error("Invalid response type");
+      }
+      if (resSellers.ok && resSellers.headers.get("content-type")?.includes("application/json")) {
+        sellersCache = await resSellers.json();
+      } else {
+        throw new Error("Invalid response type");
+      }
     } catch (e) {
       console.warn("Backend offline. Loading mock databases from LocalStorage.", e);
       productsCache = JSON.parse(localStorage.getItem('velo_products')) || [];
@@ -132,17 +139,21 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      if (res.ok) {
+      if (res.ok && res.headers.get("content-type")?.includes("application/json")) {
         const match = await res.json();
         activeSeller = match;
         sessionStorage.setItem('velo_active_seller_id', match.id);
         showNotification(`Welcome back, ${match.name}!`);
         showPortal();
         return;
-      } else {
-        const err = await res.json();
-        showNotification(err.error || 'Login failed.', 'error');
-        return;
+      } else if (res.status !== 404) {
+        // If it's a real server error (e.g. 400 bad request/wrong pass), notify user
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const err = await res.json();
+          showNotification(err.error || 'Login failed.', 'error');
+          return;
+        }
       }
     } catch (e) {
       console.warn("Backend offline. Trying local login.");
