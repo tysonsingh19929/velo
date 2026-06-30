@@ -455,12 +455,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     localStorage.setItem('velo_cart', JSON.stringify(cart));
     updateCartBadge();
-    
-    btnOpenCart.style.transform = 'scale(1.2)';
-    setTimeout(() => {
-      btnOpenCart.style.transform = 'none';
-    }, 200);
-
+    if (btnOpenCart) {
+      btnOpenCart.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        btnOpenCart.style.transform = 'none';
+      }, 200);
+    }
     showNotification(`${product.name} added to cart.`);
     renderCartDrawer();
     
