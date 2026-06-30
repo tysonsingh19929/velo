@@ -133,14 +133,20 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const views = document.querySelectorAll('.storefront-view');
 
-  window.switchView = function(viewName) {
-    views.forEach(view => view.classList.remove('active'));
+  window.switchView = function(viewName, isPopState = false) {
+    views.forEach(view => {
+      view.classList.remove('active');
+      view.classList.add('hidden');
+    });
     
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     document.querySelectorAll('.m-nav-btn').forEach(btn => btn.classList.remove('active'));
 
     const targetView = document.getElementById(`view-${viewName}`);
-    if (targetView) targetView.classList.add('active');
+    if (targetView) {
+      targetView.classList.remove('hidden');
+      targetView.classList.add('active');
+    }
 
     const activeNav = document.getElementById(`nav-${viewName === 'homepage' ? 'home' : viewName}`);
     if (activeNav) activeNav.classList.add('active');
@@ -148,12 +154,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeMNav = document.getElementById(`m-nav-${viewName === 'homepage' ? 'home' : viewName}`);
     if (activeMNav) activeMNav.classList.add('active');
 
+    // Show/Hide Header Back Button
+    const btnHeaderBack = document.getElementById('btn-header-back');
+    if (btnHeaderBack) {
+      if (viewName === 'homepage') {
+        btnHeaderBack.classList.add('hidden');
+      } else {
+        btnHeaderBack.classList.remove('hidden');
+      }
+    }
+
+    // Push history state if not popped back by browser
+    if (!isPopState) {
+      history.pushState({ view: viewName }, '', '#' + viewName);
+    }
+
     window.scrollTo(0, 0);
 
     if (viewName === 'tracker') {
       initializeLiveTracker();
     }
   };
+
+  // Wire up back button event
+  const btnHeaderBack = document.getElementById('btn-header-back');
+  if (btnHeaderBack) {
+    btnHeaderBack.addEventListener('click', (e) => {
+      e.preventDefault();
+      history.back();
+    });
+  }
+
+  // Handle browser popstate events (Back/Forward button presses)
+  window.addEventListener('popstate', (event) => {
+    const viewName = (event.state && event.state.view) ? event.state.view : 'homepage';
+    switchView(viewName, true);
+  });
+
+  // Push initial homepage state so back goes back to it
+  history.replaceState({ view: 'homepage' }, '', '#homepage');
 
   if (navHome) navHome.addEventListener('click', (e) => { e.preventDefault(); switchView('homepage'); });
   if (navShop) navShop.addEventListener('click', (e) => { e.preventDefault(); switchView('shop'); });
@@ -249,12 +288,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bestseller tag
     const bestsellerTag = item.bestseller ? `<div class="prod-bestseller-badge">Bestseller</div>` : '';
 
+    // Quantity selector logic
+    const existing = cart.find(c => c.id === item.id);
+    let actionBtnHtml = '';
+    if (existing && existing.quantity > 0) {
+      actionBtnHtml = `
+        <div class="btn-qty-selector" onclick="event.stopPropagation();">
+          <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1)">-</button>
+          <span class="qty-val">${existing.quantity}</span>
+          <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1)">+</button>
+        </div>
+      `;
+    } else {
+      actionBtnHtml = `
+        <button class="btn-add-floating" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">ADD</button>
+      `;
+    }
+
     // Render with <img> instead of SVG placeholder
     card.innerHTML = `
       ${bestsellerTag}
       <div class="prod-img-box">
         <img src="${item.image}" alt="${escapeHTML(item.name)}" class="prod-img">
-        <button class="btn-add-floating" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">ADD</button>
+        ${actionBtnHtml}
       </div>
       <div class="prod-info">
         <span class="prod-rating-badge">${starsStr}</span>
@@ -405,6 +461,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showNotification(`${product.name} added to cart.`);
     renderCartDrawer();
+    
+    // Sync quantities on product cards
+    renderCatalog();
+    renderHomepageShelves();
   };
 
   window.updateCartQuantity = function(id, delta) {
@@ -419,6 +479,10 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('velo_cart', JSON.stringify(cart));
     updateCartBadge();
     renderCartDrawer();
+    
+    // Sync quantities on product cards
+    renderCatalog();
+    renderHomepageShelves();
   };
 
   function updateCartBadge() {

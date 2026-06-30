@@ -804,7 +804,7 @@ p {
 }
 
 .catalog-header-results {
-  display: flex;
+  display: none !important;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
@@ -2058,11 +2058,10 @@ body {
 }
 
 
-/* Product Image Scaling and Fitting */
 .prod-img-box img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
@@ -2561,4 +2560,82 @@ body {
   border-radius: 6px;
   padding: 4px 10px;
   background: rgba(250, 204, 21, 0.05);
+}
+
+
+/* Zepto-style Product Card Quantity Selector */
+.btn-qty-selector {
+  position: absolute;
+  bottom: -6px;
+  right: 8px;
+  background: #ff007f;
+  border: 1.5px solid #ff007f;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 84px;
+  height: 30px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  z-index: 6;
+  overflow: hidden;
+}
+
+.qty-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  width: 26px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.qty-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.qty-val {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* Header Back Button styling */
+.header-back-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  margin-right: 8px;
+}
+
+.header-back-btn:hover {
+  background: rgba(15, 23, 42, 0.05);
+}
+
+/* Cart Item Quantity Selector Buttons */
+.cart-item-row .btn-icon {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.cart-item-row .btn-icon:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
 }
