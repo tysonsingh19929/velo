@@ -281,19 +281,17 @@ document.addEventListener('DOMContentLoaded', () => {
     card.className = 'product-card';
     
     const savings = Math.round(item.originalPrice - item.price);
-    
-    // Star rating
-    let starsStr = '★ ' + item.rating;
-
-    // Bestseller tag
     const bestsellerTag = item.bestseller ? `<div class="prod-bestseller-badge">Bestseller</div>` : '';
+    
+    // Rating mock counts (e.g. 4.9 -> 12.3k, 4.8 -> 4.7k)
+    const mockCount = (item.rating * (item.id + 5) * 0.7).toFixed(1);
 
-    // Quantity selector logic
+    // Quantity selector logic matching Zepto
     const existing = cart.find(c => c.id === item.id);
     let actionBtnHtml = '';
     if (existing && existing.quantity > 0) {
       actionBtnHtml = `
-        <div class="btn-qty-selector" onclick="event.stopPropagation();">
+        <div class="btn-qty-selector-zepto" onclick="event.stopPropagation();">
           <button class="qty-btn" onclick="updateCartQuantity(${item.id}, -1)">-</button>
           <span class="qty-val">${existing.quantity}</span>
           <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1)">+</button>
@@ -301,11 +299,11 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     } else {
       actionBtnHtml = `
-        <button class="btn-add-floating" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">ADD</button>
+        <button class="btn-add-floating-zepto" onclick="triggerAddToCart(${item.id}); event.stopPropagation();">+</button>
       `;
     }
 
-    // Render with <img> instead of SVG placeholder
+    // Render with Zepto-Aligned Layout Hierarchy
     card.innerHTML = `
       ${bestsellerTag}
       <div class="prod-img-box">
@@ -313,21 +311,25 @@ document.addEventListener('DOMContentLoaded', () => {
         ${actionBtnHtml}
       </div>
       <div class="prod-info">
-        <span class="prod-rating-badge">${starsStr}</span>
-        <h4 class="prod-title">${escapeHTML(item.name)}</h4>
-        <div class="prod-weight-lbl">${item.weight}</div>
-        
-        <div class="prod-price-row">
-          <div class="price-figures">
-            <div class="price-badge-row">
-              <span class="price-badge-green">AED ${item.price.toFixed(0)}</span>
-              <span class="prod-original-price">AED ${item.originalPrice.toFixed(0)}</span>
-            </div>
-            <span class="discount-badge-text">AED ${savings} OFF</span>
-          </div>
+        <!-- 1. Price row first -->
+        <div class="prod-price-row-zepto">
+          <span class="price-badge-green-zepto">AED ${item.price.toFixed(0)}</span>
+          <span class="prod-original-price-zepto">AED ${item.originalPrice.toFixed(0)}</span>
         </div>
+        <div class="discount-badge-text-zepto">AED ${savings} OFF</div>
 
-        <div class="prod-tag-pill">${item.tagLabel}</div>
+        <!-- 2. Title second -->
+        <h4 class="prod-title-zepto" title="${escapeHTML(item.name)}">${escapeHTML(item.name)}</h4>
+
+        <!-- 3. Weight third -->
+        <div class="prod-weight-lbl-zepto">${item.weight}</div>
+        
+        <!-- 4. Rating badge fourth -->
+        <div class="prod-rating-row-zepto">
+          <span class="rating-star-zepto">★</span>
+          <span class="rating-val-zepto">${item.rating}</span>
+          <span class="rating-count-zepto">(${mockCount}k)</span>
+        </div>
       </div>
     `;
     return card;
