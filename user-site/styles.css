@@ -2397,12 +2397,12 @@ body {
   }
 }
 
-/* Zepto-Style Profile Modal Card Styling */
+/* Velo-Style Profile Modal Card Styling */
 .zepto-profile-card {
-  background: #5c0067;
+  background: #0f172a; /* Slate Charcoal background */
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(250, 204, 21, 0.2); /* Soft Yellow border glow */
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
   max-width: 380px;
   width: 100%;
   padding: 24px;
@@ -2421,10 +2421,11 @@ body {
 }
 
 .zepto-subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.05rem;
+  color: #fde047; /* Gold/Yellow text */
+  font-size: 1rem;
   font-weight: 700;
-  margin: 4px 0 0;
+  margin: 6px 0 0;
+  letter-spacing: 0.02em;
 }
 
 .zepto-phone-input-wrapper {
@@ -2482,8 +2483,8 @@ body {
 }
 
 .btn-zepto-continue {
-  background: #ff007f;
-  color: white;
+  background: #facc15; /* Brand Yellow */
+  color: #0f172a; /* Dark text */
   border: none;
   border-radius: 12px;
   width: 100%;
@@ -2492,18 +2493,18 @@ body {
   font-weight: 800;
   margin-top: 24px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(255, 0, 127, 0.3);
+  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.35);
   transition: background 0.2s, transform 0.2s;
 }
 
 .btn-zepto-continue:hover {
-  background: #e60072;
+  background: #eab308; /* Hover Dark Yellow */
   transform: translateY(-1px);
 }
 
 .zepto-bottom-links {
   margin-top: 28px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
   padding-top: 20px;
   display: flex;
   flex-direction: column;
@@ -2511,9 +2512,9 @@ body {
 }
 
 .zepto-action-btn {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   padding: 10px 14px;
   font-size: 0.85rem;
@@ -2527,27 +2528,27 @@ body {
 }
 
 .zepto-action-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-partner {
-  background: rgba(250, 204, 21, 0.15);
-  border-color: rgba(250, 204, 21, 0.3);
+  background: rgba(250, 204, 21, 0.1);
+  border-color: rgba(250, 204, 21, 0.25);
   color: #fde047;
 }
 .btn-partner:hover {
-  background: rgba(250, 204, 21, 0.25);
+  background: rgba(250, 204, 21, 0.2);
 }
 
 #zepto-ref-code-panel {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 10px 14px;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.75);
   margin-top: 4px;
   text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(250, 204, 21, 0.15);
 }
 
 .zepto-ref-display {
@@ -2556,7 +2557,7 @@ body {
   color: #fde047;
   text-align: center;
   margin-top: 6px;
-  border: 2px dashed rgba(250, 204, 21, 0.5);
+  border: 2px dashed rgba(250, 204, 21, 0.4);
   border-radius: 6px;
   padding: 4px 10px;
   background: rgba(250, 204, 21, 0.05);
