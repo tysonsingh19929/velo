@@ -30,8 +30,9 @@ const SellerSchema = new mongoose.Schema({
   password: { type: String, required: true },
   commissionRate: { type: Number, default: 5.0 },
   fixedRent: { type: Number, default: 100.00 },
-  status: { type: String, default: 'active' },
-  sales: { type: Number, default: 0.00 }
+  status: { type: String, default: 'pending' },
+  sales: { type: Number, default: 0.00 },
+  referralCode: { type: String, default: '' }
 });
 
 const ProductSchema = new mongoose.Schema({
@@ -287,7 +288,7 @@ app.post('/api/sellers', async (req, res) => {
       const allSellers = await Seller.find();
       const nextIdNum = allSellers.length > 0 ? Math.max(...allSellers.map(s => parseInt(s.id.split('-')[1]))) + 1 : 101;
       newSeller.id = `S-${nextIdNum}`;
-      newSeller.status = 'active';
+      newSeller.status = 'pending';
       newSeller.sales = 0.00;
 
       const created = await Seller.create(newSeller);
@@ -303,7 +304,7 @@ app.post('/api/sellers', async (req, res) => {
   if (emailExist) return res.status(400).json({ error: 'Email address already registered.' });
   const nextIdNum = sellers.length > 0 ? Math.max(...sellers.map(s => parseInt(s.id.split('-')[1]))) + 1 : 101;
   newSeller.id = `S-${nextIdNum}`;
-  newSeller.status = 'active';
+  newSeller.status = 'pending';
   newSeller.sales = 0.00;
   sellers.push(newSeller);
   writeData(SELLERS_FILE, sellers);
@@ -319,6 +320,7 @@ app.post('/api/sellers/login', async (req, res) => {
       const match = await Seller.findOne({ email: email.toLowerCase() });
       if (!match) return res.status(404).json({ error: 'Merchant record not found.' });
       if (match.password !== password) return res.status(401).json({ error: 'Incorrect access credentials.' });
+      if (match.status === 'pending') return res.status(403).json({ error: 'Registration pending administrator approval.' });
       if (match.status === 'suspended') return res.status(403).json({ error: 'Merchant account is suspended.' });
       return res.json(match);
     } catch (err) {
@@ -331,6 +333,7 @@ app.post('/api/sellers/login', async (req, res) => {
   const match = sellers.find(s => s.email.toLowerCase() === email.toLowerCase());
   if (!match) return res.status(404).json({ error: 'Merchant record not found.' });
   if (match.password !== password) return res.status(401).json({ error: 'Incorrect access credentials.' });
+  if (match.status === 'pending') return res.status(403).json({ error: 'Registration pending administrator approval.' });
   if (match.status === 'suspended') return res.status(403).json({ error: 'Merchant account is suspended.' });
   res.json(match);
 });
@@ -342,6 +345,36 @@ app.put('/api/sellers/:id', async (req, res) => {
 
   if (useMongoDB) {
     try {
+      const oldSeller = await Seller.findOne({ id: sellerId });
+      if (oldSeller && oldSeller.status === 'pending' && updatedData.status === 'active') {
+        // Referral trigger!
+        if (oldSeller.referralCode) {
+          const code = oldSeller.referralCode;
+          // Check if refers customer
+          const referringUser = await User.findOne({ phone: code });
+          if (referringUser) {
+            referringUser.walletBalance = parseFloat((referringUser.walletBalance + 10.00).toFixed(2));
+            referringUser.points += 100;
+            referringUser.orderHistory.push({
+              id: 'REF-' + Math.floor(100000 + Math.random() * 900000),
+              payoutAmount: 10.00,
+              status: 'Referral Bonus Received',
+              date: new Date().toLocaleDateString(),
+              items: [{ name: `Merchant referral: S-${sellerId} approved`, price: 10.00, quantity: 1 }]
+            });
+            await referringUser.save();
+            console.log(`[REF] Credited customer +971 ${code} with AED 10 + 100 pts!`);
+          } else {
+            // Check if refers another seller
+            const referringSeller = await Seller.findOne({ id: code });
+            if (referringSeller) {
+              referringSeller.sales = parseFloat((referringSeller.sales + 50.00).toFixed(2));
+              await referringSeller.save();
+              console.log(`[REF] Credited seller ${code} with AED 50.00 bonus!`);
+            }
+          }
+        }
+      }
       const updated = await Seller.findOneAndUpdate({ id: sellerId }, updatedData, { new: true });
       if (!updated) return res.status(404).json({ error: 'Merchant node not found.' });
       return res.json(updated);
@@ -354,6 +387,35 @@ app.put('/api/sellers/:id', async (req, res) => {
   const sellers = readData(SELLERS_FILE);
   const idx = sellers.findIndex(s => s.id === sellerId);
   if (idx === -1) return res.status(404).json({ error: 'Merchant node not found.' });
+  
+  const oldSeller = sellers[idx];
+  if (oldSeller.status === 'pending' && updatedData.status === 'active') {
+    if (oldSeller.referralCode) {
+      const code = oldSeller.referralCode;
+      const users = readData(USERS_FILE);
+      const userIdx = users.findIndex(u => u.phone === code);
+      if (userIdx !== -1) {
+        users[userIdx].walletBalance = parseFloat((users[userIdx].walletBalance + 10.00).toFixed(2));
+        users[userIdx].points += 100;
+        users[userIdx].orderHistory.push({
+          id: 'REF-' + Math.floor(100000 + Math.random() * 900000),
+          payoutAmount: 10.00,
+          status: 'Referral Bonus Received',
+          date: new Date().toLocaleDateString(),
+          items: [{ name: `Merchant referral: S-${sellerId} approved`, price: 10.00, quantity: 1 }]
+        });
+        writeData(USERS_FILE, users);
+        console.log(`[FILE REF] Credited customer +971 ${code} with AED 10 + 100 pts!`);
+      } else {
+        const refSellerIdx = sellers.findIndex(s => s.id === code);
+        if (refSellerIdx !== -1) {
+          sellers[refSellerIdx].sales = parseFloat((sellers[refSellerIdx].sales + 50.00).toFixed(2));
+          console.log(`[FILE REF] Credited seller ${code} with AED 50.00 bonus!`);
+        }
+      }
+    }
+  }
+  
   sellers[idx] = { ...sellers[idx], ...updatedData };
   writeData(SELLERS_FILE, sellers);
   res.json(sellers[idx]);

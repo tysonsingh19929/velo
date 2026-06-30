@@ -132,6 +132,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Overview Metrics Page Load
   async function loadDashboardStats() {
     await fetchBackendData();
+    // Auto-update pending approvals count
+    const sellers = getSellers();
+    const pending = sellers.filter(s => s.status === 'pending');
+    if (approvalsBadge) {
+      if (pending.length > 0) {
+        approvalsBadge.textContent = pending.length;
+        approvalsBadge.classList.remove('hidden');
+      } else {
+        approvalsBadge.classList.add('hidden');
+      }
+    }
     const sellers = getSellers();
     const products = getProducts();
 

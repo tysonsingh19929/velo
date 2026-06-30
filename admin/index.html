@@ -60,6 +60,7 @@
         <a href="#" class="sidebar-link active" id="link-dashboard">Overview Stats</a>
         <a href="#" class="sidebar-link" id="link-sellers">Sellers Management</a>
         <a href="#" class="sidebar-link" id="link-catalog">Master Catalog</a>
+        <a href="#" class="sidebar-link" id="link-approvals" style="display: flex; align-items: center; justify-content: space-between;">Pending Approvals <span class="badge-red hidden" id="approvals-badge">0</span></a>
       </nav>
 
       <button class="btn-logout" id="btn-logout">
@@ -233,6 +234,34 @@
               </thead>
               <tbody id="master-catalog-rows">
                 <!-- Dynamic catalog list -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: PENDING APPROVALS -->
+      <div class="workspace-view hidden" id="view-approvals">
+        <div class="glass-card table-card">
+          <div class="card-header-row">
+            <h3>Pending Registrations</h3>
+            <p>Approve or decline merchant partner node requests. Approved nodes are immediately activated and referral payouts are processed.</p>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Node ID</th>
+                  <th>Merchant Name</th>
+                  <th>Email</th>
+                  <th>Commission Rate</th>
+                  <th>Monthly Rent</th>
+                  <th>Referral Code</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pending-sellers-rows">
+                <!-- Dynamic pending list -->
               </tbody>
             </table>
           </div>

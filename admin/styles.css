@@ -719,3 +719,16 @@ table td {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Pending approvals badge and layouts */
+.badge-red {
+  background-color: #ef4444;
+  color: white;
+  border-radius: 9999px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-left: 6px;
+  display: inline-block;
+}
