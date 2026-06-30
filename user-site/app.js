@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnHeaderBack) {
     btnHeaderBack.addEventListener('click', (e) => {
       e.preventDefault();
-      history.back();
+      switchView('homepage');
     });
   }
 
