@@ -115,6 +115,66 @@
 
       <!-- VIEW 2: SELLERS MANAGEMENT -->
       <div class="workspace-view hidden" id="view-sellers">
+        
+        <!-- Merchant Performance Insights Card (Velo Brand Theme) -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <h3 style="margin: 0; font-size: 1.3rem;">Merchant Performance & Sales Analytics</h3>
+              <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted);">Select a registered partner node to inspect real-time platform splits, ledger history, and listing metrics.</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label for="select-insights-seller" style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">Select Node:</label>
+              <select id="select-insights-seller" style="height: 38px; border-radius: 8px; border: 1.5px solid var(--border-color); padding: 0 12px; font-weight: 700; background: white; cursor: pointer;">
+                <option value="none">-- Choose Seller --</option>
+              </select>
+            </div>
+          </div>
+          
+          <div id="insights-details-panel" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+            <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+              <div class="metric-card card-yellow" style="padding: 16px; border-radius: 10px;">
+                <span class="metric-lbl">Total Gross Sales</span>
+                <h3 id="insights-gross-sales" style="font-size: 1.6rem; margin: 8px 0 0;">AED 0.00</h3>
+              </div>
+              <div class="metric-card card-blue" style="padding: 16px; border-radius: 10px; background: #eff6ff; border-color: #bfdbfe;">
+                <span class="metric-lbl" style="color: #1e40af;">Platform Commission Earned</span>
+                <h3 id="insights-commission" style="font-size: 1.6rem; margin: 8px 0 0; color: #1e40af;">AED 0.00</h3>
+              </div>
+              <div class="metric-card" style="padding: 16px; border-radius: 10px; background: #f0fdf4; border-color: #bbf7d0;">
+                <span class="metric-lbl" style="color: #166534;">Net Merchant Payout</span>
+                <h3 id="insights-payout" style="font-size: 1.6rem; margin: 8px 0 0; color: #166534;">AED 0.00</h3>
+              </div>
+              <div class="metric-card" style="padding: 16px; border-radius: 10px; background: #faf5ff; border-color: #e9d5ff;">
+                <span class="metric-lbl" style="color: #6b21a8;">Rent & Active Products</span>
+                <h3 id="insights-rent-prods" style="font-size: 1.2rem; margin: 8px 0 0; color: #6b21a8; line-height: 1.3;">Rent: AED 0.00<br>Prods: 0 active</h3>
+              </div>
+            </div>
+
+            <!-- Individual Sales Ledger History -->
+            <div style="margin-top: 24px;">
+              <h4 style="margin: 0 0 12px; font-size: 0.95rem;">Seller Ledger Itemized Sales History</h4>
+              <div class="table-responsive" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 8px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                  <thead>
+                    <tr style="background: #f8fafc; border-bottom: 1px solid var(--border-color); text-align: left;">
+                      <th style="padding: 8px 12px;">Order ID</th>
+                      <th style="padding: 8px 12px;">Date</th>
+                      <th style="padding: 8px 12px;">Item Name</th>
+                      <th style="padding: 8px 12px;">Qty</th>
+                      <th style="padding: 8px 12px;">Gross Price</th>
+                      <th style="padding: 8px 12px;">Platform Split</th>
+                    </tr>
+                  </thead>
+                  <tbody id="insights-ledger-rows">
+                    <!-- Dynamic ledger items -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="inventory-split-layout">
           
           <!-- Seller Management Form -->

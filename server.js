@@ -452,6 +452,20 @@ app.delete('/api/sellers/:id', async (req, res) => {
 
 
 // 3. ORDERS API
+// GET all orders
+app.get('/api/orders', async (req, res) => {
+  if (useMongoDB) {
+    try {
+      const orders = await Order.find();
+      return res.json(orders);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+  const orders = readData(ORDERS_FILE);
+  res.json(orders);
+});
+
 // POST Create checkout order
 app.post('/api/orders', async (req, res) => {
   const order = req.body;

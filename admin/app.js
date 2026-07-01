@@ -45,11 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Database Load Helpers with API integrations
   let productsCache = [];
   let sellersCache = [];
+  let ordersCache = [];
 
   async function fetchBackendData() {
     try {
       const resProds = await fetch('/api/products/master');
       const resSellers = await fetch('/api/sellers');
+      const resOrders = await fetch('/api/orders');
       if (resProds.ok && resProds.headers.get("content-type")?.includes("application/json")) {
         productsCache = await resProds.json();
       } else {
@@ -60,10 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         throw new Error("Invalid response type");
       }
+      if (resOrders.ok && resOrders.headers.get("content-type")?.includes("application/json")) {
+        ordersCache = await resOrders.json();
+      } else {
+        throw new Error("Invalid response type");
+      }
     } catch (e) {
       console.warn("Backend offline. Loading mock databases from LocalStorage.", e);
       productsCache = JSON.parse(localStorage.getItem('velo_products')) || [];
       sellersCache = JSON.parse(localStorage.getItem('velo_sellers')) || [];
+      ordersCache = JSON.parse(localStorage.getItem('velo_orders')) || [];
     }
   }
 
@@ -240,6 +248,20 @@ document.addEventListener('DOMContentLoaded', () => {
     await fetchBackendData();
     const sellers = getSellers();
     sellersListRows.innerHTML = '';
+
+    // Rebuild Insights Dropdown dynamically
+    const selectInsightsSeller = document.getElementById('select-insights-seller');
+    if (selectInsightsSeller) {
+      const activeVal = selectInsightsSeller.value;
+      selectInsightsSeller.innerHTML = '<option value="none">-- Choose Seller --</option>';
+      sellers.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.textContent = `${s.name} (${s.id})`;
+        selectInsightsSeller.appendChild(opt);
+      });
+      selectInsightsSeller.value = activeVal;
+    }
 
     if (sellers.length === 0) {
       sellersListRows.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No merchant sellers registered in node database.</td></tr>`;
@@ -509,13 +531,16 @@ document.addEventListener('DOMContentLoaded', () => {
     masterCatalogRows.innerHTML = '';
 
     if (list.length === 0) {
-      masterCatalogRows.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No products match filter settings.</td></tr>`;
+      masterCatalogRows.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No products match filter settings.</td></tr>`;
       return;
     }
 
     list.forEach(p => {
       const matchingSeller = sellers.find(s => s.id === p.sellerId);
       const sellerLabel = matchingSeller ? `${matchingSeller.name} (${p.sellerId})` : `Unknown (${p.sellerId})`;
+      
+      const rate = matchingSeller ? (matchingSeller.commissionRate || 5.0) : 5.0;
+      const commissionPerUnit = (p.price * rate) / 100;
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -532,6 +557,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <td><span style="font-size:0.8rem; font-weight:600;">${escapeHTML(sellerLabel)}</span></td>
         <td>AED ${p.price.toFixed(2)}</td>
         <td>AED ${p.originalPrice.toFixed(2)}</td>
+        <td>
+          <strong style="color: #16a34a;">AED ${commissionPerUnit.toFixed(2)}</strong>
+          <span style="font-size: 0.72rem; color: var(--text-muted); display: block;">(${rate.toFixed(1)}%)</span>
+        </td>
         <td>
           <div class="row-actions">
             <button class="btn-action-edit" onclick="openOverrideModal(${p.id})">Override</button>
@@ -622,6 +651,80 @@ document.addEventListener('DOMContentLoaded', () => {
       loadMasterCatalog();
     }
   };
+
+    // 6. Detailed Seller Analytics & Performance Insights
+  const selectInsightsSeller = document.getElementById('select-insights-seller');
+  const insightsDetailsPanel = document.getElementById('insights-details-panel');
+  
+  if (selectInsightsSeller && insightsDetailsPanel) {
+    selectInsightsSeller.addEventListener('change', () => {
+      const sellerId = selectInsightsSeller.value;
+      if (sellerId === 'none') {
+        insightsDetailsPanel.classList.add('hidden');
+        return;
+      }
+      
+      const sellers = getSellers();
+      const products = getProducts();
+      const seller = sellers.find(s => s.id === sellerId);
+      
+      if (!seller) {
+        insightsDetailsPanel.classList.add('hidden');
+        return;
+      }
+      
+      // Calculate active products count
+      const activeProdsCount = products.filter(p => p.sellerId === sellerId).length;
+      
+      // Calculate platform splits
+      const grossSales = seller.sales || 0.00;
+      const rate = seller.commissionRate || 5.0;
+      const commissionEarned = (grossSales * rate) / 100;
+      const fixedRent = seller.fixedRent || 100.00;
+      const netPayout = Math.max(0, grossSales - commissionEarned - fixedRent);
+      
+      // Render details
+      document.getElementById('insights-gross-sales').textContent = `AED ${grossSales.toFixed(2)}`;
+      document.getElementById('insights-commission').textContent = `AED ${commissionEarned.toFixed(2)} (${rate.toFixed(1)}%)`;
+      document.getElementById('insights-payout').textContent = `AED ${netPayout.toFixed(2)}`;
+      document.getElementById('insights-rent-prods').innerHTML = `Rent: AED ${fixedRent.toFixed(2)}<br>Prods: ${activeProdsCount} active`;
+      
+      // Render sold items ledger from ordersCache
+      const ledgerRows = document.getElementById('insights-ledger-rows');
+      if (ledgerRows) {
+        ledgerRows.innerHTML = '';
+        
+        let matchingItemsCount = 0;
+        ordersCache.forEach(order => {
+          order.items.forEach(item => {
+            if (item.sellerId === sellerId) {
+              matchingItemsCount++;
+              const lineCost = item.price * item.quantity;
+              const lineComm = (lineCost * rate) / 100;
+              
+              const tr = document.createElement('tr');
+              tr.style.borderBottom = '1px solid var(--border-color)';
+              tr.innerHTML = `
+                <td style="padding: 8px 12px;"><code>${order.id || 'N/A'}</code></td>
+                <td style="padding: 8px 12px; color: var(--text-muted);">${order.date || 'N/A'}</td>
+                <td style="padding: 8px 12px;"><strong>${escapeHTML(item.name)}</strong></td>
+                <td style="padding: 8px 12px;">${item.quantity}</td>
+                <td style="padding: 8px 12px; font-weight:700;">AED ${lineCost.toFixed(2)}</td>
+                <td style="padding: 8px 12px; color: #16a34a; font-weight:700;">AED ${lineComm.toFixed(2)}</td>
+              `;
+              ledgerRows.appendChild(tr);
+            }
+          });
+        });
+        
+        if (matchingItemsCount === 0) {
+          ledgerRows.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 16px;">No units sold by this merchant node yet.</td></tr>';
+        }
+      }
+      
+      insightsDetailsPanel.classList.remove('hidden');
+    });
+  }
 
   // Run CheckSession initially
   checkSession();
