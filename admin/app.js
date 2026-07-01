@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
         approvalsBadge.classList.add('hidden');
       }
     }
-    const sellers = getSellers();
     const products = getProducts();
 
     const platformSales = sellers.reduce((sum, s) => sum + (s.sales || 0.00), 0);
